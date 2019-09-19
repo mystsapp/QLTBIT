@@ -1,0 +1,39 @@
+﻿@model PhanMemViewModel
+
+
+<h2 class="text-info">Xóa Phần Mềm ?</h2>
+
+<form method="post" autocomplete="off" >
+    <div class="p-4 border rounded row">
+
+
+        <div class="col-8">
+
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="PhanMem.TenPM"></label>
+                </div>
+                <div class="col-8">
+                    <input class="form-control" asp-for="PhanMem.TenPM" readonly />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="LoaiPhanMems"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="PhanMem.LoaiPhanMem.Name" class="form-control" readonly />
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <button type="submit" asp-action="Delete" asp-route-id="@Model.PhanMem.Id" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
+                <a class="btn btn-success" asp-action="Index"><i class="fas fa-backward"></i></a>
+            </div>
+        </div>
+
+    </div>
+</form>
+

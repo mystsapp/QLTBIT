@@ -1,0 +1,78 @@
+﻿@model ThietBiViewModel
+
+<h2 class="text-info">Chi Tiết Thiết Bị</h2>
+
+    <div class="p-4 border rounded row">
+
+
+        <div class="col-8">
+
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="ThietBi.TenThietBi"></label>
+                </div>
+                <div class="col-8">
+                    <input class="form-control" asp-for="ThietBi.TenThietBi" readonly/>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="ThietBi.Gia"></label>
+                </div>
+                <div class="col-8">
+                    <input class="form-control" asp-for="ThietBi.Gia" readonly/>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="LoaiThietBis"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="ThietBi.LoaiThietBi.Name" class="form-control" readonly/>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="ThietBi.DienGiai"></label>
+                </div>
+                <div class="col-8">
+                    <textarea class="form-control" asp-for="ThietBi.DienGiai" readonly></textarea>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="ThietBi.BaoHanh"></label>
+                </div>
+                <div class="col-8">
+                    <input type="number" class="form-control" asp-for="ThietBi.BaoHanh" readonly/>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="ThietBi.TrangThai"></label>
+                </div>
+                <div class="col-8">
+                    <input type="checkbox" asp-for="ThietBi.TrangThai" disabled/>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-1">
+
+        </div>
+
+        <div class="col-3">
+            <img src="@Model.ThietBi.HinhAnh" width="100%" style="border-radius:5px; border: 1px solid #bbb9b9" />
+        </div>
+
+        <div class="form-group">
+            <a asp-action="Edit" asp-route-id="@Model.ThietBi.Id" class="btn btn-primary"><i class="fas fa-edit"></i></a>
+            <a class="btn btn-success" asp-action="Index"><i class="fas fa-backward"></i></a>
+        </div>
+    </div>

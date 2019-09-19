@@ -1,0 +1,106 @@
+﻿@model ThietBiViewModel
+@using QLTB.Extensions
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+
+<h2 class="text-info">Cập Nhật Thiết Bị</h2>
+
+<form method="post" autocomplete="off" enctype="multipart/form-data">
+    <div class="p-4 border rounded row">
+
+        <input type="hidden" asp-for="ThietBi.Id" />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <div class="col-8">
+
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="ThietBi.TenThietBi"></label>
+                </div>
+                <div class="col-8">
+                    <input class="form-control" asp-for="ThietBi.TenThietBi" />
+                </div>
+                <span class="text-danger" asp-validation-for="ThietBi.TenThietBi"></span>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="ThietBi.Gia"></label>
+                </div>
+                <div class="col-8">
+                    <input class="form-control" asp-for="ThietBi.Gia" />
+                </div>
+                <span class="text-danger" asp-validation-for="ThietBi.Gia"></span>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="ThietBi.HinhAnh"></label>
+                </div>
+                <div class="col-8">
+                    <input type="file" name="files" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="LoaiThietBis"></label>
+                </div>
+                <div class="col-8">
+                    <select asp-for="@Model.ThietBi.LoaiThietBiId" asp-items="Model.LoaiThietBis.ToSelectListItem(Model.ThietBi.LoaiThietBiId)" class="form-control"></select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="ThietBi.DienGiai"></label>
+                </div>
+                <div class="col-8">
+                    <textarea class="form-control" asp-for="ThietBi.DienGiai"></textarea>
+                </div>
+                <span class="text-danger" asp-validation-for="ThietBi.DienGiai"></span>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="ThietBi.BaoHanh"></label>
+                </div>
+                <div class="col-8">
+                    <input type="number" class="form-control" asp-for="ThietBi.BaoHanh" />
+                </div>
+                <span class="text-danger" asp-validation-for="ThietBi.BaoHanh"></span>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="ThietBi.TrangThai"></label>
+                </div>
+                <div class="col-8">
+                    <input type="checkbox" asp-for="ThietBi.TrangThai" />
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-1">
+
+        </div>
+
+        <div class="col-3">
+            <img src="@Model.ThietBi.HinhAnh" width="100%" style="border-radius:5px; border: 1px solid #bbb9b9" />
+        </div>
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i></button>
+            <a class="btn btn-success" asp-action="Index"><i class="fas fa-backward"></i></a>
+        </div>
+    </div>
+</form>
+
+@section Scripts{
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+

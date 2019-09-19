@@ -1,0 +1,72 @@
+﻿@model VanPhongViewModel
+@using QLTB.Extensions
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+
+<h2 class="text-info">Cập Nhật Văn Phòng</h2>
+
+<form method="post" autocomplete="off" enctype="multipart/form-data">
+    <div class="p-4 border rounded row">
+
+        <input type="hidden" asp-for="VanPhong.Id" />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <div class="col-8">
+
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="VanPhong.TenVP"></label>
+                </div>
+                <div class="col-8">
+                    <input class="form-control" asp-for="VanPhong.TenVP" />
+                </div>
+                <span class="text-danger" asp-validation-for="VanPhong.TenVP"></span>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="VanPhong.DiaChi"></label>
+                </div>
+                <div class="col-8">
+                    <input class="form-control" asp-for="VanPhong.DiaChi" />
+                </div>
+                <span class="text-danger" asp-validation-for="VanPhong.DiaChi"></span>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="VanPhong.DienThoai"></label>
+                </div>
+                <div class="col-8">
+                    <input class="form-control" asp-for="VanPhong.DienThoai"/>
+                </div>
+                <span class="text-danger" asp-validation-for="VanPhong.DienThoai"></span>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="ChiNhanhs"></label>
+                </div>
+                <div class="col-8">
+                    <select asp-for="@Model.VanPhong.ChiNhanhId" asp-items="Model.ChiNhanhs.ToSelectListItem(Model.VanPhong.ChiNhanhId)" class="form-control"></select>
+                </div>
+            </div>
+
+
+
+            <div class="form-group ">
+                <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i></button>
+                <a class="btn btn-success" asp-action="Index"><i class="fas fa-backward"></i></a>
+            </div>
+
+        </div>
+    </div>
+</form>
+
+@section Scripts{
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
