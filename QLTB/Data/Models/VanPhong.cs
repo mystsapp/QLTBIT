@@ -11,7 +11,7 @@ namespace QLTB.Data.Models
         [Required]
         [MaxLength(100), Column(TypeName = "nvarchar(100)")]
         [DisplayName("Van Phong")]
-        public string TenVP { get; set; }
+        public string Name { get; set; }
 
         [MaxLength(250), Column(TypeName = "nvarchar(250)")]
         public string DiaChi { get; set; }

@@ -8,6 +8,8 @@
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
         <link href="~/lib/fontawesome-free-5.10.2-web/css/all.css" rel="stylesheet" />
+
+        <link href="~/lib/jquery-ui-1.12.1.custom/jquery-ui.css" rel="stylesheet" />
     </environment>
     <environment exclude="Development">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -16,6 +18,8 @@
               crossorigin="anonymous"
               integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" />
         <link href="~/lib/fontawesome-free-5.10.2-web/css/all.css" rel="stylesheet" />
+
+        <link href="~/lib/jquery-ui-1.12.1.custom/jquery-ui.css" rel="stylesheet" />
     </environment>
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
@@ -37,7 +41,7 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="LoaiPhanMems" asp-action="Index">Loai PM</a>
                         </li>
-                        
+
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="PhanMems" asp-action="Index">Phần Mềm</a>
                         </li>
@@ -45,17 +49,21 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="ThietBis" asp-action="Index">Thiet Bi</a>
                         </li>
-                        
+
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="ChiNhanhs" asp-action="Index">Chi Nhánh</a>
                         </li>
-                        
+
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="VanPhongs" asp-action="Index">Văn Phòng</a>
                         </li>
-                        
+
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="NhanViens" asp-action="Index">Nhân Viên</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="BanGiaos" asp-action="Index">Bàn Giao</a>
                         </li>
                     </ul>
                 </div>
@@ -78,6 +86,9 @@
     <environment include="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
+
+        <script src="~/lib/jquery-ui-1.12.1.custom/jquery-ui.js"></script>
+        <script src="~/lib/jquery/jquery.maskedinput.min.js"></script>
     </environment>
     <environment exclude="Development">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"
@@ -86,6 +97,9 @@
                 crossorigin="anonymous"
                 integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=">
         </script>
+        <script src="~/lib/jquery-ui-1.12.1.custom/jquery-ui.js"></script>
+
+        <script src="~/lib/jquery/jquery.maskedinput.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"
                 asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"
                 asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
@@ -96,5 +110,11 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
 
     @RenderSection("Scripts", required: false)
+    <script>
+        $(function () {
+            $(".maskInput").mask("99/99/9999");
+        });
+
+    </script>
 </body>
 </html>

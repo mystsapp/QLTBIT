@@ -31,6 +31,9 @@ namespace QLTB.Migrations
                         .HasColumnType("varchar(50)")
                         .HasMaxLength(50);
 
+                    b.Property<string>("LoaiThietBi")
+                        .HasColumnType("nvarchar(50)");
+
                     b.Property<string>("LyDo")
                         .HasColumnType("nvarchar(50)")
                         .HasMaxLength(250);
@@ -45,6 +48,7 @@ namespace QLTB.Migrations
                         .HasMaxLength(50);
 
                     b.Property<string>("NguoiNhan")
+                        .IsRequired()
                         .HasColumnName("nvarchar(50)")
                         .HasMaxLength(50);
 
@@ -182,14 +186,14 @@ namespace QLTB.Migrations
 
                     b.Property<int>("ChiNhanhId");
 
-                    b.Property<string>("HoTen")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
-
                     b.Property<string>("Khoi")
                         .HasColumnType("varchar(10)")
                         .HasMaxLength(10);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
 
                     b.Property<string>("PhongBan")
                         .HasColumnType("nvarchar(50)")
@@ -274,7 +278,7 @@ namespace QLTB.Migrations
                     b.Property<string>("DienThoai")
                         .HasMaxLength(15);
 
-                    b.Property<string>("TenVP")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(100)")
                         .HasMaxLength(100);

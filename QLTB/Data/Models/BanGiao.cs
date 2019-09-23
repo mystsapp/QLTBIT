@@ -15,6 +15,7 @@ namespace QLTB.Data.Models
         public string NguoiLap { get; set; }
 
         [DisplayName("Nguoi Nhan")]
+        [Required]
         [MaxLength(50), Column("nvarchar(50)")]
         public string NguoiNhan { get; set; }
 
@@ -46,5 +47,9 @@ namespace QLTB.Data.Models
         [DisplayName("Ly Do")]
         [MaxLength(250), Column(TypeName = "nvarchar(50)")]
         public string LyDo { get; set; }
+
+        [DisplayName("Thiet Bi")]
+        [Column(TypeName = "nvarchar(50)")]
+        public string LoaiThietBi { get; set; }
     }
 }

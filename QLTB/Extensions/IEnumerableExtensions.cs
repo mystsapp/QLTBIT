@@ -29,9 +29,9 @@ namespace QLTB.Extensions
             var result = from item in items
                          select new SelectListItem
                          {
-                             Text = item.GetPropertyValue("TenVP"),
-                             Value = item.GetPropertyValue("TenVP"),
-                             Selected = item.GetPropertyValue("TenVP").Equals(selectedValue.ToString())
+                             Text = item.GetPropertyValue("Name"),
+                             Value = item.GetPropertyValue("Name"),
+                             Selected = item.GetPropertyValue("Name").Equals(selectedValue.ToString())
                          };
 
             return result;

@@ -1,4 +1,5 @@
-﻿using QLTB.Data.Interfaces;
+﻿using Microsoft.EntityFrameworkCore;
+using QLTB.Data.Interfaces;
 using QLTB.Data.Models;
 using System;
 using System.Collections.Generic;
@@ -9,12 +10,23 @@ namespace QLTB.Data.Repository
 {
     public interface IBanGiaoRepository: IRepository<BanGiao>
     {
-
+        Task<List<BanGiao>> BanGiaoIncludeChiNhanh();
+        Task<BanGiao> FindIdIncludeChiNhanh(int? id);
     }
     public class BanGiaoRepository : Repository<BanGiao>, IBanGiaoRepository
     {
         public BanGiaoRepository(QLTBITDbContext context) : base(context)
         {
+        }
+
+        public async Task<List<BanGiao>> BanGiaoIncludeChiNhanh()
+        {
+            return await _context.BanGiaos.Include(x => x.ChiNhanh).ToListAsync();
+        }
+
+        public async Task<BanGiao> FindIdIncludeChiNhanh(int? id)
+        {
+            return await _context.BanGiaos.Include(x => x.ChiNhanh).SingleAsync(x => x.Id == id);
         }
     }
 }

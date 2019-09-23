@@ -1,0 +1,154 @@
+﻿@model BanGiaoViewModel
+
+<div class="row">
+    <div class="col-6">
+        <h2 class="text-info">Danh Sách Bàn Giao</h2>
+    </div>
+    <div class="col-6 text-right">
+        <a class="btn btn-info" asp-action="Create"><i class="fas fa-plus"></i>&nbsp; Thêm</a>
+    </div>
+</div>
+
+<form method="get" autocomplete="off">
+
+    <div class="container" style="height:150px; background-color: aliceblue;">
+        @* we will add search criteria *@
+
+        <div class="col-12">
+            <div class="row" style="padding-top: 10px;">
+
+                <div class="col-2">
+                    Người Nhận
+                </div>
+                <div class="col-3">
+                    @Html.Editor("searchNguoiNhan", new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+
+                <div class="col-2">
+
+                </div>
+
+                <div class="col-2">
+                    Người Lập
+                </div>
+                <div class="col-3">
+                    @Html.Editor("searchNguoiLap", new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+
+            </div>
+        </div>
+
+        <div class="col-12">
+            <div class="row" style="padding-top: 10px;">
+
+                <div class="col-2">
+                    Văn Phòng
+                </div>
+                <div class="col-3">
+                    @Html.Editor("searchVanPhong", new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+
+                <div class="col-2">
+
+                </div>
+
+                <div class="col-2">
+                    Ngày Tạo
+                </div>
+                <div class="col-3">
+                    @Html.Editor("searchDate", new { htmlAttributes = new { @class = "form-control maskInput", @id = "datepicker" } })
+                </div>
+
+            </div>
+        </div>
+
+        <div class="col-12">
+            <div class="row" style="padding-top: 10px;">
+
+                <div class="col-2">
+                </div>
+                <div class="col-3">
+                </div>
+
+                <div class="col-2">
+
+                </div>
+
+                <div class="col-2">
+                </div>
+                <div class="col-3">
+                    <button type="submit" class="btn btn-primary form-control" name="submit">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <br />
+    <br />
+
+    <div>
+        <table class="table table-striped border">
+            <tr class="table-info">
+                <th></th>
+                <th>@Html.DisplayNameFor(m => m.BanGiaos.FirstOrDefault().NguoiLap)</th>
+                <th>@Html.DisplayNameFor(m => m.BanGiaos.FirstOrDefault().NguoiNhan)</th>
+                <th>@Html.DisplayNameFor(m => m.BanGiaos.FirstOrDefault().NgayTao)</th>
+                <th>@Html.DisplayNameFor(m => m.BanGiaos.FirstOrDefault().ChiNhanhId)</th>
+                <th>@Html.DisplayNameFor(m => m.BanGiaos.FirstOrDefault().VanPhong)</th>
+                <th>@Html.DisplayNameFor(m => m.BanGiaos.FirstOrDefault().LoaiThietBi)</th>
+                <th>@Html.DisplayNameFor(m => m.BanGiaos.FirstOrDefault().TinhTrang)</th>
+                <th></th>
+                <th></th>
+            </tr>
+            @foreach (var item in Model.BanGiaos)
+            {
+                <tr>
+                    <td>
+                        <div class="btn-group">
+                            <a asp-action="Index" asp-controller="CaiDats" class="btn btn-primary btn-sm"><i class="fas fa-tools"></i></a>
+                            <a asp-action="Index" asp-controller="ChiTietBanGiaos" class="btn btn-success btn-sm"><i class="fas fa-angle-double-down"></i></a>
+                        </div>
+                    </td>
+                    <td>@Html.DisplayFor(m => item.NguoiLap)</td>
+                    <td>@Html.DisplayFor(m => item.NguoiNhan)</td>
+                    <td>@Html.Raw(item.NgayTao.ToShortDateString())</td>
+                    <td>@Html.DisplayFor(m => item.ChiNhanh.MaChiNhanh)</td>
+                    <td>@Html.DisplayFor(m => item.VanPhong)</td>
+                    <td>@Html.DisplayFor(m => item.LoaiThietBi)</td>
+                    <td>
+                        @if (item.TinhTrang)
+                        {
+                            <span class="badge badge-success">Đã bàn giao</span>
+                        }
+                        else
+                        {
+                            <span class="badge badge-warning text-white">Chưa bàn giao</span>
+                        }
+                    </td>
+                    <td>
+                        <partial name="_TableButtonPartial" model="item.Id" />
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+
+    <div page-model="@Model.PagingInfo" page-action="Index" page-classes-enabled="true"
+        page-class="btn border" page-class-normal="btn btn-default active"
+        page-class-selected="btn btn-primary active" class="btn-group m-1"></div>
+</form>
+
+
+@section Scripts{
+    <script>
+
+        $(function () {
+            $("#datepicker").datepicker({
+                dateFormat: 'dd/mm/yy'
+            });
+        });
+    </script>
+}

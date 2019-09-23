@@ -11,7 +11,7 @@ namespace QLTB.Data.Models
         [Required]
         [MaxLength(50), Column(TypeName = "nvarchar(50)")]
         [DisplayName("Ho Ten")]
-        public string HoTen { get; set; }
+        public string Name { get; set; }
 
         [DisplayName("Phong Ban")]
         [MaxLength(50), Column(TypeName = "nvarchar(50)")]
