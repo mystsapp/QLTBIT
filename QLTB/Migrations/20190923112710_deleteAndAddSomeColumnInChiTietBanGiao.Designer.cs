@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using QLTB.Data;
 
 namespace QLTB.Migrations
 {
     [DbContext(typeof(QLTBITDbContext))]
-    partial class QLTBITDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190923112710_deleteAndAddSomeColumnInChiTietBanGiao")]
+    partial class deleteAndAddSomeColumnInChiTietBanGiao
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -49,7 +51,7 @@ namespace QLTB.Migrations
 
                     b.Property<string>("NguoiNhan")
                         .IsRequired()
-                        .HasColumnType("nvarchar(50)")
+                        .HasColumnName("nvarchar(50)")
                         .HasMaxLength(50);
 
                     b.Property<string>("NguoiSua");

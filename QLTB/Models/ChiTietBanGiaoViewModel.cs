@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace QLTB.Models
 {
-    public class BanGiaoViewModel
+    public class ChiTietBanGiaoViewModel
     {
-        public List<BanGiao> BanGiaos { get; set; }
-        public PagingInfo PagingInfo { get; set; }
+        public ChiTietBanGiao ChiTietBanGiao { get; set; }
+        public BanGiao BanGiao { get; set; }
+        public IEnumerable<ThietBi> ThietBis { get; set; }
         public string strUrl { get; set; }
     }
 }

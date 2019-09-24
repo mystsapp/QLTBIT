@@ -1,0 +1,54 @@
+﻿@model ChiTietBanGiaoIndexViewModel
+
+@{
+    ViewData["Title"] = "Index";
+    var a = string.IsNullOrEmpty(Model.BanGiao.NguoiNhan)?"Nguoi Nhan": Model.BanGiao.NguoiNhan;
+
+}
+
+
+<div class="row">
+    <div class="col-6">
+        <h2 class="text-info">Chi Tiết Bàn Giao Cho @a</h2>
+    </div>
+    <div class="col-6 text-right">
+        <a class="btn btn-info" asp-action="Create" asp-route-banGiaoId="@Model.BanGiao.Id" asp-route-strUrl="@Model.StrUrl"><i class="fas fa-plus"></i>&nbsp; Thêm </a>
+    </div>
+</div>
+
+<div>
+    <table class="table table-striped border">
+        <tr class="table-info">
+            <th>@Html.DisplayNameFor(m => m.ChiTietBanGiaos.FirstOrDefault().BanGiaoId)</th>
+            <th>@Html.DisplayNameFor(m => m.ChiTietBanGiaos.FirstOrDefault().ThietBiId)</th>
+            <th>@Html.DisplayNameFor(m => m.ChiTietBanGiaos.FirstOrDefault().SoLuong)</th>
+            <th>@Html.DisplayNameFor(m => m.ChiTietBanGiaos.FirstOrDefault().BaoHanhDen)</th>
+            <th></th>
+
+        </tr>
+
+        @foreach (var item in Model.ChiTietBanGiaos)
+        {
+    <tr>
+        <td>@Html.DisplayFor(m => item.BanGiao.NguoiLap)</td>
+        <td>@Html.DisplayFor(m => item.ThietBi.Name)</td>
+        <td>@Html.DisplayFor(m => item.SoLuong)</td>
+        <td>@Html.Raw(item.BaoHanhDen.ToShortDateString())</td>
+
+        @*<partial name="_TableButtonPartial"  model="item.Id">*@
+        <td style="width:150px;">
+            <div class="btn-group text-white" role="group">
+                <a class="btn btn-primary btn-sm" asp-action="Edit" asp-route-banGiaoId="@Model.BanGiao.Id" asp-route-id="@item.Id" asp-route-strUrl="@Model.StrUrl"><i class="fas fa-edit"></i></a>
+                @*<a class="btn btn-success" href="@url"><i class="fas fa-list"></i></a>*@
+                <a class="btn btn-success btn-sm" asp-action="Details" asp-route-banGiaoId="@Model.BanGiao.Id" asp-route-id="@item.Id" asp-route-strUrl="@Model.StrUrl"><i class="fas fa-list"></i></a>
+                <a class="btn btn-danger btn-sm" asp-action="Delete" asp-route-banGiaoId="@Model.BanGiao.Id" asp-route-id="@item.Id" asp-route-strUrl="@Model.StrUrl"><i class="fas fa-trash-alt"></i></a>
+            </div>
+        </td>
+
+    </tr>
+        }
+    </table>
+</div>
+<div>
+    <a class="btn btn-success" href="@Model.StrUrl"><i class="fas fa-backward"></i></a>
+</div>

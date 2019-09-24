@@ -1,0 +1,116 @@
+﻿@model ChiTietBanGiaoViewModel
+@using QLTB.Extensions
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+
+
+<h2 class="text-info">Thêm Mới Chi Tiết</h2>
+
+<form method="post" autocomplete="off">
+    <div class="p-4 border rounded">
+
+        <input type="hidden" asp-for="@Model.strUrl" />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="ChiTietBanGiao.ThietBiId"></label>
+            </div>
+            <div class="col-4">
+                <select class="form-control" asp-for="ChiTietBanGiao.ThietBiId" asp-items="@Model.ThietBis.ToSelectListItem(Model.ChiTietBanGiao.ThietBiId)"></select>
+            </div>
+            <span class="text-danger" asp-validation-for="ChiTietBanGiao.ThietBiId"></span>
+
+            <div class="col-2">
+                <label asp-for="ChiTietBanGiao.SoLuong"></label>
+            </div>
+            <div class="col-4">
+                <input type="number" class="form-control" asp-for="ChiTietBanGiao.SoLuong" />
+            </div>
+            <span class="text-danger" asp-validation-for="ChiTietBanGiao.SoLuong"></span>
+
+        </div>
+
+        @*<div class="form-group row">
+
+            </div>*@
+
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="ChiTietBanGiao.DonGia"></label>
+            </div>
+            <div class="col-4">
+                <input type="number" asp-for="ChiTietBanGiao.DonGia" class="form-control" />
+            </div>
+            <span class="text-danger" asp-validation-for="ChiTietBanGiao.DonGia"></span>
+
+            <div class="col-2">
+                <label asp-for="ChiTietBanGiao.BaoHanhDen"></label>
+            </div>
+            <div class="col-4">
+                <input type="text" value="" asp-for="ChiTietBanGiao.BaoHanhDen" class="form-control maskInput" id="datepicker"  />
+            </div>
+            <span class="text-danger" asp-validation-for="ChiTietBanGiao.BaoHanhDen"></span>
+        </div>
+
+        @*<div class="form-group row">
+
+            </div>*@
+
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="ChiTietBanGiao.GhiChu"></label>
+            </div>
+            <div class="col-4">
+                <textarea asp-for="ChiTietBanGiao.GhiChu" class="form-control"></textarea>
+            </div>
+            <span class="text-danger" asp-validation-for="ChiTietBanGiao.GhiChu"></span>
+
+            <div class="col-2">
+                <label asp-for="ChiTietBanGiao.TinhTrang"></label>
+            </div>
+            <div class="col-4">
+                <input type="checkbox" asp-for="ChiTietBanGiao.TinhTrang" />
+            </div>
+            <span class="text-danger" asp-validation-for="ChiTietBanGiao.TinhTrang"></span>
+        </div>
+
+        @*<div class="form-group row">
+
+            </div>*@
+
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="ChiTietBanGiao.DienGiai"></label>
+            </div>
+            <div class="col-4">
+                <textarea class="form-control" asp-for="ChiTietBanGiao.DienGiai"></textarea>
+            </div>
+            <span class="text-danger" asp-validation-for="ChiTietBanGiao.DienGiai"></span>
+
+        </div>
+
+        <div class="form-group">
+            <button type="submit" asp-route-banGiaoId="@Model.BanGiao.Id" class="btn btn-primary"><i class="fas fa-save"></i></button>
+            <a class="btn btn-success" asp-action="Index"><i class="fas fa-backward"></i></a>
+        </div>
+    </div>
+</form>
+
+@section Scripts{
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");
+
+        <script>
+
+            $(function () {
+                $("#datepicker").datepicker({
+                    dateFormat: 'dd/mm/yy'
+                });
+            });
+        </script>
+    }
+}
+

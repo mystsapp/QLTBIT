@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http.Extensions;
+using Microsoft.AspNetCore.Mvc;
 using QLTB.Data.Models;
 using QLTB.Data.Repository;
 using QLTB.Models;
@@ -34,9 +35,11 @@ namespace QLTB.Controllers
 
         public async Task<IActionResult> Index(int banGiaoPage = 1, string searchNguoiNhan = null, string searchNguoiLap = null, string searchVanPhong = null, string searchDate = null)
         {
+            string strUrl = UriHelper.GetDisplayUrl(Request);
             BanGiaoViewModel banGiaoVM = new BanGiaoViewModel()
             {
-                BanGiaos = new List<BanGiao>()
+                BanGiaos = new List<BanGiao>(),
+                strUrl = strUrl
             };
 
             /////////////////////////////////////////////////Pagingnation/////////////////////////////////////////////////

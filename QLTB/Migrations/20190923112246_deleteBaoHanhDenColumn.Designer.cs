@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using QLTB.Data;
 
 namespace QLTB.Migrations
 {
     [DbContext(typeof(QLTBITDbContext))]
-    partial class QLTBITDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190923112246_deleteBaoHanhDenColumn")]
+    partial class deleteBaoHanhDenColumn
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -49,7 +51,7 @@ namespace QLTB.Migrations
 
                     b.Property<string>("NguoiNhan")
                         .IsRequired()
-                        .HasColumnType("nvarchar(50)")
+                        .HasColumnName("nvarchar(50)")
                         .HasMaxLength(50);
 
                     b.Property<string>("NguoiSua");
@@ -107,8 +109,6 @@ namespace QLTB.Migrations
 
                     b.Property<int>("BanGiaoId");
 
-                    b.Property<DateTime>("BaoHanhDen");
-
                     b.Property<string>("DienGiai")
                         .HasColumnType("nvarchar(500)")
                         .HasMaxLength(500);
@@ -120,6 +120,12 @@ namespace QLTB.Migrations
                         .HasMaxLength(250);
 
                     b.Property<DateTime>("NgayGiao");
+
+                    b.Property<DateTime>("NgayNhap");
+
+                    b.Property<string>("NguoiNhap")
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
 
                     b.Property<int>("SoLuong");
 

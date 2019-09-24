@@ -11,7 +11,7 @@ namespace QLTB.Data.Models
         [Required]
         [MaxLength(100), Column(TypeName = "nvarchar(100)")]
         [DisplayName("Ten TB")]
-        public string TenThietBi { get; set; }
+        public string Name { get; set; }
 
         public double Gia { get; set; }
         public bool TrangThai { get; set; }

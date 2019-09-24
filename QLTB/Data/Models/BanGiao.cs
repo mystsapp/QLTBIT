@@ -16,7 +16,7 @@ namespace QLTB.Data.Models
 
         [DisplayName("Nguoi Nhan")]
         [Required]
-        [MaxLength(50), Column("nvarchar(50)")]
+        [MaxLength(50), Column(TypeName = "nvarchar(50)")]
         public string NguoiNhan { get; set; }
 
         public DateTime NgayTao { get; set; }
