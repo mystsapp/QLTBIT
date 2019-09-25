@@ -17,6 +17,7 @@ namespace QLTB.Data
         public DbSet<ThietBi> ThietBis { get; set; }
         public DbSet<BanGiao> BanGiaos { get; set; }
         public DbSet<ChiTietBanGiao> ChiTietBanGiaos { get; set; }
+        public DbSet<CaiDat> CaiDats { get; set; }
         public DbSet<ChiNhanh> ChiNhanhs { get; set; }
         public DbSet<LoaiPhanMem> LoaiPhanMems { get; set; }
         public DbSet<PhanMem> PhanMems { get; set; }

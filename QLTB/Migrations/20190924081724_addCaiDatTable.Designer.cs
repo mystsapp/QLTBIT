@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using QLTB.Data;
 
 namespace QLTB.Migrations
 {
     [DbContext(typeof(QLTBITDbContext))]
-    partial class QLTBITDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190924081724_addCaiDatTable")]
+    partial class addCaiDatTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -69,41 +71,6 @@ namespace QLTB.Migrations
                     b.HasIndex("ChiNhanhId");
 
                     b.ToTable("BanGiaos");
-                });
-
-            modelBuilder.Entity("QLTB.Data.Models.CaiDat", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("BanGiaoId");
-
-                    b.Property<string>("DienGiai")
-                        .HasColumnType("nvarchar(500)")
-                        .HasMaxLength(500);
-
-                    b.Property<double>("DonGia");
-
-                    b.Property<string>("GhiChu")
-                        .HasColumnType("nvarchar(250)")
-                        .HasMaxLength(250);
-
-                    b.Property<DateTime>("NgayGiao");
-
-                    b.Property<int>("PhanMemId");
-
-                    b.Property<DateTime>("ThoiGianSuDung");
-
-                    b.Property<bool>("TinhTrang");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BanGiaoId");
-
-                    b.HasIndex("PhanMemId");
-
-                    b.ToTable("CaiDats");
                 });
 
             modelBuilder.Entity("QLTB.Data.Models.ChiNhanh", b =>
@@ -251,7 +218,7 @@ namespace QLTB.Migrations
 
                     b.Property<int>("LoaiPMId");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("TenPM")
                         .HasColumnType("nvarchar(50)")
                         .HasMaxLength(50);
 
@@ -328,19 +295,6 @@ namespace QLTB.Migrations
                     b.HasOne("QLTB.Data.Models.ChiNhanh", "ChiNhanh")
                         .WithMany()
                         .HasForeignKey("ChiNhanhId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("QLTB.Data.Models.CaiDat", b =>
-                {
-                    b.HasOne("QLTB.Data.Models.BanGiao", "BanGiao")
-                        .WithMany()
-                        .HasForeignKey("BanGiaoId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("QLTB.Data.Models.PhanMem", "PhanMem")
-                        .WithMany()
-                        .HasForeignKey("PhanMemId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

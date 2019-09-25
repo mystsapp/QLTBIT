@@ -1,0 +1,103 @@
+﻿@model CaiDatViewModel
+@using QLTB.Extensions
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+
+
+<h2 class="text-info">Xóa?</h2>
+
+<form method="post" >
+    <div class="p-4 border rounded">
+
+        <input type="hidden" asp-for="@Model.strUrl" />
+
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="CaiDat.PhanMemId"></label>
+            </div>
+            <div class="col-4">
+                <select class="form-control" asp-for="CaiDat.PhanMemId" asp-items="@Model.PhanMems.ToSelectListItem(Model.CaiDat.PhanMemId)" disabled></select>
+            </div>
+            
+            <div class="col-2">
+                <label asp-for="CaiDat.DonGia"></label>
+            </div>
+            <div class="col-4">
+                <input type="number" asp-for="CaiDat.DonGia" class="form-control" readonly/>
+            </div>
+
+
+        </div>
+
+        @*<div class="form-group row">
+
+            </div>*@
+
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="CaiDat.ThoiGianSuDung"></label>
+            </div>
+            <div class="col-4">
+                <input type="text" value="" asp-for="CaiDat.ThoiGianSuDung" class="form-control maskInput" id="datepicker" readonly/>
+            </div>
+            
+
+            <div class="col-2">
+                <label asp-for="CaiDat.GhiChu"></label>
+            </div>
+            <div class="col-4">
+                <textarea asp-for="CaiDat.GhiChu" class="form-control" readonly></textarea>
+            </div>
+            
+        </div>
+
+        @*<div class="form-group row">
+
+            </div>*@
+
+        <div class="form-group row">
+
+            <div class="col-2">
+                <label asp-for="CaiDat.TinhTrang"></label>
+            </div>
+            <div class="col-4">
+                <input type="checkbox" asp-for="CaiDat.TinhTrang" disabled/>
+            </div>
+
+            <div class="col-2">
+                <label asp-for="CaiDat.DienGiai"></label>
+            </div>
+            <div class="col-4">
+                <textarea class="form-control" asp-for="CaiDat.DienGiai" readonly></textarea>
+            </div>
+           
+        </div>
+
+        @*<div class="form-group row">
+
+            </div>*@
+
+        <div class="form-group">
+            <button type="submit" asp-route-banGiaoId="@Model.BanGiao.Id" asp-route-id="@Model.CaiDat.Id" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
+            <a class="btn btn-success" asp-route-id="@Model.BanGiao.Id" asp-route-strUrl="@Model.strUrl" asp-action="Index"><i class="fas fa-backward"></i></a>
+        </div>
+    </div>
+</form>
+
+@section Scripts{
+    @{
+
+        <script>
+
+            $(function () {
+                $("#datepicker").datepicker({
+                    dateFormat: 'dd/mm/yy'
+                });
+            });
+        </script>
+    }
+}
+

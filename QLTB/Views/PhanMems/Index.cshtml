@@ -17,7 +17,7 @@
 <div>
     <table class="table table-striped border">
         <tr class="table-info">
-            <th>@Html.DisplayNameFor(m => m.TenPM)</th>
+            <th>@Html.DisplayNameFor(m => m.Name)</th>
             <th>@Html.DisplayNameFor(m => m.LoaiPMId)</th>
             <th></th>
 
@@ -26,7 +26,7 @@
         @foreach (var item in Model)
         {
             <tr>
-                <td>@Html.DisplayFor(m => item.TenPM)</td>
+                <td>@Html.DisplayFor(m => item.Name)</td>
                 <td>@Html.DisplayFor(m => item.LoaiPhanMem.Name)</td>
 
                 <partial name="_TableButtonPartial" model="item.Id">

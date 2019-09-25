@@ -109,7 +109,7 @@
                 <tr>
                     <td>
                         <div class="btn-group">
-                            <a asp-action="Index" asp-controller="CaiDats" class="btn btn-primary btn-sm"><i class="fas fa-tools"></i></a>
+                            <a asp-action="Index" asp-controller="CaiDats" asp-route-id="@item.Id" asp-route-strUrl="@Model.strUrl" class="btn btn-primary btn-sm"><i class="fas fa-tools"></i></a>
                             <a asp-action="Index" asp-controller="ChiTietBanGiaos" asp-route-id="@item.Id" asp-route-strUrl="@Model.strUrl" class="btn btn-success btn-sm"><i class="fas fa-angle-double-down"></i></a>
                         </div>
                     </td>

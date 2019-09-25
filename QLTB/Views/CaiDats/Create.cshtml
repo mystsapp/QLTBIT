@@ -1,0 +1,106 @@
+﻿@model CaiDatViewModel
+@using QLTB.Extensions
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+
+
+<h2 class="text-info">Thêm Mới Cài Đặt</h2>
+
+<form method="post" autocomplete="off">
+    <div class="p-4 border rounded">
+
+        <input type="hidden" asp-for="@Model.strUrl" />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="CaiDat.PhanMemId"></label>
+            </div>
+            <div class="col-4">
+                <select class="form-control" asp-for="CaiDat.PhanMemId" asp-items="@Model.PhanMems.ToSelectListItem(Model.CaiDat.PhanMemId)"></select>
+            </div>
+            <span class="text-danger" asp-validation-for="CaiDat.PhanMemId"></span>
+            <div class="col-2">
+                <label asp-for="CaiDat.DonGia"></label>
+            </div>
+            <div class="col-4">
+                <input type="number" asp-for="CaiDat.DonGia" class="form-control" />
+            </div>
+            <span class="text-danger" asp-validation-for="CaiDat.DonGia"></span>
+
+
+        </div>
+
+        @*<div class="form-group row">
+
+            </div>*@
+
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="CaiDat.ThoiGianSuDung"></label>
+            </div>
+            <div class="col-4">
+                <input type="text" asp-for="CaiDat.ThoiGianSuDung" class="form-control maskInput" id="datepicker" />
+            </div>
+            <span class="text-danger" asp-validation-for="CaiDat.ThoiGianSuDung"></span>
+
+            <div class="col-2">
+                <label asp-for="CaiDat.GhiChu"></label>
+            </div>
+            <div class="col-4">
+                <textarea asp-for="CaiDat.GhiChu" class="form-control"></textarea>
+            </div>
+            <span class="text-danger" asp-validation-for="CaiDat.GhiChu"></span>
+        </div>
+
+        @*<div class="form-group row">
+
+            </div>*@
+
+        <div class="form-group row">
+
+            <div class="col-2">
+                <label asp-for="CaiDat.TinhTrang"></label>
+            </div>
+            <div class="col-4">
+                <input type="checkbox" asp-for="CaiDat.TinhTrang" />
+            </div>
+            <span class="text-danger" asp-validation-for="CaiDat.TinhTrang"></span>
+
+            <div class="col-2">
+                <label asp-for="CaiDat.DienGiai"></label>
+            </div>
+            <div class="col-4">
+                <textarea class="form-control" asp-for="CaiDat.DienGiai"></textarea>
+            </div>
+            <span class="text-danger" asp-validation-for="CaiDat.DienGiai"></span>
+        </div>
+
+        @*<div class="form-group row">
+
+            </div>*@
+
+        <div class="form-group">
+            <button type="submit" asp-route-banGiaoId="@Model.BanGiao.Id" class="btn btn-primary"><i class="fas fa-save"></i></button>
+            <a class="btn btn-success" asp-action="Index"><i class="fas fa-backward"></i></a>
+        </div>
+    </div>
+</form>
+
+@section Scripts{
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");
+
+        <script>
+
+            $(function () {
+                $("#datepicker").datepicker({
+                    dateFormat: 'dd/mm/yy'
+                });
+            });
+        </script>
+    }
+}
+

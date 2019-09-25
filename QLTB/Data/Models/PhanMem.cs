@@ -10,7 +10,7 @@ namespace QLTB.Data.Models
 
         [MaxLength(50)]
         [DisplayName("Ten PM"), Column(TypeName = "nvarchar(50)")]
-        public string TenPM { get; set; }
+        public string Name { get; set; }
 
         [DisplayName("Loai PM")]
         public int LoaiPMId { get; set; }

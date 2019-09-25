@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using QLTB.Data;
 
 namespace QLTB.Migrations
 {
     [DbContext(typeof(QLTBITDbContext))]
-    partial class QLTBITDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190924081931_addCaiDatTableFix")]
+    partial class addCaiDatTableFix
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -251,7 +253,7 @@ namespace QLTB.Migrations
 
                     b.Property<int>("LoaiPMId");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("TenPM")
                         .HasColumnType("nvarchar(50)")
                         .HasMaxLength(50);
 
