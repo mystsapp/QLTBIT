@@ -12,5 +12,7 @@ namespace QLTB.Models
         public BanGiao BanGiao { get; set; }
         public IEnumerable<ThietBi> ThietBis { get; set; }
         public string strUrl { get; set; }
+
+        public int Id { get; set; }
     }
 }

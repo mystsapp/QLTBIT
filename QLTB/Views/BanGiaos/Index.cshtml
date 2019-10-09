@@ -86,61 +86,78 @@
             </div>
         </div>
     </div>
-
-    <br />
-    <br />
-
-    <div>
-        <table class="table table-striped border">
-            <tr class="table-info">
-                <th></th>
-                <th>@Html.DisplayNameFor(m => m.BanGiaos.FirstOrDefault().NguoiLap)</th>
-                <th>@Html.DisplayNameFor(m => m.BanGiaos.FirstOrDefault().NguoiNhan)</th>
-                <th>@Html.DisplayNameFor(m => m.BanGiaos.FirstOrDefault().NgayTao)</th>
-                <th>@Html.DisplayNameFor(m => m.BanGiaos.FirstOrDefault().ChiNhanhId)</th>
-                <th>@Html.DisplayNameFor(m => m.BanGiaos.FirstOrDefault().VanPhong)</th>
-                <th>@Html.DisplayNameFor(m => m.BanGiaos.FirstOrDefault().LoaiThietBi)</th>
-                <th>@Html.DisplayNameFor(m => m.BanGiaos.FirstOrDefault().TinhTrang)</th>
-                <th></th>
-                <th></th>
-            </tr>
-            @foreach (var item in Model.BanGiaos)
-            {
-                <tr>
-                    <td>
-                        <div class="btn-group">
-                            <a asp-action="Index" asp-controller="CaiDats" asp-route-id="@item.Id" asp-route-strUrl="@Model.strUrl" class="btn btn-primary btn-sm"><i class="fas fa-tools"></i></a>
-                            <a asp-action="Index" asp-controller="ChiTietBanGiaos" asp-route-id="@item.Id" asp-route-strUrl="@Model.strUrl" class="btn btn-success btn-sm"><i class="fas fa-angle-double-down"></i></a>
-                        </div>
-                    </td>
-                    <td>@Html.DisplayFor(m => item.NguoiLap)</td>
-                    <td>@Html.DisplayFor(m => item.NguoiNhan)</td>
-                    <td>@Html.Raw(item.NgayTao.ToShortDateString())</td>
-                    <td>@Html.DisplayFor(m => item.ChiNhanh.MaChiNhanh)</td>
-                    <td>@Html.DisplayFor(m => item.VanPhong)</td>
-                    <td>@Html.DisplayFor(m => item.LoaiThietBi)</td>
-                    <td>
-                        @if (item.TinhTrang)
-                        {
-                            <span class="badge badge-success">Đã bàn giao</span>
-                        }
-                        else
-                        {
-                            <span class="badge badge-warning text-white">Chưa bàn giao</span>
-                        }
-                    </td>
-                    <td>
-                        <partial name="_TableButtonPartial" model="item.Id" />
-                    </td>
-                </tr>
-            }
-        </table>
-    </div>
-
-    <div page-model="@Model.PagingInfo" page-action="Index" page-classes-enabled="true"
-        page-class="btn border" page-class-normal="btn btn-default active"
-        page-class-selected="btn btn-primary active" class="btn-group m-1"></div>
 </form>
+
+<br />
+<br />
+
+<div>
+    <table class="table table-striped border">
+        <tr class="table-info">
+            <th>
+                <form method="get" asp-action="ExportList" id="frmExportAll">
+                    
+                        
+                            @*<a asp-action="ExportList" asp-controller="BanGiaos" id="btnExportAll"><i class="fas fa-file-word"></i></a>*@
+                            <input type="hidden" name="stringId" id="stringId" />
+                            <button type="button" class="text-primary btn btn-outline-light btn-sm" id="btnExportAll" ><i class="fas fa-file-word"></i> Xuất</button>
+                        
+                    
+                </form>
+            </th>
+            <th>Chi Tiết</th>
+            <th>@Html.DisplayNameFor(m => m.BanGiaos.FirstOrDefault().NguoiLap)</th>
+            <th>@Html.DisplayNameFor(m => m.BanGiaos.FirstOrDefault().NguoiNhan)</th>
+            <th>@Html.DisplayNameFor(m => m.BanGiaos.FirstOrDefault().NgayTao)</th>
+            @*<th>@Html.DisplayNameFor(m => m.BanGiaos.FirstOrDefault().ChiNhanhId)</th>*@
+            <th>@Html.DisplayNameFor(m => m.BanGiaos.FirstOrDefault().VanPhong)</th>
+            <th>@Html.DisplayNameFor(m => m.BanGiaos.FirstOrDefault().LoaiThietBi)</th>
+            <th>@Html.DisplayNameFor(m => m.BanGiaos.FirstOrDefault().TinhTrang)</th>
+            <th></th>
+            <th></th>
+        </tr>
+        @foreach (var item in Model.BanGiaos)
+        {
+            <tr>
+                <td>
+                    <input type="checkbox" class="ckId" data-id="@item.Id" />
+                </td>
+                <td>
+                    <div class="btn-group">
+                        <a asp-action="Index" title="Chi tiết cài đặt" asp-controller="CaiDats" asp-route-id="@item.Id" asp-route-strUrl="@Model.strUrl" class="btn btn-primary btn-sm"><i class="fas fa-tools"></i></a>
+                        <a asp-action="Index" title="Chi tiết bàn giao" asp-controller="ChiTietBanGiaos" asp-route-id="@item.Id" asp-route-strUrl="@Model.strUrl" class="btn btn-success btn-sm"><i class="fas fa-angle-double-down"></i></a>
+
+                        @*<a asp-controller="BanGiaos" asp-action="ExportToWord" title="In bàn giao" asp-route-id="@item.Id" class="btn btn-primary btn-sm btnExportToWord" data-id="@item.Id"><i class="fas fa-file-word"></i></a>*@
+                    </div>
+                </td>
+                <td>@Html.DisplayFor(m => item.NguoiLap)</td>
+                <td>@Html.DisplayFor(m => item.NguoiNhan)</td>
+                <td>@Html.Raw(item.NgayTao.ToShortDateString())</td>
+                @*<td>@Html.DisplayFor(m => item.ChiNhanh.MaChiNhanh)</td>*@
+                <td>@Html.DisplayFor(m => item.VanPhong)</td>
+                <td>@Html.DisplayFor(m => item.LoaiThietBi)</td>
+                <td>
+                    @if (item.TinhTrang)
+                    {
+                        <span class="badge badge-success">Đã bàn giao</span>
+                    }
+                    else
+                    {
+                        <span class="badge badge-warning text-white">Chưa bàn giao</span>
+                    }
+                </td>
+                <td>
+                    <partial name="_TableButtonPartial" model="item.Id" />
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+
+<div page-model="@Model.PagingInfo" page-action="Index" page-classes-enabled="true"
+     page-class="btn border" page-class-normal="btn btn-default active"
+     page-class-selected="btn btn-primary active" class="btn-group m-1"></div>
+
 
 
 @section Scripts{
@@ -152,4 +169,5 @@
             });
         });
     </script>
+    <script src="~/js/Admin/BanGiao/indexController.js"></script>
 }

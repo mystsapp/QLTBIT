@@ -2,7 +2,7 @@
 
 @{
     ViewData["Title"] = "Index";
-    var a = string.IsNullOrEmpty(Model.BanGiao.NguoiNhan)?"Nguoi Nhan": Model.BanGiao.NguoiNhan;
+    var a = string.IsNullOrEmpty(Model.BanGiao.NguoiNhan) ? "Nguoi Nhan" : Model.BanGiao.NguoiNhan;
 
 }
 
@@ -19,6 +19,18 @@
 <div>
     <table class="table table-striped border">
         <tr class="table-info">
+            <th>
+
+                <form method="get" asp-action="ExportList" id="frmExportAll">
+
+
+                    @*<a asp-action="ExportList" asp-controller="BanGiaos" id="btnExportAll"><i class="fas fa-file-word"></i></a>*@
+                    <input type="hidden" name="stringId" id="stringId" />
+                    <button type="button" class="text-primary btn btn-outline-light btn-sm" id="btnExportAll"><i class="fas fa-file-word"></i> Xuất</button>
+
+
+                </form>
+            </th>
             <th>@Html.DisplayNameFor(m => m.ChiTietBanGiaos.FirstOrDefault().BanGiaoId)</th>
             <th>@Html.DisplayNameFor(m => m.ChiTietBanGiaos.FirstOrDefault().ThietBiId)</th>
             <th>@Html.DisplayNameFor(m => m.ChiTietBanGiaos.FirstOrDefault().SoLuong)</th>
@@ -29,26 +41,34 @@
 
         @foreach (var item in Model.ChiTietBanGiaos)
         {
-    <tr>
-        <td>@Html.DisplayFor(m => item.BanGiao.NguoiLap)</td>
-        <td>@Html.DisplayFor(m => item.ThietBi.Name)</td>
-        <td>@Html.DisplayFor(m => item.SoLuong)</td>
-        <td>@Html.Raw(item.BaoHanhDen.ToShortDateString())</td>
+            <tr>
+                <td>
+                    <input type="checkbox" class="ckId" data-id="@item.Id" />
+                </td>
+                <td>@Html.DisplayFor(m => item.Id)</td>
+                <td>@Html.DisplayFor(m => item.BanGiao.NguoiLap)</td>
+                <td>@Html.DisplayFor(m => item.ThietBi.Name)</td>
+                <td>@Html.DisplayFor(m => item.SoLuong)</td>
+                <td>@Html.Raw(item.BaoHanhDen.ToShortDateString())</td>
 
-        @*<partial name="_TableButtonPartial"  model="item.Id">*@
-        <td style="width:150px;">
-            <div class="btn-group text-white" role="group">
-                <a class="btn btn-primary btn-sm" asp-action="Edit" asp-route-banGiaoId="@Model.BanGiao.Id" asp-route-id="@item.Id" asp-route-strUrl="@Model.StrUrl"><i class="fas fa-edit"></i></a>
-                @*<a class="btn btn-success" href="@url"><i class="fas fa-list"></i></a>*@
-                <a class="btn btn-success btn-sm" asp-action="Details" asp-route-banGiaoId="@Model.BanGiao.Id" asp-route-id="@item.Id" asp-route-strUrl="@Model.StrUrl"><i class="fas fa-list"></i></a>
-                <a class="btn btn-danger btn-sm" asp-action="Delete" asp-route-banGiaoId="@Model.BanGiao.Id" asp-route-id="@item.Id" asp-route-strUrl="@Model.StrUrl"><i class="fas fa-trash-alt"></i></a>
-            </div>
-        </td>
+                @*<partial name="_TableButtonPartial"  model="item.Id">*@
+                <td style="width:150px;">
+                    <div class="btn-group text-white" role="group">
+                        <a class="btn btn-primary btn-sm" asp-action="Edit" asp-route-banGiaoId="@Model.BanGiao.Id" asp-route-id="@item.Id" asp-route-strUrl="@Model.StrUrl"><i class="fas fa-edit"></i></a>
+                        @*<a class="btn btn-success" href="@url"><i class="fas fa-list"></i></a>*@
+                        <a class="btn btn-success btn-sm" asp-action="Details" asp-route-banGiaoId="@Model.BanGiao.Id" asp-route-id="@item.Id" asp-route-strUrl="@Model.StrUrl"><i class="fas fa-list"></i></a>
+                        <a class="btn btn-danger btn-sm" asp-action="Delete" asp-route-banGiaoId="@Model.BanGiao.Id" asp-route-id="@item.Id" asp-route-strUrl="@Model.StrUrl"><i class="fas fa-trash-alt"></i></a>
+                    </div>
+                </td>
 
-    </tr>
+            </tr>
         }
     </table>
 </div>
 <div>
     <a class="btn btn-success" href="@Model.StrUrl"><i class="fas fa-backward"></i></a>
 </div>
+
+@section Scripts{
+    <script src="~/js/Admin/ChiTietBanGiao/indexController.js"></script>
+}

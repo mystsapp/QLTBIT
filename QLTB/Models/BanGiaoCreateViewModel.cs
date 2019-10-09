@@ -14,6 +14,7 @@ namespace QLTB.Models
         public IEnumerable<VanPhong> VanPhongs { get; set; }
         public IEnumerable<LoaiThietBi> LoaiThietBis { get; set; }
         public IEnumerable<NhanVien> NhanViens { get; set; }
+        public int Id { get; set; }
 
     }
 }
