@@ -6,65 +6,112 @@
 }
 
 
-<h2 class="text-info">Cập Nhật Văn Phòng</h2>
 
-<form method="post" autocomplete="off" enctype="multipart/form-data">
-    <div class="p-4 border rounded row">
-
-        <input type="hidden" asp-for="VanPhong.Id" />
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-
-        <div class="col-8">
-
-            <div class="form-group row">
-                <div class="col-4">
-                    <label asp-for="VanPhong.Name"></label>
-                </div>
-                <div class="col-8">
-                    <input class="form-control" asp-for="VanPhong.Name" />
-                </div>
-                <span class="text-danger" asp-validation-for="VanPhong.Name"></span>
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Cập Nhật</h1>
             </div>
-
-            <div class="form-group row">
-                <div class="col-4">
-                    <label asp-for="VanPhong.DiaChi"></label>
-                </div>
-                <div class="col-8">
-                    <input class="form-control" asp-for="VanPhong.DiaChi" />
-                </div>
-                <span class="text-danger" asp-validation-for="VanPhong.DiaChi"></span>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="/">Home</a></li>
+                    <li class="breadcrumb-item"><a asp-action="Index">Danh Sách Văn Phòng</a></li>
+                    <li class="breadcrumb-item active">Cập Nhật Văn Phòng - @Model.VanPhong.Name</li>
+                </ol>
             </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
 
-            <div class="form-group row">
-                <div class="col-4">
-                    <label asp-for="VanPhong.DienThoai"></label>
-                </div>
-                <div class="col-8">
-                    <input class="form-control" asp-for="VanPhong.DienThoai"/>
-                </div>
-                <span class="text-danger" asp-validation-for="VanPhong.DienThoai"></span>
+<!-- Main content -->
+<section class="content">
+
+    <!-- Default box -->
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title"><i class="fas fa-edit text-info"></i> Cập Nhật - @Model.VanPhong.Name</h3>
+
+            <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                    <i class="fas fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip" title="Remove">
+                    <i class="fas fa-times"></i>
+                </button>
             </div>
+        </div>
+        <div class="card-body">
 
-            <div class="form-group row">
-                <div class="col-4">
-                    <label asp-for="ChiNhanhs"></label>
+            <form method="post" autocomplete="off" enctype="multipart/form-data">
+                <div class="p-4 border rounded row">
+
+                    <input type="hidden" asp-for="VanPhong.Id" />
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <div class="col-8">
+
+                        <div class="form-group row">
+                            <div class="col-4">
+                                <label asp-for="VanPhong.Name"></label>
+                            </div>
+                            <div class="col-8">
+                                <input class="form-control" asp-for="VanPhong.Name" />
+                            </div>
+                            <span class="text-danger" asp-validation-for="VanPhong.Name"></span>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-4">
+                                <label asp-for="VanPhong.DiaChi"></label>
+                            </div>
+                            <div class="col-8">
+                                <input class="form-control" asp-for="VanPhong.DiaChi" />
+                            </div>
+                            <span class="text-danger" asp-validation-for="VanPhong.DiaChi"></span>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-4">
+                                <label asp-for="VanPhong.DienThoai"></label>
+                            </div>
+                            <div class="col-8">
+                                <input class="form-control" asp-for="VanPhong.DienThoai" />
+                            </div>
+                            <span class="text-danger" asp-validation-for="VanPhong.DienThoai"></span>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-4">
+                                <label asp-for="ChiNhanhs"></label>
+                            </div>
+                            <div class="col-8">
+                                <select asp-for="@Model.VanPhong.ChiNhanhId" asp-items="Model.ChiNhanhs.ToSelectListItem(Model.VanPhong.ChiNhanhId)" class="form-control"></select>
+                            </div>
+                        </div>
+
+
+
+                        <div class="form-group ">
+                            <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i></button>
+                            <a class="btn btn-success" asp-action="Index"><i class="fas fa-backward"></i></a>
+                        </div>
+
+                    </div>
                 </div>
-                <div class="col-8">
-                    <select asp-for="@Model.VanPhong.ChiNhanhId" asp-items="Model.ChiNhanhs.ToSelectListItem(Model.VanPhong.ChiNhanhId)" class="form-control"></select>
-                </div>
-            </div>
+            </form>
 
-
-
-            <div class="form-group ">
-                <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i></button>
-                <a class="btn btn-success" asp-action="Index"><i class="fas fa-backward"></i></a>
-            </div>
 
         </div>
+        <!-- /.card-body -->
+
     </div>
-</form>
+    <!-- /.card -->
+
+</section>
+<!-- /.content -->
+
 
 @section Scripts{
     @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}

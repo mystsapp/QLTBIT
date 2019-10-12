@@ -38,8 +38,9 @@
 
         });
         $('#btnExportAll').off('click').on('click', function () {
+
             indexController.exportList();
-            $('#frmExportAll').submit();
+
         });
 
     },
@@ -54,8 +55,22 @@
 
         });
 
-        $('#stringId').val(JSON.stringify(idList));
-        
+        if (idList.length !== 0) {
+            $('#stringId').val(JSON.stringify(idList));
+            $('#frmExportAll').submit();
+        }
+        else {
+            bootbox.alert({
+                size: "small",
+                title: "Information",
+                message: "Bạn chưa chọn bàn giao!",
+                callback: function () {
+                    //e.preventDefault();
+
+                }
+            });
+        }
+
 
         //if (idList.length === 1) {
         //    $.ajax({

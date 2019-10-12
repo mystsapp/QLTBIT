@@ -1,82 +1,128 @@
 ﻿@model ThietBiViewModel
 
 
-<h2 class="text-info">Xóa Thiết Bị ?</h2>
-
-<form method="post" autocomplete="off" >
-    <div class="p-4 border rounded row">
-
-
-        <div class="col-8">
-
-            <div class="form-group row">
-                <div class="col-4">
-                    <label asp-for="ThietBi.Name"></label>
-                </div>
-                <div class="col-8">
-                    <input class="form-control" asp-for="ThietBi.Name" readonly />
-                </div>
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Xóa ?</h1>
             </div>
-
-            <div class="form-group row">
-                <div class="col-4">
-                    <label asp-for="ThietBi.Gia"></label>
-                </div>
-                <div class="col-8">
-                    <input class="form-control" asp-for="ThietBi.Gia" readonly />
-                </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="/">Home</a></li>
+                    <li class="breadcrumb-item"><a asp-action="Index">Danh Sách Thiết Bị</a></li>
+                    <li class="breadcrumb-item active">Xóa Thiết Bị</li>
+                </ol>
             </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
 
-            <div class="form-group row">
-                <div class="col-4">
-                    <label asp-for="LoaiThietBis"></label>
-                </div>
-                <div class="col-8">
-                    <input asp-for="ThietBi.LoaiThietBi.Name" class="form-control" readonly />
-                </div>
-            </div>
+<!-- Main content -->
+<section class="content">
 
-            <div class="form-group row">
-                <div class="col-4">
-                    <label asp-for="ThietBi.DienGiai"></label>
-                </div>
-                <div class="col-8">
-                    <textarea class="form-control" asp-for="ThietBi.DienGiai" readonly></textarea>
-                </div>
-            </div>
+    <!-- Default box -->
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title"><i class="fas fa-trash-alt text-info"></i> Xóa Thiết Bị</h3>
 
-            <div class="form-group row">
-                <div class="col-4">
-                    <label asp-for="ThietBi.BaoHanh"></label>
-                </div>
-                <div class="col-8">
-                    <input type="number" class="form-control" asp-for="ThietBi.BaoHanh" readonly />
-                </div>
+            <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                    <i class="fas fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip" title="Remove">
+                    <i class="fas fa-times"></i>
+                </button>
             </div>
+        </div>
+        <div class="card-body">
 
-            <div class="form-group row">
-                <div class="col-4">
-                    <label asp-for="ThietBi.TrangThai"></label>
+            <form method="post" autocomplete="off">
+                <div class="p-4 border rounded row">
+
+
+                    <div class="col-8">
+
+                        <div class="form-group row">
+                            <div class="col-4">
+                                <label asp-for="ThietBi.Name"></label>
+                            </div>
+                            <div class="col-8">
+                                <input class="form-control" asp-for="ThietBi.Name" readonly />
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-4">
+                                <label asp-for="ThietBi.Gia"></label>
+                            </div>
+                            <div class="col-8">
+                                <input class="form-control" asp-for="ThietBi.Gia" readonly />
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-4">
+                                <label asp-for="LoaiThietBis"></label>
+                            </div>
+                            <div class="col-8">
+                                <input asp-for="ThietBi.LoaiThietBi.Name" class="form-control" readonly />
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-4">
+                                <label asp-for="ThietBi.DienGiai"></label>
+                            </div>
+                            <div class="col-8">
+                                <textarea class="form-control" asp-for="ThietBi.DienGiai" readonly></textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-4">
+                                <label asp-for="ThietBi.BaoHanh"></label>
+                            </div>
+                            <div class="col-8">
+                                <input type="number" class="form-control" asp-for="ThietBi.BaoHanh" readonly />
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-4">
+                                <label asp-for="ThietBi.TrangThai"></label>
+                            </div>
+                            <div class="col-8">
+                                <input type="checkbox" asp-for="ThietBi.TrangThai" disabled />
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="col-1">
+
+                    </div>
+
+                    <div class="col-3">
+                        <img src="@Model.ThietBi.HinhAnh" width="100%" style="border-radius:5px; border: 1px solid #bbb9b9" />
+                    </div>
+
+                    <div class="form-group">
+                        <button type="submit" asp-action="Delete" asp-route-id="@Model.ThietBi.Id" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
+                        <a class="btn btn-success" asp-action="Index"><i class="fas fa-backward"></i></a>
+                    </div>
                 </div>
-                <div class="col-8">
-                    <input type="checkbox" asp-for="ThietBi.TrangThai" disabled />
-                </div>
-            </div>
+            </form>
 
         </div>
+        <!-- /.card-body -->
 
-        <div class="col-1">
-
-        </div>
-
-        <div class="col-3">
-            <img src="@Model.ThietBi.HinhAnh" width="100%" style="border-radius:5px; border: 1px solid #bbb9b9" />
-        </div>
-
-        <div class="form-group">
-            <button type="submit" asp-action="Delete" asp-route-id="@Model.ThietBi.Id" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
-            <a class="btn btn-success" asp-action="Index"><i class="fas fa-backward"></i></a>
-        </div>
     </div>
-</form>
+    <!-- /.card -->
+
+</section>
+<!-- /.content -->
+
+
 

@@ -1,39 +1,83 @@
 ﻿@model PhanMemViewModel
 
-
-<h2 class="text-info">Xóa Phần Mềm ?</h2>
-
-<form method="post" autocomplete="off" >
-    <div class="p-4 border rounded row">
-
-
-        <div class="col-8">
-
-            <div class="form-group row">
-                <div class="col-4">
-                    <label asp-for="PhanMem.Name"></label>
-                </div>
-                <div class="col-8">
-                    <input class="form-control" asp-for="PhanMem.Name" readonly />
-                </div>
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Xóa ?</h1>
             </div>
-
-            <div class="form-group row">
-                <div class="col-4">
-                    <label asp-for="LoaiPhanMems"></label>
-                </div>
-                <div class="col-8">
-                    <input asp-for="PhanMem.LoaiPhanMem.Name" class="form-control" readonly />
-                </div>
-            </div>
-
-
-            <div class="form-group">
-                <button type="submit" asp-action="Delete" asp-route-id="@Model.PhanMem.Id" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
-                <a class="btn btn-success" asp-action="Index"><i class="fas fa-backward"></i></a>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="/">Home</a></li>
+                    <li class="breadcrumb-item"><a asp-action="Index">Danh Sách Phần Mềm</a></li>
+                    <li class="breadcrumb-item active">Xóa Phần Mềm</li>
+                </ol>
             </div>
         </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content">
+
+    <!-- Default box -->
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title"><i class="fas fa-trash-alt text-info"></i> Xóa Phần Mềm</h3>
+
+            <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                    <i class="fas fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip" title="Remove">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+        <div class="card-body">
+
+            <form method="post" autocomplete="off">
+                <div class="p-4 border rounded row">
+
+
+                    <div class="col-8">
+
+                        <div class="form-group row">
+                            <div class="col-4">
+                                <label asp-for="PhanMem.Name"></label>
+                            </div>
+                            <div class="col-8">
+                                <input class="form-control" asp-for="PhanMem.Name" readonly />
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-4">
+                                <label asp-for="LoaiPhanMems"></label>
+                            </div>
+                            <div class="col-8">
+                                <input asp-for="PhanMem.LoaiPhanMem.Name" class="form-control" readonly />
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <button type="submit" asp-action="Delete" asp-route-id="@Model.PhanMem.Id" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
+                            <a class="btn btn-success" asp-action="Index"><i class="fas fa-backward"></i></a>
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+
+        </div>
+        <!-- /.card-body -->
 
     </div>
-</form>
+    <!-- /.card -->
+
+</section>
+<!-- /.content -->
+
 

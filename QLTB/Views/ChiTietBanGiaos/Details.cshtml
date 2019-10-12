@@ -6,93 +6,137 @@
 }
 
 
-
-<h2 class="text-info">Chi Tiết của @Model.BanGiao.NguoiNhan</h2>
-
-    <div class="p-4 border rounded">
-
-        <input type="hidden" asp-for="@Model.strUrl" />
-
-        <div class="form-group row">
-            <div class="col-2">
-                <label asp-for="ChiTietBanGiao.ThietBiId"></label>
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Xem Chi Tiết</h1>
             </div>
-            <div class="col-4">
-                <select class="form-control" disabled asp-for="ChiTietBanGiao.ThietBiId" asp-items="@Model.ThietBis.ToSelectListItem(Model.ChiTietBanGiao.ThietBiId)"></select>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="/">Home</a></li>
+                    <li class="breadcrumb-item"><a asp-route-id="@Model.BanGiao.Id" asp-route-strUrl="@Model.strUrl" asp-action="Index">Danh Sách Chi Tiết</a></li>
+                    <li class="breadcrumb-item active">Chi Tiết Bàn Giao - @Model.BanGiao.NguoiNhan</li>
+                </ol>
             </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
 
-            <div class="col-2">
-                <label asp-for="ChiTietBanGiao.SoLuong"></label>
+<!-- Main content -->
+<section class="content">
+
+    <!-- Default box -->
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title"><i class="fas fa-list text-info"></i> Chi Tiết Bàn Giao - @Model.BanGiao.NguoiNhan</h3>
+
+            <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                    <i class="fas fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip" title="Remove">
+                    <i class="fas fa-times"></i>
+                </button>
             </div>
-            <div class="col-4">
-                <input type="number" class="form-control" asp-for="ChiTietBanGiao.SoLuong" readonly/>
+        </div>
+        <div class="card-body">
+
+            <div class="p-4 border rounded">
+
+                <input type="hidden" asp-for="@Model.strUrl" />
+
+                <div class="form-group row">
+                    <div class="col-2">
+                        <label asp-for="ChiTietBanGiao.ThietBiId"></label>
+                    </div>
+                    <div class="col-4">
+                        <select class="form-control" disabled asp-for="ChiTietBanGiao.ThietBiId" asp-items="@Model.ThietBis.ToSelectListItem(Model.ChiTietBanGiao.ThietBiId)"></select>
+                    </div>
+
+                    <div class="col-2">
+                        <label asp-for="ChiTietBanGiao.SoLuong"></label>
+                    </div>
+                    <div class="col-4">
+                        <input type="number" class="form-control" asp-for="ChiTietBanGiao.SoLuong" readonly />
+                    </div>
+
+                </div>
+
+                @*<div class="form-group row">
+
+        </div>*@
+
+                <div class="form-group row">
+                    <div class="col-2">
+                        <label asp-for="ChiTietBanGiao.DonGia"></label>
+                    </div>
+                    <div class="col-4">
+                        <input type="number" asp-for="ChiTietBanGiao.DonGia" class="form-control" readonly />
+                    </div>
+
+                    <div class="col-2">
+                        <label asp-for="ChiTietBanGiao.BaoHanhDen"></label>
+                    </div>
+                    <div class="col-4">
+                        <input type="text" asp-for="ChiTietBanGiao.BaoHanhDen" class="form-control maskInput" id="datepicker" disabled />
+                    </div>
+                </div>
+
+                @*<div class="form-group row">
+
+        </div>*@
+
+                <div class="form-group row">
+                    <div class="col-2">
+                        <label asp-for="ChiTietBanGiao.GhiChu"></label>
+                    </div>
+                    <div class="col-4">
+                        <textarea asp-for="ChiTietBanGiao.GhiChu" class="form-control" readonly></textarea>
+                    </div>
+
+                    <div class="col-2">
+                        <label asp-for="ChiTietBanGiao.TinhTrang"></label>
+                    </div>
+                    <div class="col-4">
+                        <input type="checkbox" asp-for="ChiTietBanGiao.TinhTrang" disabled />
+                    </div>
+                </div>
+
+                @*<div class="form-group row">
+
+        </div>*@
+
+                <div class="form-group row">
+                    <div class="col-2">
+                        <label asp-for="ChiTietBanGiao.DienGiai"></label>
+                    </div>
+                    <div class="col-4">
+                        <textarea class="form-control" asp-for="ChiTietBanGiao.DienGiai" readonly></textarea>
+                    </div>
+
+                </div>
+
+                <div class="form-group">
+                    @*<button type="submit" asp-route-banGiaoId="@Model.BanGiao.Id" class="btn btn-primary"><i class="fas fa-edit"></i></button>*@
+                    <a class="btn btn-primary" asp-action="Edit" asp-route-banGiaoId="@Model.BanGiao.Id" asp-route-id="@Model.ChiTietBanGiao.Id" asp-route-strUrl="@Model.strUrl"><i class="fas fa-edit"></i></a>
+                    <a class="btn btn-success" asp-route-id="@Model.BanGiao.Id" asp-route-strUrl="@Model.strUrl" asp-action="Index"><i class="fas fa-backward"></i></a>
+                </div>
             </div>
 
         </div>
+        <!-- /.card-body -->
 
-        @*<div class="form-group row">
-
-            </div>*@
-
-        <div class="form-group row">
-            <div class="col-2">
-                <label asp-for="ChiTietBanGiao.DonGia"></label>
-            </div>
-            <div class="col-4">
-                <input type="number" asp-for="ChiTietBanGiao.DonGia" class="form-control" readonly/>
-            </div>
-
-            <div class="col-2">
-                <label asp-for="ChiTietBanGiao.BaoHanhDen"></label>
-            </div>
-            <div class="col-4">
-                <input type="text" asp-for="ChiTietBanGiao.BaoHanhDen" class="form-control maskInput" id="datepicker" disabled/>
-            </div>
-        </div>
-
-        @*<div class="form-group row">
-
-            </div>*@
-
-        <div class="form-group row">
-            <div class="col-2">
-                <label asp-for="ChiTietBanGiao.GhiChu"></label>
-            </div>
-            <div class="col-4">
-                <textarea asp-for="ChiTietBanGiao.GhiChu" class="form-control" readonly></textarea>
-            </div>
-
-            <div class="col-2">
-                <label asp-for="ChiTietBanGiao.TinhTrang"></label>
-            </div>
-            <div class="col-4">
-                <input type="checkbox" asp-for="ChiTietBanGiao.TinhTrang" disabled/>
-            </div>
-        </div>
-
-        @*<div class="form-group row">
-
-            </div>*@
-
-        <div class="form-group row">
-            <div class="col-2">
-                <label asp-for="ChiTietBanGiao.DienGiai"></label>
-            </div>
-            <div class="col-4">
-                <textarea class="form-control" asp-for="ChiTietBanGiao.DienGiai" readonly></textarea>
-            </div>
-
-        </div>
-
-        <div class="form-group">
-            @*<button type="submit" asp-route-banGiaoId="@Model.BanGiao.Id" class="btn btn-primary"><i class="fas fa-edit"></i></button>*@
-            <a class="btn btn-primary" asp-action="Edit" asp-route-banGiaoId="@Model.BanGiao.Id" asp-route-id="@Model.ChiTietBanGiao.Id" asp-route-strUrl="@Model.strUrl"><i class="fas fa-edit"></i></a>
-            <a class="btn btn-success" asp-route-id="@Model.BanGiao.Id" asp-route-strUrl="@Model.strUrl" asp-action="Index"><i class="fas fa-backward"></i></a>
-        </div>
     </div>
+    <!-- /.card -->
+
+</section>
+<!-- /.content -->
+
 
 @section Scripts{
-    @{ 
+    @{
 
         <script>
 

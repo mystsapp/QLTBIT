@@ -1,162 +1,223 @@
 ﻿@model BanGiaoViewModel
 
-<div class="row">
-    <div class="col-6">
-        <h2 class="text-info">Danh Sách Bàn Giao</h2>
-    </div>
-    <div class="col-6 text-right">
-        <a class="btn btn-info" asp-action="Create"><i class="fas fa-plus"></i>&nbsp; Thêm</a>
-    </div>
-</div>
-
-<form method="get" autocomplete="off">
-
-    <div class="container" style="height:150px; background-color: aliceblue;">
-        @* we will add search criteria *@
-
-        <div class="col-12">
-            <div class="row" style="padding-top: 10px;">
-
-                <div class="col-2">
-                    Người Nhận
-                </div>
-                <div class="col-3">
-                    @Html.Editor("searchNguoiNhan", new { htmlAttributes = new { @class = "form-control" } })
-                </div>
-
-                <div class="col-2">
-
-                </div>
-
-                <div class="col-2">
-                    Người Lập
-                </div>
-                <div class="col-3">
-                    @Html.Editor("searchNguoiLap", new { htmlAttributes = new { @class = "form-control" } })
-                </div>
-
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <a class="btn btn-outline-info" asp-action="Create"><i class="fas fa-plus"></i>&nbsp; Thêm Mới</a>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="/">Home</a></li>
+                    <li class="breadcrumb-item active">Bàn Giao</li>
+                </ol>
             </div>
         </div>
+    </div><!-- /.container-fluid -->
+</section>
 
-        <div class="col-12">
-            <div class="row" style="padding-top: 10px;">
+<!-- Main content -->
+<section class="content">
 
-                <div class="col-2">
-                    Văn Phòng
-                </div>
-                <div class="col-3">
-                    @Html.Editor("searchVanPhong", new { htmlAttributes = new { @class = "form-control" } })
-                </div>
+    <!-- Default box -->
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title"><i class="fas fa-search text-info"></i> Tìm Kiếm</h3>
 
-                <div class="col-2">
-
-                </div>
-
-                <div class="col-2">
-                    Ngày Tạo
-                </div>
-                <div class="col-3">
-                    @*@Html.Editor("searchDate", new { htmlAttributes = new { @class = "form-control maskInput", @id = "datepicker" } })*@
-                    <input name="searchDate" class="form-control maskInput" id="datepicker" />
-                </div>
-
+            <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                    <i class="fas fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip" title="Remove">
+                    <i class="fas fa-times"></i>
+                </button>
             </div>
         </div>
+        <div class="card-body">
+            <form method="get" autocomplete="off">
 
-        <div class="col-12">
-            <div class="row" style="padding-top: 10px;">
+                <div class="container" style="height:150px; background-color: aliceblue;">
+                    @* we will add search criteria *@
 
-                <div class="col-2">
-                </div>
-                <div class="col-3">
-                </div>
+                    <div class="col-12">
+                        <div class="row" style="padding-top: 10px;">
 
-                <div class="col-2">
+                            <div class="col-2">
+                                Người Nhận
+                            </div>
+                            <div class="col-3">
+                                @Html.Editor("searchNguoiNhan", new { htmlAttributes = new { @class = "form-control" } })
+                            </div>
 
-                </div>
+                            <div class="col-2">
 
-                <div class="col-2">
-                </div>
-                <div class="col-3">
-                    <button type="submit" class="btn btn-primary form-control" name="submit">
-                        <i class="fas fa-search"></i>
-                    </button>
-                </div>
+                            </div>
 
-            </div>
-        </div>
-    </div>
-</form>
+                            <div class="col-2">
+                                Người Lập
+                            </div>
+                            <div class="col-3">
+                                @Html.Editor("searchNguoiLap", new { htmlAttributes = new { @class = "form-control" } })
+                            </div>
 
-<br />
-<br />
-
-<div>
-    <table class="table table-striped border">
-        <tr class="table-info">
-            <th>
-                <form method="get" asp-action="ExportList" id="frmExportAll">
-                    
-                        
-                            @*<a asp-action="ExportList" asp-controller="BanGiaos" id="btnExportAll"><i class="fas fa-file-word"></i></a>*@
-                            <input type="hidden" name="stringId" id="stringId" />
-                            <button type="button" class="text-primary btn btn-outline-light btn-sm" id="btnExportAll" ><i class="fas fa-file-word"></i> Xuất</button>
-                        
-                    
-                </form>
-            </th>
-            <th>Chi Tiết</th>
-            <th>@Html.DisplayNameFor(m => m.BanGiaos.FirstOrDefault().NguoiLap)</th>
-            <th>@Html.DisplayNameFor(m => m.BanGiaos.FirstOrDefault().NguoiNhan)</th>
-            <th>@Html.DisplayNameFor(m => m.BanGiaos.FirstOrDefault().NgayTao)</th>
-            @*<th>@Html.DisplayNameFor(m => m.BanGiaos.FirstOrDefault().ChiNhanhId)</th>*@
-            <th>@Html.DisplayNameFor(m => m.BanGiaos.FirstOrDefault().VanPhong)</th>
-            <th>@Html.DisplayNameFor(m => m.BanGiaos.FirstOrDefault().LoaiThietBi)</th>
-            <th>@Html.DisplayNameFor(m => m.BanGiaos.FirstOrDefault().TinhTrang)</th>
-            <th></th>
-            <th></th>
-        </tr>
-        @foreach (var item in Model.BanGiaos)
-        {
-            <tr>
-                <td>
-                    <input type="checkbox" class="ckId" data-id="@item.Id" />
-                </td>
-                <td>
-                    <div class="btn-group">
-                        <a asp-action="Index" title="Chi tiết cài đặt" asp-controller="CaiDats" asp-route-id="@item.Id" asp-route-strUrl="@Model.strUrl" class="btn btn-primary btn-sm"><i class="fas fa-tools"></i></a>
-                        <a asp-action="Index" title="Chi tiết bàn giao" asp-controller="ChiTietBanGiaos" asp-route-id="@item.Id" asp-route-strUrl="@Model.strUrl" class="btn btn-success btn-sm"><i class="fas fa-angle-double-down"></i></a>
-
-                        @*<a asp-controller="BanGiaos" asp-action="ExportToWord" title="In bàn giao" asp-route-id="@item.Id" class="btn btn-primary btn-sm btnExportToWord" data-id="@item.Id"><i class="fas fa-file-word"></i></a>*@
+                        </div>
                     </div>
-                </td>
-                <td>@Html.DisplayFor(m => item.NguoiLap)</td>
-                <td>@Html.DisplayFor(m => item.NguoiNhan)</td>
-                <td>@Html.Raw(item.NgayTao.ToShortDateString())</td>
-                @*<td>@Html.DisplayFor(m => item.ChiNhanh.MaChiNhanh)</td>*@
-                <td>@Html.DisplayFor(m => item.VanPhong)</td>
-                <td>@Html.DisplayFor(m => item.LoaiThietBi)</td>
-                <td>
-                    @if (item.TinhTrang)
-                    {
-                        <span class="badge badge-success">Đã bàn giao</span>
-                    }
-                    else
-                    {
-                        <span class="badge badge-warning text-white">Chưa bàn giao</span>
-                    }
-                </td>
-                <td>
-                    <partial name="_TableButtonPartial" model="item.Id" />
-                </td>
-            </tr>
-        }
-    </table>
-</div>
 
-<div page-model="@Model.PagingInfo" page-action="Index" page-classes-enabled="true"
-     page-class="btn border" page-class-normal="btn btn-default active"
-     page-class-selected="btn btn-primary active" class="btn-group m-1"></div>
+                    <div class="col-12">
+                        <div class="row" style="padding-top: 10px;">
+
+                            <div class="col-2">
+                                Văn Phòng
+                            </div>
+                            <div class="col-3">
+                                @Html.Editor("searchVanPhong", new { htmlAttributes = new { @class = "form-control" } })
+                            </div>
+
+                            <div class="col-2">
+
+                            </div>
+
+                            <div class="col-2">
+                                Ngày Tạo
+                            </div>
+                            <div class="col-3">
+                                @*@Html.Editor("searchDate", new { htmlAttributes = new { @class = "form-control maskInput", @id = "datepicker" } })*@
+                                <input name="searchDate" class="form-control maskInput" id="datepicker" />
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <div class="row" style="padding-top: 10px;">
+
+                            <div class="col-2">
+                            </div>
+                            <div class="col-3">
+                            </div>
+
+                            <div class="col-2">
+
+                            </div>
+
+                            <div class="col-2">
+                            </div>
+                            <div class="col-3">
+                                <button type="submit" class="btn btn-primary form-control" name="submit">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <!-- /.card-body -->
+
+    </div>
+    <!-- /.card -->
+
+</section>
+<!-- /.content -->
+
+<!-- Main content -->
+<section class="content">
+
+    <!-- Default box -->
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title"><i class="fas fa-list-alt text-info"></i> Danh Sách Bàn Giao</h3>
+
+            <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                    <i class="fas fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip" title="Remove">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+        <div class="card-body">
+            <div>
+                <table class="table table-striped border">
+                    <tr class="table-info">
+                        <th>
+                            <form method="get" asp-action="ExportList" id="frmExportAll">
+
+
+                                @*<a asp-action="ExportList" asp-controller="BanGiaos" id="btnExportAll"><i class="fas fa-file-word"></i></a>*@
+                                <input type="hidden" name="stringId" id="stringId" />
+                                <button type="button" class="text-primary btn btn-outline-light btn-sm" id="btnExportAll"><i class="fas fa-file-word"></i> Xuất</button>
+
+
+                            </form>
+                        </th>
+                        <th>Chi Tiết</th>
+                        <th>@Html.DisplayNameFor(m => m.BanGiaos.FirstOrDefault().NguoiLap)</th>
+                        <th>@Html.DisplayNameFor(m => m.BanGiaos.FirstOrDefault().NguoiNhan)</th>
+                        <th>@Html.DisplayNameFor(m => m.BanGiaos.FirstOrDefault().NgayTao)</th>
+                        @*<th>@Html.DisplayNameFor(m => m.BanGiaos.FirstOrDefault().ChiNhanhId)</th>*@
+                        <th>@Html.DisplayNameFor(m => m.BanGiaos.FirstOrDefault().VanPhong)</th>
+                        <th>@Html.DisplayNameFor(m => m.BanGiaos.FirstOrDefault().LoaiThietBi)</th>
+                        <th>@Html.DisplayNameFor(m => m.BanGiaos.FirstOrDefault().TinhTrang)</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                    @foreach (var item in Model.BanGiaos)
+                    {
+                        <tr>
+                            <td>
+                                <input type="checkbox" class="ckId" data-id="@item.Id" />
+                            </td>
+                            <td>
+                                <div class="btn-group">
+                                    <a asp-action="Index" title="Chi tiết cài đặt" asp-controller="CaiDats" asp-route-id="@item.Id" asp-route-strUrl="@Model.strUrl" class="btn btn-primary btn-sm"><i class="fas fa-tools"></i></a>
+                                    <a asp-action="Index" title="Chi tiết bàn giao" asp-controller="ChiTietBanGiaos" asp-route-id="@item.Id" asp-route-strUrl="@Model.strUrl" class="btn btn-success btn-sm"><i class="fas fa-angle-double-down"></i></a>
+
+                                    @*<a asp-controller="BanGiaos" asp-action="ExportToWord" title="In bàn giao" asp-route-id="@item.Id" class="btn btn-primary btn-sm btnExportToWord" data-id="@item.Id"><i class="fas fa-file-word"></i></a>*@
+                                </div>
+                            </td>
+                            <td>@Html.DisplayFor(m => item.NguoiLap)</td>
+                            <td>@Html.DisplayFor(m => item.NguoiNhan)</td>
+                            <td>@Html.Raw(item.NgayTao.ToShortDateString())</td>
+                            @*<td>@Html.DisplayFor(m => item.ChiNhanh.MaChiNhanh)</td>*@
+                            <td>@Html.DisplayFor(m => item.VanPhong)</td>
+                            <td>@Html.DisplayFor(m => item.LoaiThietBi)</td>
+                            <td>
+                                @if (item.TinhTrang)
+                                {
+                                    <span class="badge badge-success">Đã bàn giao</span>
+                                }
+                                else
+                                {
+                                    <span class="badge badge-warning text-white">Chưa bàn giao</span>
+                                }
+                            </td>
+                            <td>
+                                <partial name="_TableButtonPartial" model="item.Id" />
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </div>
+
+            
+        </div>
+        <!-- /.card-body -->
+        <div class="card-footer">
+            <div page-model="@Model.PagingInfo" page-action="Index" page-classes-enabled="true"
+                 page-class="btn border" page-class-normal="btn btn-default active"
+                 page-class-selected="btn btn-primary active" class="btn-group m-1"></div>
+        </div>
+        <!-- /.card-footer-->
+    </div>
+    <!-- /.card -->
+
+</section>
+<!-- /.content -->
+
 
 
 

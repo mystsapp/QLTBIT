@@ -6,101 +6,145 @@
 }
 
 
-
-<h2 class="text-info">Cập Nhật Chi Tiết</h2>
-
-<form method="post" autocomplete="off">
-    <div class="p-4 border rounded">
-
-        <input type="hidden" asp-for="ChiTietBanGiao.Id" />
-
-        <input type="hidden" asp-for="@Model.strUrl" />
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-
-        <div class="form-group row">
-            <div class="col-2">
-                <label asp-for="ChiTietBanGiao.ThietBiId"></label>
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Cập Nhật</h1>
             </div>
-            <div class="col-4">
-                <select class="form-control" asp-for="ChiTietBanGiao.ThietBiId" asp-items="@Model.ThietBis.ToSelectListItem(Model.ChiTietBanGiao.ThietBiId)"></select>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="/">Home</a></li>
+                    <li class="breadcrumb-item"><a asp-route-id="@Model.BanGiao.Id" asp-route-strUrl="@Model.strUrl" asp-action="Index">Danh Sách Chi Tiết</a></li>
+                    <li class="breadcrumb-item active">Cập Nhật Chi Tiết</li>
+                </ol>
             </div>
-            <span class="text-danger" asp-validation-for="ChiTietBanGiao.ThietBiId"></span>
-
-            <div class="col-2">
-                <label asp-for="ChiTietBanGiao.SoLuong"></label>
-            </div>
-            <div class="col-4">
-                <input type="number" class="form-control" asp-for="ChiTietBanGiao.SoLuong" />
-            </div>
-            <span class="text-danger" asp-validation-for="ChiTietBanGiao.SoLuong"></span>
-
         </div>
+    </div><!-- /.container-fluid -->
+</section>
 
-        @*<div class="form-group row">
+<!-- Main content -->
+<section class="content">
+
+    <!-- Default box -->
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title"><i class="fas fa-edit text-info"></i> Cập Nhật Chi Tiết - @Model.BanGiao.NguoiNhan</h3>
+
+            <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                    <i class="fas fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip" title="Remove">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+        <div class="card-body">
+
+            <form method="post" autocomplete="off">
+                <div class="p-4 border rounded">
+
+                    <input type="hidden" asp-for="ChiTietBanGiao.Id" />
+
+                    <input type="hidden" asp-for="@Model.strUrl" />
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <div class="form-group row">
+                        <div class="col-2">
+                            <label asp-for="ChiTietBanGiao.ThietBiId"></label>
+                        </div>
+                        <div class="col-4">
+                            <select class="form-control" asp-for="ChiTietBanGiao.ThietBiId" asp-items="@Model.ThietBis.ToSelectListItem(Model.ChiTietBanGiao.ThietBiId)"></select>
+                        </div>
+                        <span class="text-danger" asp-validation-for="ChiTietBanGiao.ThietBiId"></span>
+
+                        <div class="col-2">
+                            <label asp-for="ChiTietBanGiao.SoLuong"></label>
+                        </div>
+                        <div class="col-4">
+                            <input type="number" class="form-control" asp-for="ChiTietBanGiao.SoLuong" />
+                        </div>
+                        <span class="text-danger" asp-validation-for="ChiTietBanGiao.SoLuong"></span>
+
+                    </div>
+
+                    @*<div class="form-group row">
 
             </div>*@
 
-        <div class="form-group row">
-            <div class="col-2">
-                <label asp-for="ChiTietBanGiao.DonGia"></label>
-            </div>
-            <div class="col-4">
-                <input type="number" asp-for="ChiTietBanGiao.DonGia" class="form-control" />
-            </div>
-            <span class="text-danger" asp-validation-for="ChiTietBanGiao.DonGia"></span>
+                    <div class="form-group row">
+                        <div class="col-2">
+                            <label asp-for="ChiTietBanGiao.DonGia"></label>
+                        </div>
+                        <div class="col-4">
+                            <input type="number" asp-for="ChiTietBanGiao.DonGia" class="form-control" />
+                        </div>
+                        <span class="text-danger" asp-validation-for="ChiTietBanGiao.DonGia"></span>
 
-            <div class="col-2">
-                <label asp-for="ChiTietBanGiao.BaoHanhDen"></label>
-            </div>
-            <div class="col-4">
-                <input type="text" asp-for="ChiTietBanGiao.BaoHanhDen" class="form-control maskInput" id="datepicker"  />
-            </div>
-            <span class="text-danger" asp-validation-for="ChiTietBanGiao.BaoHanhDen"></span>
-        </div>
+                        <div class="col-2">
+                            <label asp-for="ChiTietBanGiao.BaoHanhDen"></label>
+                        </div>
+                        <div class="col-4">
+                            <input type="text" asp-for="ChiTietBanGiao.BaoHanhDen" class="form-control maskInput" id="datepicker" />
+                        </div>
+                        <span class="text-danger" asp-validation-for="ChiTietBanGiao.BaoHanhDen"></span>
+                    </div>
 
-        @*<div class="form-group row">
-
-            </div>*@
-
-        <div class="form-group row">
-            <div class="col-2">
-                <label asp-for="ChiTietBanGiao.GhiChu"></label>
-            </div>
-            <div class="col-4">
-                <textarea asp-for="ChiTietBanGiao.GhiChu" class="form-control"></textarea>
-            </div>
-            <span class="text-danger" asp-validation-for="ChiTietBanGiao.GhiChu"></span>
-
-            <div class="col-2">
-                <label asp-for="ChiTietBanGiao.TinhTrang"></label>
-            </div>
-            <div class="col-4">
-                <input type="checkbox" asp-for="ChiTietBanGiao.TinhTrang" />
-            </div>
-            <span class="text-danger" asp-validation-for="ChiTietBanGiao.TinhTrang"></span>
-        </div>
-
-        @*<div class="form-group row">
+                    @*<div class="form-group row">
 
             </div>*@
 
-        <div class="form-group row">
-            <div class="col-2">
-                <label asp-for="ChiTietBanGiao.DienGiai"></label>
-            </div>
-            <div class="col-4">
-                <textarea class="form-control" asp-for="ChiTietBanGiao.DienGiai"></textarea>
-            </div>
-            <span class="text-danger" asp-validation-for="ChiTietBanGiao.DienGiai"></span>
+                    <div class="form-group row">
+                        <div class="col-2">
+                            <label asp-for="ChiTietBanGiao.GhiChu"></label>
+                        </div>
+                        <div class="col-4">
+                            <textarea asp-for="ChiTietBanGiao.GhiChu" class="form-control"></textarea>
+                        </div>
+                        <span class="text-danger" asp-validation-for="ChiTietBanGiao.GhiChu"></span>
+
+                        <div class="col-2">
+                            <label asp-for="ChiTietBanGiao.TinhTrang"></label>
+                        </div>
+                        <div class="col-4">
+                            <input type="checkbox" asp-for="ChiTietBanGiao.TinhTrang" />
+                        </div>
+                        <span class="text-danger" asp-validation-for="ChiTietBanGiao.TinhTrang"></span>
+                    </div>
+
+                    @*<div class="form-group row">
+
+            </div>*@
+
+                    <div class="form-group row">
+                        <div class="col-2">
+                            <label asp-for="ChiTietBanGiao.DienGiai"></label>
+                        </div>
+                        <div class="col-4">
+                            <textarea class="form-control" asp-for="ChiTietBanGiao.DienGiai"></textarea>
+                        </div>
+                        <span class="text-danger" asp-validation-for="ChiTietBanGiao.DienGiai"></span>
+
+                    </div>
+
+                    <div class="form-group">
+                        <button type="submit" asp-route-banGiaoId="@Model.BanGiao.Id" class="btn btn-primary"><i class="fas fa-save"></i></button>
+                        <a class="btn btn-success" asp-route-id="@Model.BanGiao.Id" asp-route-strUrl="@Model.strUrl" asp-action="Index"><i class="fas fa-backward"></i></a>
+                    </div>
+                </div>
+            </form>
 
         </div>
+        <!-- /.card-body -->
 
-        <div class="form-group">
-            <button type="submit" asp-route-banGiaoId="@Model.BanGiao.Id" class="btn btn-primary"><i class="fas fa-save"></i></button>
-            <a class="btn btn-success" asp-route-id="@Model.BanGiao.Id" asp-route-strUrl="@Model.strUrl" asp-action="Index"><i class="fas fa-backward"></i></a>
-        </div>
     </div>
-</form>
+    <!-- /.card -->
+
+</section>
+<!-- /.content -->
+
 
 @section Scripts{
     @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");

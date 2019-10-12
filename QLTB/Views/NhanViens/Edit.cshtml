@@ -6,83 +6,131 @@
 }
 
 
-<h2 class="text-info">Cập Nhật Nhân Viên</h2>
 
-<form method="post" autocomplete="off" enctype="multipart/form-data">
-    <div class="p-4 border rounded row">
-
-        <input type="hidden" asp-for="NhanVien.Id" />
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-
-        <div class="col-8">
-
-            <div class="form-group row">
-                <div class="col-2">
-                    <label asp-for="NhanVien.Name"></label>
-                </div>
-                <div class="col-5">
-                    <input class="form-control" asp-for="NhanVien.Name" />
-                </div>
-                <span class="text-danger" asp-validation-for="NhanVien.Name"></span>
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Cập Nhật</h1>
             </div>
-
-            <div class="form-group row">
-                <div class="col-2">
-                    <label asp-for="NhanVien.PhongBan"></label>
-                </div>
-                <div class="col-5">
-                    <input class="form-control" asp-for="NhanVien.PhongBan" />
-                </div>
-                <span class="text-danger" asp-validation-for="NhanVien.PhongBan"></span>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="/">Home</a></li>
+                    <li class="breadcrumb-item"><a asp-action="Index">Danh Sách Nhân Viên</a></li>
+                    <li class="breadcrumb-item active">Cập Nhật Nhân Viên - @Model.NhanVien.Name</li>
+                </ol>
             </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
 
-            <div class="form-group row">
-                <div class="col-2">
-                    <label asp-for="ChiNhanhs"></label>
-                </div>
-                <div class="col-5">
-                    <select asp-for="@Model.NhanVien.ChiNhanhId" asp-items="Model.ChiNhanhs.ToSelectListItem(Model.NhanVien.ChiNhanhId)" class="form-control ddlChiNhanh"></select>
-                </div>
+<!-- Main content -->
+<section class="content">
+
+    <!-- Default box -->
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title"><i class="fas fa-edit text-info"></i> Cập Nhật Nhân Viên - @Model.NhanVien.Name</h3>
+
+            <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                    <i class="fas fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip" title="Remove">
+                    <i class="fas fa-times"></i>
+                </button>
             </div>
-
-            <div class="form-group row">
-                <div class="col-2">
-                    <label asp-for="NhanVien.VanPhong"></label>
-                </div>
-                <div class="col-5">
-                    <select asp-for="NhanVien.VanPhong" asp-items="Model.VanPhongs.ToSelectListItemString(Model.NhanVien.VanPhong)" class="form-control ddlVanPhong"></select>
-                </div>
-                <span class="text-danger" asp-validation-for="NhanVien.VanPhong"></span>
-            </div>
-
-            <div class="form-group row">
-                <div class="col-2">
-                    <label asp-for="NhanVien.Khoi"></label>
-                </div>
-                <div class="col-5">
-                    <select class="form-control" asp-for="NhanVien.Khoi">
-                        <option value="OB">OB</option>
-                        <option value="ND">ND</option>
-                        <option value="--None--">--None--</option>
-                    </select>
-                </div>
-                <span class="text-danger" asp-validation-for="NhanVien.Khoi"></span>
-            </div>
+        </div>
+        <div class="card-body">
 
 
-            <div class="form-group ">
-                <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i></button>
-                <a class="btn btn-success" asp-action="Index"><i class="fas fa-backward"></i></a>
-            </div>
+            <form method="post" autocomplete="off" enctype="multipart/form-data">
+                <div class="p-4 border rounded row">
+
+                    <input type="hidden" asp-for="NhanVien.Id" />
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <div class="col-8">
+
+                        <div class="form-group row">
+                            <div class="col-2">
+                                <label asp-for="NhanVien.Name"></label>
+                            </div>
+                            <div class="col-5">
+                                <input class="form-control" asp-for="NhanVien.Name" />
+                            </div>
+                            <span class="text-danger" asp-validation-for="NhanVien.Name"></span>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-2">
+                                <label asp-for="NhanVien.PhongBan"></label>
+                            </div>
+                            <div class="col-5">
+                                <input class="form-control" asp-for="NhanVien.PhongBan" />
+                            </div>
+                            <span class="text-danger" asp-validation-for="NhanVien.PhongBan"></span>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-2">
+                                <label asp-for="ChiNhanhs"></label>
+                            </div>
+                            <div class="col-5">
+                                <select asp-for="@Model.NhanVien.ChiNhanhId" asp-items="Model.ChiNhanhs.ToSelectListItem(Model.NhanVien.ChiNhanhId)" class="form-control ddlChiNhanh"></select>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-2">
+                                <label asp-for="NhanVien.VanPhong"></label>
+                            </div>
+                            <div class="col-5">
+                                <select asp-for="NhanVien.VanPhong" asp-items="Model.VanPhongs.ToSelectListItemString(Model.NhanVien.VanPhong)" class="form-control ddlVanPhong"></select>
+                            </div>
+                            <span class="text-danger" asp-validation-for="NhanVien.VanPhong"></span>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-2">
+                                <label asp-for="NhanVien.Khoi"></label>
+                            </div>
+                            <div class="col-5">
+                                <select class="form-control" asp-for="NhanVien.Khoi">
+                                    <option value="OB">OB</option>
+                                    <option value="ND">ND</option>
+                                    <option value="--None--">--None--</option>
+                                </select>
+                            </div>
+                            <span class="text-danger" asp-validation-for="NhanVien.Khoi"></span>
+                        </div>
+
+
+                        <div class="form-group ">
+                            <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i></button>
+                            <a class="btn btn-success" asp-action="Index"><i class="fas fa-backward"></i></a>
+                        </div>
+
+                    </div>
+                </div>
+            </form>
+
 
         </div>
+        <!-- /.card-body -->
+
     </div>
-</form>
+    <!-- /.card -->
+
+</section>
+<!-- /.content -->
+
 
 @section Scripts{
     @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");
-        
-<script src="~/js/Admin/NhanVien/editController.js"></script>
-        }
+
+        <script src="~/js/Admin/NhanVien/editController.js"></script>
+    }
 }
 

@@ -6,86 +6,130 @@
 }
 
 
-
-<h2 class="text-info">Thêm Mới Thiết Bị</h2>
-
-<form method="post" autocomplete="off" enctype="multipart/form-data">
-    <div class="p-4 border rounded">
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-
-        <div class="form-group row">
-            <div class="col-2">
-                <label asp-for="ThietBi.Name"></label>
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Thêm Mới</h1>
             </div>
-            <div class="col-5">
-                <input class="form-control" asp-for="ThietBi.Name" />
-            </div>
-            <span class="text-danger" asp-validation-for="ThietBi.Name"></span>
-        </div>
-
-        <div class="form-group row">
-            <div class="col-2">
-                <label asp-for="ThietBi.Gia"></label>
-            </div>
-            <div class="col-5">
-                <input class="form-control" asp-for="ThietBi.Gia" />
-            </div>
-            <span class="text-danger" asp-validation-for="ThietBi.Gia"></span>
-        </div>
-
-        <div class="form-group row">
-            <div class="col-2">
-                <label asp-for="ThietBi.HinhAnh"></label>
-            </div>
-            <div class="col-5">
-                <input type="file" name="files" class="form-control" />
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="/">Home</a></li>
+                    <li class="breadcrumb-item"><a asp-action="Index">Danh Sách Thiết Bị</a></li>
+                    <li class="breadcrumb-item active">Thêm Mới Thiết Bị</li>
+                </ol>
             </div>
         </div>
+    </div><!-- /.container-fluid -->
+</section>
 
-        <div class="form-group row">
-            <div class="col-2">
-                <label asp-for="LoaiThietBis"></label>
-            </div>
-            <div class="col-5">
-                <select asp-for="@Model.ThietBi.LoaiThietBiId" asp-items="Model.LoaiThietBis.ToSelectListItem(Model.ThietBi.LoaiThietBiId)" class="form-control"></select>
+<!-- Main content -->
+<section class="content">
+
+    <!-- Default box -->
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title"><i class="fas fa-file text-info"></i> Thêm Mới Thiết Bị</h3>
+
+            <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                    <i class="fas fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip" title="Remove">
+                    <i class="fas fa-times"></i>
+                </button>
             </div>
         </div>
+        <div class="card-body">
 
-        <div class="form-group row">
-            <div class="col-2">
-                <label asp-for="ThietBi.DienGiai"></label>
-            </div>
-            <div class="col-5">
-                <textarea class="form-control" asp-for="ThietBi.DienGiai" ></textarea>
-            </div>
-            <span class="text-danger" asp-validation-for="ThietBi.DienGiai"></span>
-        </div>
+            <form method="post" autocomplete="off" enctype="multipart/form-data">
+                <div class="p-4 border rounded">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-        <div class="form-group row">
-            <div class="col-2">
-                <label asp-for="ThietBi.BaoHanh"></label>
-            </div>
-            <div class="col-5">
-                <input type="number" class="form-control" asp-for="ThietBi.BaoHanh" />
-            </div>
-            <span class="text-danger" asp-validation-for="ThietBi.BaoHanh"></span>
-        </div>
+                    <div class="form-group row">
+                        <div class="col-2">
+                            <label asp-for="ThietBi.Name"></label>
+                        </div>
+                        <div class="col-5">
+                            <input class="form-control" asp-for="ThietBi.Name" />
+                        </div>
+                        <span class="text-danger" asp-validation-for="ThietBi.Name"></span>
+                    </div>
 
-        <div class="form-group row">
-            <div class="col-2">
-                <label asp-for="ThietBi.TrangThai"></label>
-            </div>
-            <div class="col-5">
-                <input type="checkbox" asp-for="ThietBi.TrangThai" />
-            </div>
-        </div>
+                    <div class="form-group row">
+                        <div class="col-2">
+                            <label asp-for="ThietBi.Gia"></label>
+                        </div>
+                        <div class="col-5">
+                            <input class="form-control" asp-for="ThietBi.Gia" />
+                        </div>
+                        <span class="text-danger" asp-validation-for="ThietBi.Gia"></span>
+                    </div>
 
-        <div class="form-group">
-            <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i></button>
-            <a class="btn btn-success" asp-action="Index"><i class="fas fa-backward"></i></a>
+                    <div class="form-group row">
+                        <div class="col-2">
+                            <label asp-for="ThietBi.HinhAnh"></label>
+                        </div>
+                        <div class="col-5">
+                            <input type="file" name="files" class="form-control" />
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-2">
+                            <label asp-for="LoaiThietBis"></label>
+                        </div>
+                        <div class="col-5">
+                            <select asp-for="@Model.ThietBi.LoaiThietBiId" asp-items="Model.LoaiThietBis.ToSelectListItem(Model.ThietBi.LoaiThietBiId)" class="form-control"></select>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-2">
+                            <label asp-for="ThietBi.DienGiai"></label>
+                        </div>
+                        <div class="col-5">
+                            <textarea class="form-control" asp-for="ThietBi.DienGiai"></textarea>
+                        </div>
+                        <span class="text-danger" asp-validation-for="ThietBi.DienGiai"></span>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-2">
+                            <label asp-for="ThietBi.BaoHanh"></label>
+                        </div>
+                        <div class="col-5">
+                            <input type="number" class="form-control" asp-for="ThietBi.BaoHanh" />
+                        </div>
+                        <span class="text-danger" asp-validation-for="ThietBi.BaoHanh"></span>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-2">
+                            <label asp-for="ThietBi.TrangThai"></label>
+                        </div>
+                        <div class="col-5">
+                            <input type="checkbox" asp-for="ThietBi.TrangThai" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i></button>
+                        <a class="btn btn-success" asp-action="Index"><i class="fas fa-backward"></i></a>
+                    </div>
+                </div>
+            </form>
+
         </div>
+        <!-- /.card-body -->
+
     </div>
-</form>
+    <!-- /.card -->
+
+</section>
+<!-- /.content -->
+
 
 @section Scripts{
     @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}

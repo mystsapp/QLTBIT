@@ -14,6 +14,7 @@ using QLTB.Data.Models;
 using QLTB.Data.Repository;
 using QLTB.Models;
 using QLTB.Utility;
+using Microsoft.EntityFrameworkCore;
 
 namespace QLTB.Controllers
 {
@@ -62,6 +63,8 @@ namespace QLTB.Controllers
                 return View(ChiTietBanGiaoVM);
             }
             ChiTietBanGiaoVM.ChiTietBanGiao.BanGiaoId = banGiaoId;
+            ChiTietBanGiaoVM.ChiTietBanGiao.NgayGiao = DateTime.Now;
+
             _unitOfWork.chiTietBanGiaoRepository.Create(ChiTietBanGiaoVM.ChiTietBanGiao);
             await _unitOfWork.Complete();
             return RedirectToAction(nameof(Index), new { id = banGiaoId, strUrl = ChiTietBanGiaoVM.strUrl });
@@ -492,5 +495,18 @@ namespace QLTB.Controllers
 
         }
 
+        public async Task<IActionResult> List(string searchFromDate = null, string searchToDate = null)
+        {
+            var chitiets = await _unitOfWork.chiTietBanGiaoRepository.GetAllIncludeAsync(x => x.BanGiao, y => y.ThietBi);
+
+            if(searchFromDate != null && searchToDate != null)
+            {
+                DateTime fromDate = DateTime.Parse(searchFromDate);
+                DateTime toDate = DateTime.Parse(searchToDate);
+                chitiets = chitiets.Where(x => x.NgayGiao >= fromDate && x.NgayGiao <= toDate.AddDays(1));
+            }
+
+            return View(chitiets);
+        }
     }
 }

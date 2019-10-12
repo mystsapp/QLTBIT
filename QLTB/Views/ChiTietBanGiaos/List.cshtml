@@ -1,0 +1,189 @@
+﻿@model IEnumerable<ChiTietBanGiao>
+@{
+    ViewData["Title"] = "Chi Tiết Bàn Giao";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                @*<a class="btn btn-outline-info" asp-action="Create"><i class="fas fa-plus"></i>&nbsp; Thêm Mới</a>*@
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="/">Home</a></li>
+                    <li class="breadcrumb-item active">Chi Tiết Bàn Giao</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content">
+
+    <!-- Default box -->
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title"><i class="fas fa-search text-info"></i> Tìm Kiếm</h3>
+
+            <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                    <i class="fas fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip" title="Remove">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+        <div class="card-body">
+            <form asp-action="List" method="get" autocomplete="off">
+
+                <div class="container" style="height:110px; background-color: aliceblue;">
+                    @* we will add search criteria *@
+
+                    <div class="col-12">
+                        <div class="row" style="padding-top: 10px;">
+
+                            <div class="col-2">
+                                Từ Ngày
+                            </div>
+                            <div class="col-3">
+                                <input name="searchFromDate" class="form-control maskInput datepicker" />
+                            </div>
+
+                            <div class="col-2">
+
+                            </div>
+
+                            <div class="col-2">
+                                Đến Ngày
+                            </div>
+                            <div class="col-3">
+                                @*@Html.Editor("searchDate", new { htmlAttributes = new { @class = "form-control maskInput", @id = "datepicker" } })*@
+                                <input name="searchToDate" class="form-control maskInput datepicker" />
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <div class="row" style="padding-top: 10px;">
+
+                            <div class="col-2">
+                            </div>
+                            <div class="col-3">
+                            </div>
+
+                            <div class="col-2">
+
+                            </div>
+
+                            <div class="col-2">
+                            </div>
+                            <div class="col-3">
+                                <button type="submit" class="btn btn-primary form-control" name="submit">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <!-- /.card-body -->
+
+    </div>
+    <!-- /.card -->
+
+</section>
+<!-- /.content -->
+<!-- Main content -->
+<section class="content">
+
+    <!-- Default box -->
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title"><i class="fas fa-list-alt text-info"></i> Danh Sách Chi Tiết Bàn Giao</h3>
+
+            <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                    <i class="fas fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip" title="Remove">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+        <div class="card-body">
+
+            <div>
+                <table class="table table-striped border">
+                    <tr class="table-info">
+                        <th>
+
+                            <form method="get" asp-action="ExportList" id="frmExportAll">
+
+
+                                @*<a asp-action="ExportList" asp-controller="BanGiaos" id="btnExportAll"><i class="fas fa-file-word"></i></a>*@
+                                <input type="hidden" name="stringId" id="stringId" />
+                                <button type="button" class="text-primary btn btn-outline-light btn-sm" id="btnExportAll"><i class="fas fa-file-word"></i> Xuất</button>
+
+
+                            </form>
+                        </th>
+                        <th>@Html.DisplayNameFor(m => m.FirstOrDefault().BanGiao.NguoiLap)</th>
+                        <th>@Html.DisplayNameFor(m => m.FirstOrDefault().BanGiao.NguoiNhan)</th>
+                        <th>@Html.DisplayNameFor(m => m.FirstOrDefault().ThietBiId)</th>
+                        <th>@Html.DisplayNameFor(m => m.FirstOrDefault().SoLuong)</th>
+                        <th>@Html.DisplayNameFor(m => m.FirstOrDefault().NgayGiao)</th>
+                        <th>@Html.DisplayNameFor(m => m.FirstOrDefault().BaoHanhDen)</th>
+                        <th></th>
+
+                    </tr>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                <input type="checkbox" class="ckId" data-id="@item.Id" />
+                            </td>
+                            <td>@Html.DisplayFor(m => item.BanGiao.NguoiLap)</td>
+                            <td>@Html.DisplayFor(m => item.BanGiao.NguoiNhan)</td>
+                            <td>@Html.DisplayFor(m => item.ThietBi.Name)</td>
+                            <td>@Html.DisplayFor(m => item.SoLuong)</td>
+                            <td>@Html.Raw(item.NgayGiao.ToShortDateString())</td>
+                            <td>@Html.Raw(item.BaoHanhDen.ToShortDateString())</td>
+
+                        </tr>
+                    }
+                </table>
+            </div>
+
+        </div>
+        <!-- /.card-body -->
+        
+    </div>
+    <!-- /.card -->
+
+</section>
+<!-- /.content -->
+
+
+
+
+@section Scripts{
+    <script>
+
+        $(function () {
+            $(".datepicker").datepicker({
+                dateFormat: 'dd/mm/yy'
+            });
+        });
+    </script>
+    <script src="~/js/Admin/ChiTietBanGiao/indexController.js"></script>
+}
+
