@@ -42,6 +42,48 @@
             
         });
 
+        $('.btnMove').off('click').on('click', function (event) {
+            //e.preventDefault();
+            //var id = $(this).data('id');
+            var chuyenSuDung = $(this).data('move');
+            if (chuyenSuDung === 'True') {
+                event.preventDefault();
+                bootbox.alert({
+                    size: "small",
+                    title: "Information",
+                    message: "Thiết bị này đã được chuyển đi!",
+                    callback: function () {
+
+                    }
+                });
+            }
+            //$.ajax({
+            //    url: '/ChiTietBanGiaos/CheckUse',
+            //    type: 'GET',
+            //    data: {
+            //        id: id
+            //    },
+            //    dataType: 'json',
+            //    success: function (response) {
+            //        if (response.status === 'true') {
+            
+            //            bootbox.alert({
+            //                size: "small",
+            //                title: "Information",
+            //                message: "Thiết bị này đã được chuyển đi!",
+            //                callback: function () {
+                          
+            //                }
+            //            });
+
+            //        }
+
+
+            //    }
+            //});
+
+        });
+
     },
     exportList: function () {
         var idList = [];
@@ -124,6 +166,34 @@
         //}
 
     },
+
+    //checkUse: function (id, e) {
+    //         $.ajax({
+    //            url: '/ChiTietBanGiaos/CheckUse',
+    //            type: 'GET',
+    //            data: {
+    //                id: id
+    //            },
+    //            dataType: 'json',
+    //            success: function (response) {
+    //                if (response.status) {
+    //                    bootbox.alert({
+    //                        size: "small",
+    //                        title: "Information",
+    //                        message: "Thiết bị này đã được chuyển đi!",
+    //                        callback: function () {
+    //                            e.preventDefault();
+
+    //                        }
+    //                    });
+
+
+    //                }
+
+    //            }
+    //        });
+
+    //}
 
 };
 indexController.init();

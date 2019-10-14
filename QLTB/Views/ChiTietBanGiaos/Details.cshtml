@@ -100,7 +100,15 @@
                         <label asp-for="ChiTietBanGiao.TinhTrang"></label>
                     </div>
                     <div class="col-4">
-                        <input type="checkbox" asp-for="ChiTietBanGiao.TinhTrang" disabled />
+                        @*<input type="checkbox" asp-for="ChiTietBanGiao.TinhTrang" disabled />*@
+                        @if (Model.ChiTietBanGiao.TinhTrang)
+                        {
+                            <span class="badge badge-success">Đang sử dụng</span>
+                        }
+                        else
+                        {
+                            <span class="badge badge-warning text-white">Không còn sử dụng</span>
+                        }
                     </div>
                 </div>
 
@@ -114,6 +122,28 @@
                     </div>
                     <div class="col-4">
                         <textarea class="form-control" asp-for="ChiTietBanGiao.DienGiai" readonly></textarea>
+                    </div>
+                    
+                    <div class="col-2">
+                        <label asp-for="ChiTietBanGiao.ChuyenSuDung"></label>
+                    </div>
+                    <div class="col-4">
+                        @if (Model.ChiTietBanGiao.ChuyenSuDung)
+                        {
+
+                            <span class="badge badge-warning">Đã Chuyển</span>
+                        }
+                        else
+                        {
+                            if (!Model.ChiTietBanGiao.TinhTrang)
+                            {
+                                <span class="badge badge-warning text-white">Chưa Chuyển</span>
+                            }
+                            else
+                            {
+                                <span class="badge badge-success text-white">Đang Sử Dụng</span>
+                            }
+                        }
                     </div>
 
                 </div>

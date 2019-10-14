@@ -56,7 +56,6 @@
                                 <input type="hidden" name="stringId" id="stringId" />
                                 <button type="button" class="text-primary btn btn-outline-light btn-sm" id="btnExportAll"><i class="fas fa-file-word"></i> Xuất</button>
 
-
                             </form>
                         </th>
                         <th>@Html.DisplayNameFor(m => m.ChiTietBanGiaos.FirstOrDefault().BanGiao.NguoiLap)</th>
@@ -64,6 +63,7 @@
                         <th>@Html.DisplayNameFor(m => m.ChiTietBanGiaos.FirstOrDefault().ThietBiId)</th>
                         <th>@Html.DisplayNameFor(m => m.ChiTietBanGiaos.FirstOrDefault().SoLuong)</th>
                         <th>@Html.DisplayNameFor(m => m.ChiTietBanGiaos.FirstOrDefault().BaoHanhDen)</th>
+                        <th>@Html.DisplayNameFor(m => m.ChiTietBanGiaos.FirstOrDefault().TinhTrang)</th>
                         <th></th>
                         <th></th>
 
@@ -74,12 +74,52 @@
                         <tr>
                             <td>
                                 <input type="checkbox" class="ckId" data-id="@item.Id" />
+                                @*<button type="button" class="btn btn-primary btnMove" title="Chuyển"><i class="fas fa-arrows-alt"></i></button>*@
+                                <a asp-action="MoveToEmployee" data-move="@item.ChuyenSuDung" asp-route-ctbgId="@item.Id" asp-route-strUrl="@Model.StrUrl" class="btn btn-outline-secondary btnMove" title="Chuyển NV Khác">
+                                    <i class="fas fa-arrows-alt"></i>
+                                </a>
+
+
+                                @*<div class="modal fade" id="moveModal" style="display: none;" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content bg-secondary">
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title">Chuyển ?</h4>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">×</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    @item.Id
+
+                                                    <a asp-action="MoveToWareHouse" asp-controller="NhapKhos" asp-route-id="@item.Id" class="btn btn-outline-light float-right" id="btnWareHouse">Chuyển vào kho</a>
+                                                </div>
+                                                <div class="modal-footer justify-content-between">
+                                                    <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                    </div>*@
+
                             </td>
                             <td>@Html.DisplayFor(m => item.BanGiao.NguoiLap)</td>
                             <td>@Html.DisplayFor(m => item.BanGiao.NguoiNhan)</td>
                             <td>@Html.DisplayFor(m => item.ThietBi.Name)</td>
                             <td>@Html.DisplayFor(m => item.SoLuong)</td>
                             <td>@Html.Raw(item.BaoHanhDen.ToShortDateString())</td>
+                            <td>
+                                @if (item.TinhTrang)
+                                {
+                                    <span class="badge badge-success text-white">Đang Sử Dụng</span>
+                                }
+                                else
+                                {
+                                    <span class="badge badge-warning text-white">Không còn Sử Dụng</span>
+                                }
+                            </td>
 
                             @*<partial name="_TableButtonPartial"  model="item.Id">*@
                             <td style="width:150px;">
@@ -92,6 +132,9 @@
                             </td>
 
                         </tr>
+                        @* secondary modal *@
+
+
                     }
                 </table>
             </div>
@@ -108,7 +151,10 @@
 </section>
 <!-- /.content -->
 
-
 @section Scripts{
     <script src="~/js/Admin/ChiTietBanGiao/indexController.js"></script>
+
+
+
+
 }

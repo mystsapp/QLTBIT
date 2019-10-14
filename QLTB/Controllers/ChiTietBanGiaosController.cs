@@ -33,6 +33,9 @@ namespace QLTB.Controllers
             {
                 BanGiao = new Data.Models.BanGiao(),
                 ThietBis = _unitOfWork.thietBiRepository.GetAll(),
+                NhanViens = _unitOfWork.nhanVienRepository.GetAll(),
+                ChiNhanhs = _unitOfWork.chiNhanhRepository.GetAll(),
+                LoaiThietBis = _unitOfWork.loaiThietBiRepository.GetAll(),
                 ChiTietBanGiao = new Data.Models.ChiTietBanGiao()
             };
         }
@@ -507,6 +510,60 @@ namespace QLTB.Controllers
             }
 
             return View(chitiets);
+        }
+
+        public async Task<IActionResult> MoveToEmployee(int ctbgId, string strUrl)
+        {
+            ChiTietBanGiao chiTietBanGiao = await _unitOfWork.chiTietBanGiaoRepository.FindIdIncludeBanGiaoThietBi(ctbgId);
+            ChiTietBanGiaoVM.ChiTietBanGiao = chiTietBanGiao;
+            ChiTietBanGiaoVM.BanGiao = chiTietBanGiao.BanGiao;
+            ChiTietBanGiaoVM.Id = ctbgId;
+            ChiTietBanGiaoVM.strUrl = strUrl;
+
+            return View(ChiTietBanGiaoVM);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> MoveToEmployee()
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(ChiTietBanGiaoVM);
+            }
+
+            ChiTietBanGiaoVM.BanGiao.NgayTao = DateTime.Now;
+            _unitOfWork.banGiaoRepository.Create(ChiTietBanGiaoVM.BanGiao);
+            await _unitOfWork.Complete();
+
+            ChiTietBanGiaoVM.ChiTietBanGiao.BanGiaoId = ChiTietBanGiaoVM.BanGiao.Id;
+            ChiTietBanGiaoVM.ChiTietBanGiao.NgayGiao = DateTime.Now;
+
+            var previousChiTiet = await _unitOfWork.chiTietBanGiaoRepository.GetByIdAsync(ChiTietBanGiaoVM.Id);
+            previousChiTiet.ChuyenSuDung = true;
+            _unitOfWork.chiTietBanGiaoRepository.Update(previousChiTiet);
+            await _unitOfWork.Complete();
+
+            _unitOfWork.chiTietBanGiaoRepository.Create(ChiTietBanGiaoVM.ChiTietBanGiao);
+            await _unitOfWork.Complete();
+            return RedirectToAction(nameof(Index), new { id = ChiTietBanGiaoVM.BanGiao.Id, strUrl = ChiTietBanGiaoVM.strUrl });
+        }
+
+        public JsonResult CheckUse(int id)
+        {
+            var chiTiet = _unitOfWork.chiTietBanGiaoRepository.GetById(id);
+            if (chiTiet.ChuyenSuDung)
+            {
+                return Json(new
+                {
+                    status = true
+                });
+            }
+
+            return Json(new
+            {
+                status = false
+            });
         }
     }
 }

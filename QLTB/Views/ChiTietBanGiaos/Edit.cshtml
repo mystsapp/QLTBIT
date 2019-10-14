@@ -109,7 +109,16 @@
                             <label asp-for="ChiTietBanGiao.TinhTrang"></label>
                         </div>
                         <div class="col-4">
-                            <input type="checkbox" asp-for="ChiTietBanGiao.TinhTrang" />
+                            @if (Model.ChiTietBanGiao.ChuyenSuDung)
+                            {
+                                <input type="checkbox" asp-for="ChiTietBanGiao.TinhTrang" disabled />
+                                <span class="badge badge-warning">Đã Chuyển</span>
+                            }
+                            else
+                            {
+                                <input type="checkbox" asp-for="ChiTietBanGiao.TinhTrang" />
+                            }
+
                         </div>
                         <span class="text-danger" asp-validation-for="ChiTietBanGiao.TinhTrang"></span>
                     </div>

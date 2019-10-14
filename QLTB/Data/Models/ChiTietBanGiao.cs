@@ -32,12 +32,15 @@ namespace QLTB.Data.Models
         [MaxLength(250), Column(TypeName = "nvarchar(250)")]
         public string GhiChu { get; set; }
 
-        [DisplayName("Tinh Trang")]
+        [DisplayName("Chuyển Sử Dụng")]
+        public bool ChuyenSuDung { get; set; }
+
+        [DisplayName("Sử Dụng")]
         public bool TinhTrang { get; set; }
+
         [MaxLength(500), Column(TypeName = "nvarchar(500)")]
         public string DienGiai { get; set; }
 
         public DateTime NgayGiao { get; set; }
-
     }
 }

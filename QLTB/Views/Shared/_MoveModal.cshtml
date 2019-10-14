@@ -1,0 +1,23 @@
+﻿@model int
+<div class="modal fade" id="moveModal" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content bg-secondary">
+            <div class="modal-header">
+                <h4 class="modal-title">Chuyển ?</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <a asp-action="MoveToEmployee" asp-route-id="@Model" class="btn btn-outline-light float-left" id="btnOrderEmployee">Chuyển NV khác</a>
+                <a asp-action="MoveToWareHouse" asp-controller="NhapKhos" asp-route-id="@Model" class="btn btn-outline-light float-right" id="btnWareHouse">Chuyển vào kho</a>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
+                
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
