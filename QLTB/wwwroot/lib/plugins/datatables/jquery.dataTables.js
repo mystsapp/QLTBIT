@@ -10214,7 +10214,7 @@
 		 *      } );
 		 *    } );
 		 */
-		"aLengthMenu": [ 10, 25, 50, 100 ],
+		"aLengthMenu": [ 5, 10, 25, 50, 100 ],
 	
 	
 		/**
@@ -11366,7 +11366,7 @@
 				 *      } );
 				 *    } );
 				 */
-				"sFirst": "First",
+				"sFirst": "Đầu",
 	
 	
 				/**
@@ -11389,7 +11389,7 @@
 				 *      } );
 				 *    } );
 				 */
-				"sLast": "Last",
+				"sLast": "Cuối",
 	
 	
 				/**
@@ -11412,7 +11412,7 @@
 				 *      } );
 				 *    } );
 				 */
-				"sNext": "Next",
+				"sNext": "Tiếp",
 	
 	
 				/**
@@ -11435,7 +11435,7 @@
 				 *      } );
 				 *    } );
 				 */
-				"sPrevious": "Previous"
+				"sPrevious": "Trước"
 			},
 	
 			/**
@@ -11490,7 +11490,7 @@
 			 *      } );
 			 *    } );
 			 */
-			"sInfo": "Showing _START_ to _END_ of _TOTAL_ entries",
+			"sInfo": "Dòng _START_ tới _END_ của _TOTAL_ dòng",
 	
 	
 			/**
@@ -11511,7 +11511,8 @@
 			 *      } );
 			 *    } );
 			 */
-			"sInfoEmpty": "Showing 0 to 0 of 0 entries",
+			//"sInfoEmpty": "Showing 0 to 0 of 0 entries",
+			"sInfoEmpty": "Dòng 0 tới 0 của 0 dòng",
 	
 	
 			/**
@@ -11533,7 +11534,8 @@
 			 *      } );
 			 *    } );
 			 */
-			"sInfoFiltered": "(filtered from _MAX_ total entries)",
+			//"sInfoFiltered": "(filtered from _MAX_ total entries)",
+			"sInfoFiltered": "(từ tổng số _MAX_ dòng)",
 	
 	
 			/**
@@ -11651,7 +11653,7 @@
 			 *      } );
 			 *    } );
 			 */
-			"sLengthMenu": "Show _MENU_ entries",
+			"sLengthMenu": "Hiển thị _MENU_ dòng",
 	
 	
 			/**
@@ -11731,7 +11733,7 @@
 			 *      } );
 			 *    } );
 			 */
-			"sSearch": "Search:",
+			"sSearch": "Tìm Kiếm:",
 	
 	
 			/**
@@ -11742,7 +11744,7 @@
 			 *  @dtopt Language
 			 *  @name DataTable.defaults.language.searchPlaceholder
 			 */
-			"sSearchPlaceholder": "",
+			"sSearchPlaceholder": "Type...",
 	
 	
 			/**
@@ -11789,7 +11791,8 @@
 			 *      } );
 			 *    } );
 			 */
-			"sZeroRecords": "No matching records found"
+			//"sZeroRecords": "No matching records found"
+			"sZeroRecords": "Không có dữ liệu phù hợp"
 		},
 	
 	
