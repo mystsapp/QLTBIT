@@ -13,6 +13,7 @@ namespace QLTB.Models
         public IEnumerable<ThietBi> ThietBis { get; set; }
         public IEnumerable<NhanVien> NhanViens { get; set; }
         public IEnumerable<ChiNhanh> ChiNhanhs { get; set; }
+        public IEnumerable<VanPhong> VanPhongs { get; set; }
         public IEnumerable<LoaiThietBi> LoaiThietBis { get; set; }
         public string strUrl { get; set; }
 

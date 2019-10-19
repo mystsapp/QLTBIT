@@ -44,6 +44,7 @@ namespace QLTB
             services.AddTransient<IPhanMemRepository, PhanMemRepository>();
             services.AddTransient<IThietBiRepository, ThietBiRepository>();
             services.AddTransient<IVanPhongRepository, VanPhongRepository>();
+            services.AddTransient<INhapKhoRepository, NhapKhoRepository>();
 
             services.AddTransient<IUnitOfWork, UnitOfWork>();
 

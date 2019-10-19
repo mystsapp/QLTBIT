@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using QLTB.Data;
 
 namespace QLTB.Migrations
 {
     [DbContext(typeof(QLTBITDbContext))]
-    partial class QLTBITDbContextModelSnapshot : ModelSnapshot
+    [Migration("20191018013421_fixCTBGRelationship1")]
+    partial class fixCTBGRelationship1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -38,7 +40,7 @@ namespace QLTB.Migrations
                         .HasColumnType("nvarchar(50)")
                         .HasMaxLength(250);
 
-                    b.Property<DateTime?>("NgaySua");
+                    b.Property<DateTime>("NgaySua");
 
                     b.Property<DateTime>("NgayTao");
 
@@ -142,7 +144,7 @@ namespace QLTB.Migrations
 
                     b.Property<int>("BanGiaoId");
 
-                    b.Property<DateTime?>("BaoHanhDen");
+                    b.Property<DateTime>("BaoHanhDen");
 
                     b.Property<bool>("ChuyenSuDung");
 
@@ -156,7 +158,7 @@ namespace QLTB.Migrations
                         .HasColumnType("nvarchar(250)")
                         .HasMaxLength(250);
 
-                    b.Property<DateTime?>("NgayGiao");
+                    b.Property<DateTime>("NgayGiao");
 
                     b.Property<int>("SoLuong");
 

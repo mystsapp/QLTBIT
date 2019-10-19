@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -21,7 +22,7 @@ namespace QLTB.Data.Models
 
         public DateTime NgayTao { get; set; }
         public string NguoiSua { get; set; }
-        public DateTime NgaySua { get; set; }
+        public DateTime? NgaySua { get; set; }
 
         [Required]
         [DisplayName("Chi Nhanh")]
@@ -51,5 +52,6 @@ namespace QLTB.Data.Models
         [DisplayName("Thiet Bi")]
         [Column(TypeName = "nvarchar(50)")]
         public string LoaiThietBi { get; set; }
+
     }
 }

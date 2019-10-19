@@ -35,6 +35,7 @@ namespace QLTB.Controllers
                 ThietBis = _unitOfWork.thietBiRepository.GetAll(),
                 NhanViens = _unitOfWork.nhanVienRepository.GetAll(),
                 ChiNhanhs = _unitOfWork.chiNhanhRepository.GetAll(),
+                VanPhongs = _unitOfWork.vanPhongRepository.GetAll(),
                 LoaiThietBis = _unitOfWork.loaiThietBiRepository.GetAll(),
                 ChiTietBanGiao = new Data.Models.ChiTietBanGiao()
             };
@@ -565,5 +566,46 @@ namespace QLTB.Controllers
                 status = false
             });
         }
+
+        public async Task<IActionResult> MoveToWareHouse(int ctbgId, string strUrl)
+        {
+            NhapKhoViewModel nhapKhoVM = new NhapKhoViewModel();
+
+            nhapKhoVM.ChiTietBanGiao = await _unitOfWork.chiTietBanGiaoRepository.FindIdIncludeBanGiaoThietBi(ctbgId);
+            nhapKhoVM.strUrl = strUrl;
+            nhapKhoVM.BanGiao = nhapKhoVM.ChiTietBanGiao.BanGiao;
+            
+
+            return View(nhapKhoVM);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> MoveToWareHouse(NhapKhoViewModel nhapKhoVM)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(nhapKhoVM);
+            }
+
+            nhapKhoVM.NhapKho.NgayNhapKho = DateTime.Now;
+            _unitOfWork.nhapKhoRepository.Create(nhapKhoVM.NhapKho);
+            await _unitOfWork.Complete();
+
+            ChiTietBanGiao chiTietBanGiao = await _unitOfWork.chiTietBanGiaoRepository.FindIdIncludeBanGiaoThietBi(nhapKhoVM.NhapKho.CTBGId);
+
+            //ChiTietBanGiaoVM.ChiTietBanGiao.BanGiaoId = ChiTietBanGiaoVM.BanGiao.Id;
+            //ChiTietBanGiaoVM.ChiTietBanGiao.NgayGiao = DateTime.Now;
+
+            chiTietBanGiao.ChuyenSuDung = true;
+            _unitOfWork.chiTietBanGiaoRepository.Update(chiTietBanGiao);
+            await _unitOfWork.Complete();
+
+            //_unitOfWork.chiTietBanGiaoRepository.Create(ChiTietBanGiaoVM.ChiTietBanGiao);
+            //await _unitOfWork.Complete();
+
+            return RedirectToAction(nameof(Index), new { id = chiTietBanGiao.BanGiao.Id, strUrl = nhapKhoVM.strUrl });
+        }
+
     }
 }

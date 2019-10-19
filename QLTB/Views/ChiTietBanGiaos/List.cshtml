@@ -156,8 +156,8 @@
                                 <td>@Html.DisplayFor(m => item.BanGiao.NguoiNhan)</td>
                                 <td>@Html.DisplayFor(m => item.ThietBi.Name)</td>
                                 <td>@Html.DisplayFor(m => item.SoLuong)</td>
-                                <td>@Html.Raw(item.NgayGiao.ToShortDateString())</td>
-                                <td>@Html.Raw(item.BaoHanhDen.ToShortDateString())</td>
+                                <td>@Html.Raw(item.NgayGiao.Value.ToShortDateString())</td>
+                                <td>@Html.Raw(item.BaoHanhDen.Value.ToShortDateString())</td>
 
                             </tr>
                         }

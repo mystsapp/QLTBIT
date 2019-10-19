@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace QLTB.Data
 {
-    public class QLTBITDbContext: DbContext
+    public class QLTBITDbContext : DbContext
     {
-        public QLTBITDbContext(DbContextOptions<QLTBITDbContext> options): base(options)
+        public QLTBITDbContext(DbContextOptions<QLTBITDbContext> options) : base(options)
         {
 
         }
@@ -24,5 +24,11 @@ namespace QLTB.Data
         public DbSet<NhanVien> NhanViens { get; set; }
         //public DbSet<ThietBiCTBanGiao> ThietBiCTBanGiaos { get; set; }
         public DbSet<VanPhong> VanPhongs { get; set; }
+        public DbSet<NhapKho> NhapKhos { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            
+        }
     }
 }

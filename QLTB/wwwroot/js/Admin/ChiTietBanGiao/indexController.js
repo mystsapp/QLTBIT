@@ -37,6 +37,31 @@
 
 
         });
+
+        $(".chiTietRow").each(function () {
+
+            var chuyenSuDung = $(this).data('move');
+
+            if (chuyenSuDung === 'True') {
+                $(this).css("background-color", "#f56954").css("color", "black");
+                //$(this).addClass("bg-info");
+
+            }
+            
+        });
+
+        $('.btnEdit').each(function () {
+            var chuyenSuDung = $(this).data('move');
+
+            if (chuyenSuDung === 'True') {
+                //$(this).on('click', function(e) {
+                //    e.preventDefault();
+
+                //});
+                $(this).addClass('disabled').removeAttr("href"); 
+            }
+        });
+
         $('#btnExportAll').off('click').on('click', function () {
             indexController.exportList();
             
@@ -57,30 +82,7 @@
                     }
                 });
             }
-            //$.ajax({
-            //    url: '/ChiTietBanGiaos/CheckUse',
-            //    type: 'GET',
-            //    data: {
-            //        id: id
-            //    },
-            //    dataType: 'json',
-            //    success: function (response) {
-            //        if (response.status === 'true') {
             
-            //            bootbox.alert({
-            //                size: "small",
-            //                title: "Information",
-            //                message: "Thiết bị này đã được chuyển đi!",
-            //                callback: function () {
-                          
-            //                }
-            //            });
-
-            //        }
-
-
-            //    }
-            //});
 
         });
 
@@ -167,33 +169,6 @@
 
     },
 
-    //checkUse: function (id, e) {
-    //         $.ajax({
-    //            url: '/ChiTietBanGiaos/CheckUse',
-    //            type: 'GET',
-    //            data: {
-    //                id: id
-    //            },
-    //            dataType: 'json',
-    //            success: function (response) {
-    //                if (response.status) {
-    //                    bootbox.alert({
-    //                        size: "small",
-    //                        title: "Information",
-    //                        message: "Thiết bị này đã được chuyển đi!",
-    //                        callback: function () {
-    //                            e.preventDefault();
-
-    //                        }
-    //                    });
-
-
-    //                }
-
-    //            }
-    //        });
-
-    //}
 
 };
 indexController.init();

@@ -87,7 +87,7 @@
                             <label asp-for="BanGiao.VanPhong"></label>
                         </div>
                         <div class="col-4">
-                            <select asp-for="BanGiao.VanPhong" class="form-control ddlVanPhong"></select>
+                            <select asp-for="BanGiao.VanPhong" class="form-control ddlVanPhong" asp-items="@Model.VanPhongs.ToSelectListItemString(Model.BanGiao.VanPhong)"></select>
                         </div>
                         <span class="text-danger" asp-validation-for="BanGiao.VanPhong"></span>
                     </div>

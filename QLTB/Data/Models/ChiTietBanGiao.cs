@@ -9,6 +9,8 @@ namespace QLTB.Data.Models
     {
         public int Id { get; set; }
 
+
+
         [Required]
         [DisplayName("Nguoi Lap")]
         public int BanGiaoId { get; set; }
@@ -16,8 +18,9 @@ namespace QLTB.Data.Models
         [ForeignKey("BanGiaoId")]
         public virtual BanGiao BanGiao { get; set; }
 
+
+
         [DisplayName("Thiet Bi")]
-        [Required]
         public int ThietBiId { get; set; }
 
         [ForeignKey("ThietBiId")]
@@ -27,7 +30,7 @@ namespace QLTB.Data.Models
         public double DonGia { get; set; }
 
         [DisplayName("Bao Hanh Den")]
-        public DateTime BaoHanhDen { get; set; }
+        public DateTime? BaoHanhDen { get; set; }
 
         [MaxLength(250), Column(TypeName = "nvarchar(250)")]
         public string GhiChu { get; set; }
@@ -41,6 +44,6 @@ namespace QLTB.Data.Models
         [MaxLength(500), Column(TypeName = "nvarchar(500)")]
         public string DienGiai { get; set; }
 
-        public DateTime NgayGiao { get; set; }
+        public DateTime? NgayGiao { get; set; }
     }
 }

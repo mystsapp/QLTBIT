@@ -17,6 +17,7 @@ namespace QLTB.Data.Repository
         IPhanMemRepository phanMemRepository { get; }
         IThietBiRepository thietBiRepository { get; }
         IVanPhongRepository vanPhongRepository { get; }
+        INhapKhoRepository nhapKhoRepository { get; }
         Task<int> Complete();
     }
     public class UnitOfWork : IUnitOfWork
@@ -36,6 +37,7 @@ namespace QLTB.Data.Repository
             phanMemRepository = new PhanMemRepository(_context);
             thietBiRepository = new ThietBiRepository(_context);
             vanPhongRepository = new VanPhongRepository(_context);
+            nhapKhoRepository = new NhapKhoRepository(_context);
         }
         public IBanGiaoRepository banGiaoRepository { get; }
 
@@ -55,6 +57,8 @@ namespace QLTB.Data.Repository
         public IThietBiRepository thietBiRepository { get; }
 
         public IVanPhongRepository vanPhongRepository { get; }
+
+        public INhapKhoRepository nhapKhoRepository { get; }
 
         public async Task<int> Complete()
         {

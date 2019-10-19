@@ -1,13 +1,13 @@
-﻿var moveToEmployeeController = {
+﻿var moveToWareHouseController = {
     init: function () {
-        moveToEmployeeController.registerEvent();
+        moveToWareHouseController.registerEvent();
         //var optionValue = $('.ddlChiNhanh').val();
-        //moveToEmployeeController.loadDdlVanPhongByChiNhanh(optionValue);
+        //moveToWareHouseController.loadDdlVanPhongByChiNhanh(optionValue);
     },
     registerEvent: function () {
         $('.ddlChiNhanh').off('change').on('change', function () {
             var optionValue = $(this).val();
-            moveToEmployeeController.loadDdlVanPhongByChiNhanh(optionValue);
+            moveToWareHouseController.loadDdlVanPhongByChiNhanh(optionValue);
         });
     },
     loadDdlVanPhongByChiNhanh: function (optionValue) {
@@ -33,4 +33,4 @@
         });
     }
 };
-moveToEmployeeController.init();
+moveToWareHouseController.init();
