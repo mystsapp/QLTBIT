@@ -539,6 +539,7 @@ namespace QLTB.Controllers
 
             ChiTietBanGiaoVM.ChiTietBanGiao.BanGiaoId = ChiTietBanGiaoVM.BanGiao.Id;
             ChiTietBanGiaoVM.ChiTietBanGiao.NgayGiao = DateTime.Now;
+            ChiTietBanGiaoVM.ChiTietBanGiao.NgayChuyen = DateTime.Now;
 
             var previousChiTiet = await _unitOfWork.chiTietBanGiaoRepository.GetByIdAsync(ChiTietBanGiaoVM.Id);
             previousChiTiet.ChuyenSuDung = true;
@@ -598,6 +599,7 @@ namespace QLTB.Controllers
             //ChiTietBanGiaoVM.ChiTietBanGiao.NgayGiao = DateTime.Now;
 
             chiTietBanGiao.ChuyenSuDung = true;
+            chiTietBanGiao.NgayChuyen = DateTime.Now;
             _unitOfWork.chiTietBanGiaoRepository.Update(chiTietBanGiao);
             await _unitOfWork.Complete();
 
@@ -605,6 +607,22 @@ namespace QLTB.Controllers
             //await _unitOfWork.Complete();
 
             return RedirectToAction(nameof(Index), new { id = chiTietBanGiao.BanGiao.Id, strUrl = nhapKhoVM.strUrl });
+        }
+        
+        [HttpPost]
+        public async Task<IActionResult> DeleteList(string idDataList)
+        {
+            var idList = JsonConvert.DeserializeObject<List<ChiTietBanGiaoViewModel>>(idDataList);
+            foreach(var item in idList)
+            {
+                ChiTietBanGiao chiTietBanGiao = await _unitOfWork.chiTietBanGiaoRepository.GetByIdAsync(item.Id);
+                _unitOfWork.chiTietBanGiaoRepository.Delete(chiTietBanGiao);
+                await _unitOfWork.Complete();
+            }
+            return Json(new
+            {
+                status = true
+            });
         }
 
     }

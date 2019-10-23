@@ -1,0 +1,159 @@
+﻿@model NhapKhoListViewModel
+
+
+<div class="p-4 border rounded">
+
+
+    <div class="form-group row">
+        <div class="col-2">
+            <label asp-for="NhapKho.TenThietBi"></label>
+        </div>
+        <div class="col-4">
+            <input readonly class="form-control" asp-for="NhapKho.TenThietBi" />
+        </div>
+
+        <div class="col-2">
+            <label asp-for="NhapKho.DienGiaiTB"></label>
+        </div>
+        <div class="col-4">
+            <textarea class="form-control" asp-for="NhapKho.DienGiaiTB" readonly></textarea>
+        </div>
+
+    </div>
+
+    @*<div class="form-group row">
+
+        </div>*@
+
+    <div class="form-group row">
+        <div class="col-2">
+            <label asp-for="NhapKho.NguoiNhapKho"></label>
+        </div>
+        <div class="col-4">
+            <input asp-for="NhapKho.NguoiNhapKho" class="form-control" readonly />
+        </div>
+
+        <div class="col-2">
+            <label asp-for="NhapKho.NgaySuDung"></label>
+        </div>
+        <div class="col-4">
+            @{
+                if (Model.NhapKho.NgaySuDung.HasValue)
+                {
+                    <input asp-for="NhapKho.NgaySuDung" type="text" value="@(Model.NhapKho.NgaySuDung.Value.ToShortDateString())" class="form-control" readonly />
+                }
+                else
+                {
+        <input asp-for="NhapKho.NgaySuDung" type="text" value="" class="form-control" readonly />
+                }
+                    
+            }
+
+        </div>
+    </div>
+
+    @*<div class="form-group row">
+
+        </div>*@
+
+    <div class="form-group row">
+        <div class="col-2">
+            <label asp-for="NhapKho.NguoiSuDung"></label>
+        </div>
+        <div class="col-4">
+            <input asp-for="NhapKho.NguoiSuDung" class="form-control" readonly />
+        </div>
+
+        <div class="col-2">
+            <label asp-for="NhapKho.LyDo"></label>
+        </div>
+        <div class="col-4">
+            <input asp-for="NhapKho.LyDo" class="form-control" readonly />
+            @*@if (Model.ChiTietBanGiao.TinhTrang)
+                {
+                    <span class="badge badge-success">Đang sử dụng</span>
+                }
+                else
+                {
+                    <span class="badge badge-warning text-white">Không còn sử dụng</span>
+                }*@
+        </div>
+    </div>
+
+    @*<div class="form-group row">
+
+        </div>*@
+
+    <div class="form-group row">
+        <div class="col-2">
+            <label asp-for="NhapKho.NgayNhapKho"></label>
+        </div>
+        <div class="col-4">
+            @{
+                if (Model.NhapKho.NgayNhapKho.HasValue)
+                {
+                    <input asp-for="NhapKho.NgayNhapKho" type="text" value="@(Model.NhapKho.NgayNhapKho.Value.ToShortDateString())" class="form-control" readonly />
+                }
+                else
+                {
+        <input asp-for="NhapKho.NgayNhapKho" type="text" value="" class="form-control" readonly />
+                }
+                
+            }
+            @*<input type="text" class="form-control" asp-for="NhapKho.NgayNhapKho" value="@(Model.NhapKho.NgayNhapKho.Value.ToShortDateString())" readonly />*@
+        </div>
+
+        <div class="col-2">
+            <label asp-for="NhapKho.KhoVanPhong"></label>
+        </div>
+        <div class="col-4">
+            <input class="form-control" asp-for="NhapKho.KhoVanPhong" readonly />
+        </div>
+
+    </div>
+
+    <div class="form-group row">
+        <div class="col-2">
+            <label asp-for="NhapKho.ThanhLy"></label>
+        </div>
+        <div class="col-4">
+            @if (Model.NhapKho.ThanhLy)
+            {
+                <span class="badge badge-warning">Đã thanh lý</span>
+            }
+            else
+            {
+                <span class="badge badge-info">Chưa thanh lý</span>
+            }
+        </div>
+
+        <div class="col-2">
+            <label asp-for="NhapKho.NgayThanhLy"></label>
+        </div>
+        <div class="col-4">
+            @{
+                if (Model.NhapKho.NgayThanhLy.HasValue)
+                {
+                    <input asp-for="NhapKho.NgayThanhLy" type="text" value="@(Model.NhapKho.NgayThanhLy.Value.ToShortDateString())" class="form-control" readonly />
+                }
+                else
+                {
+        <input asp-for="NhapKho.NgayThanhLy" type="text" value="" class="form-control" readonly />
+                }
+                
+            }
+            @*<input type="text" class="form-control" asp-for="NhapKho.NgayThanhLy" value="@(Model.NhapKho.NgayThanhLy.Value.ToShortDateString())" readonly />*@
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-2">
+            <label asp-for="NhapKho.NguoiThanhLy"></label>
+        </div>
+        <div class="col-4">
+            <input class="form-control" asp-for="NhapKho.NguoiThanhLy" readonly />
+        </div>
+    </div>
+
+</div>
+

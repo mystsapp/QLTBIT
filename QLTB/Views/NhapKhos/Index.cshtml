@@ -1,6 +1,6 @@
-﻿@model IEnumerable<ChiTietBanGiao>
+﻿@model NhapKhoListViewModel
 @{
-    ViewData["Title"] = "Chi Tiết Bàn Giao";
+    ViewData["Title"] = "Nhập Kho";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -14,7 +14,7 @@
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="/">Home</a></li>
-                    <li class="breadcrumb-item active">Chi Tiết Bàn Giao</li>
+                    <li class="breadcrumb-item active">Nhập kho</li>
                 </ol>
             </div>
         </div>
@@ -39,7 +39,7 @@
             </div>
         </div>
         <div class="card-body">
-            <form asp-action="List" method="get" autocomplete="off">
+            <form id="frmSearch" asp-action="List" method="get" autocomplete="off">
 
                 <div class="container" style="height:110px; background-color: aliceblue;">
                     @* we will add search criteria *@
@@ -107,7 +107,7 @@
     <!-- Default box -->
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title"><i class="fas fa-list-alt text-info"></i> Danh Sách Chi Tiết Bàn Giao</h3>
+            <h3 class="card-title"><i class="fas fa-list-alt text-info"></i> Danh Sách Thiết Bị Trong Kho</h3>
 
             <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
@@ -126,83 +126,78 @@
                         <tr class="table-info">
                             <th>
 
-                                <form method="get" asp-action="ExportList" id="frmExportAll">
+                                <form method="get" asp-action="LiquidateList" id="frmLiquidateAll">
 
 
                                     @*<a asp-action="ExportList" asp-controller="BanGiaos" id="btnExportAll"><i class="fas fa-file-word"></i></a>*@
                                     <input type="hidden" name="stringId" id="stringId" />
-                                    <button type="button" class="text-primary btn btn-outline-dark btn-sm" id="btnExportAll" title="Xuất word"><i class="fas fa-file-word"></i></button>
-                                    <button type="button" class="text-primary btn btn-outline-danger btn-sm" id="btnDeleteAll" title="Xóa"><i class="fas fa-trash-alt"></i></button>
+                                    <div class="btn-group">
+                                        <button title="Thanh Ly" type="button" class="text-primary btn btn-outline-dark btn-sm" id="btnLiquidateAll"><i class="fas fa-baby-carriage"></i></button>
+                                        <button title="Xóa" type="button" class="text-primary btn btn-outline-danger btn-sm" id="btnDeleteAll"><i class="fas fa-trash-alt"></i></button>
+
+                                    </div>
+                                   
 
                                 </form>
                             </th>
-                            <th>@Html.DisplayNameFor(m => m.FirstOrDefault().BanGiao.NguoiLap)</th>
-                            <th>@Html.DisplayNameFor(m => m.FirstOrDefault().BanGiao.NguoiNhan)</th>
-                            <th>@Html.DisplayNameFor(m => m.FirstOrDefault().ThietBiId)</th>
-                            <th>@Html.DisplayNameFor(m => m.FirstOrDefault().SoLuong)</th>
-                            <th>@Html.DisplayNameFor(m => m.FirstOrDefault().NgayGiao)</th>
-                            <th>@Html.DisplayNameFor(m => m.FirstOrDefault().BaoHanhDen)</th>
-                            <th>@Html.DisplayNameFor(m => m.FirstOrDefault().ChuyenSuDung)</th>
-                            <th>@Html.DisplayNameFor(m => m.FirstOrDefault().NgayChuyen)</th>
+                            <th>@Html.DisplayNameFor(m => m.NhapKhos.FirstOrDefault().TenThietBi)</th>
+                            <th>@Html.DisplayNameFor(m => m.NhapKhos.FirstOrDefault().NguoiSuDung)</th>
+                            <th>@Html.DisplayNameFor(m => m.NhapKhos.FirstOrDefault().KhoVanPhong)</th>
+                            <th>@Html.DisplayNameFor(m => m.NhapKhos.FirstOrDefault().ThanhLy)</th>
+                            <th>@Html.DisplayNameFor(m => m.NhapKhos.FirstOrDefault().NgayNhapKho)</th>
+                            <th>@Html.DisplayNameFor(m => m.NhapKhos.FirstOrDefault().NguoiNhapKho)</th>
+                            <th>#</th>
 
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var item in Model)
+                        @foreach (var item in Model.NhapKhos)
                         {
                             <tr>
                                 <td>
                                     <input type="checkbox" class="ckId" data-id="@item.Id" />
                                 </td>
-                                <td>@Html.DisplayFor(m => item.BanGiao.NguoiLap)</td>
-                                <td>@Html.DisplayFor(m => item.BanGiao.NguoiNhan)</td>
-                                <td>@Html.DisplayFor(m => item.ThietBi.Name)</td>
-                                <td>@Html.DisplayFor(m => item.SoLuong)</td>
+                                <td>@Html.DisplayFor(m => item.TenThietBi)</td>
+                                <td>@Html.DisplayFor(m => item.NguoiSuDung)</td>
+                                <td>@Html.DisplayFor(m => item.KhoVanPhong)</td>
                                 <td>
-                                    @if (item.NgayGiao.HasValue)
+                                    @if (item.ThanhLy)
                                     {
-                                        @Html.Raw(item.NgayGiao.Value.ToShortDateString())
-                                    }
-                                </td>
-                                <td>
-                                    @if (item.BaoHanhDen.HasValue)
-                                    {
-                                        @Html.Raw(item.BaoHanhDen.Value.ToShortDateString())
-                                    }
-                                </td>
-                                <td>
-                                    @if (!item.ChuyenSuDung)
-                                    {
-                                        <span class="badge badge-info text-white">Chưa chuyển</span>
-
-
+                                        <span class="badge badge-warning">Đã thanh lý</span>
                                     }
                                     else
                                     {
-                                        <span class="badge badge-warning ">Đã Chuyển</span>
+                                        <span class="badge badge-info">Chưa thanh lý</span>
                                     }
                                 </td>
+                                <td>@Html.Raw(item.NgayNhapKho.Value.ToShortDateString())</td>
+                                <td>@Html.DisplayFor(m => item.NguoiNhapKho)</td>
                                 <td>
-                                    @if (item.NgayChuyen.HasValue)
-                                    {
-                                        @Html.Raw(item.NgayChuyen.Value.ToShortDateString())
-                                    }
-                                </td>
+                                    <div class="btn-group text-white" role="group">
 
+                                        @*<a class="btn btn-success btn-sm" asp-action="Details" asp-route-id="@item.Id"><i class="fas fa-list"></i></a>*@
+                                        <button type="button" class="btn btn-secondary btnDetail" data-id="@item.Id" data-toggle="modal" @*data-target="#detailModal"*@>
+                                            <i class="fas fa-list"></i>
+                                        </button>
+
+                                        <partial name="~/Views/Shared/_NhapKhoDetailModal.cshtml" />
+
+                                        
+                                    </div>
+                                </td>
                             </tr>
                         }
                     </tbody>
                     <tfoot>
                         <tr>
                             <th>#</th>
-                            <th>@Html.DisplayNameFor(m => m.FirstOrDefault().BanGiao.NguoiLap)</th>
-                            <th>@Html.DisplayNameFor(m => m.FirstOrDefault().BanGiao.NguoiNhan)</th>
-                            <th>@Html.DisplayNameFor(m => m.FirstOrDefault().ThietBiId)</th>
-                            <th>@Html.DisplayNameFor(m => m.FirstOrDefault().SoLuong)</th>
-                            <th>@Html.DisplayNameFor(m => m.FirstOrDefault().NgayGiao)</th>
-                            <th>@Html.DisplayNameFor(m => m.FirstOrDefault().BaoHanhDen)</th>
-                            <th>@Html.DisplayNameFor(m => m.FirstOrDefault().ChuyenSuDung)</th>
-                            <th>@Html.DisplayNameFor(m => m.FirstOrDefault().NgayChuyen)</th>
+                            <th>@Html.DisplayNameFor(m => m.NhapKhos.FirstOrDefault().NguoiSuDung)</th>
+                            <th>@Html.DisplayNameFor(m => m.NhapKhos.FirstOrDefault().KhoVanPhong)</th>
+                            <th>@Html.DisplayNameFor(m => m.NhapKhos.FirstOrDefault().TenThietBi)</th>
+                            <th>@Html.DisplayNameFor(m => m.NhapKhos.FirstOrDefault().ThanhLy)</th>
+                            <th>@Html.DisplayNameFor(m => m.NhapKhos.FirstOrDefault().NgayNhapKho)</th>
+                            <th>@Html.DisplayNameFor(m => m.NhapKhos.FirstOrDefault().NguoiNhapKho)</th>
+                            <th>#</th>
                         </tr>
                     </tfoot>
                 </table>
@@ -238,6 +233,6 @@
             });
         });
     </script>
-    <script src="~/js/Admin/ChiTietBanGiao/listController.js"></script>
+    <script src="~/js/Admin/NhapKho/indexController.js"></script>
 }
 

@@ -77,5 +77,10 @@ namespace QLTB.Data.Repository
         {
             return await _context.Set<T>().Include(predicate).Include(predicate2).ToListAsync();
         }
+
+        public async Task<IEnumerable<T>> GetAllIncludeOneAsync(Expression<Func<T, object>> expression)
+        {
+            return await _context.Set<T>().Include(expression).ToListAsync();
+        }
     }
 }

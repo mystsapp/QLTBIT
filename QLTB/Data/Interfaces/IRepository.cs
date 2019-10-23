@@ -9,6 +9,7 @@ namespace QLTB.Data.Interfaces
     public interface IRepository<T> where T : class
     {
         IEnumerable<T> GetAll();
+        Task<IEnumerable<T>> GetAllIncludeOneAsync(Expression<Func<T, object>> expression);
         Task<IEnumerable<T>> GetAllIncludeAsync(Expression<Func<T, object>> predicate, Expression<Func<T, object>> predicate2);
         IEnumerable<T> Find(Func<T, bool> predicate);
         T GetById(int id);

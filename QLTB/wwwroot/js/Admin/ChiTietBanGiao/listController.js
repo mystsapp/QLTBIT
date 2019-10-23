@@ -42,6 +42,11 @@
 
         });
 
+        $('#btnDeleteAll').off('click').on('click', function () {
+            listController.deleteList();
+
+        });
+
     },
     exportList: function () {
         var idList = [];
@@ -57,7 +62,7 @@
         $('#stringId').val(JSON.stringify(idList));
 
         if (idList.length !== 0) {
-            $('#stringId').val(JSON.stringify(idList));
+            //$('#stringId').val(JSON.stringify(idList));
             $('#frmExportAll').submit();
         }
         else {
@@ -123,35 +128,63 @@
         //    });
         //}
 
+    },
+
+    deleteList: function () {
+        var idList = [];
+        $.each($('.ckId'), function (i, item) {
+            if ($(this).prop('checked')) {
+                idList.push({
+                    Id: $(item).data('id')
+                });
+            }
+
+        });
+
+       // $('#stringId').val(JSON.stringify(idList));
+
+        if (idList.length !== 0) {
+            $.ajax({
+                url: '/ChiTietBanGiaos/DeleteList',
+                type: 'POST',
+                data: {
+                    idDataList: JSON.stringify(idList)
+                },
+                dataType: 'json',
+                success: function (response) {
+                    if (response.status) {
+                        bootbox.alert({
+                            size: "small",
+                            title: "Information",
+                            message: "OK Men!",
+                            callback: function () {
+                                //e.preventDefault();
+                                window.location.reload();
+                                
+                            }
+                        });
+
+                        
+                    }
+                }
+            });
+        }
+        else {
+            bootbox.alert({
+                size: "small",
+                title: "Information",
+                message: "Bạn chưa chọn bàn giao!",
+                callback: function () {
+                    //e.preventDefault();
+
+                }
+            });
+        }
+
+
+
     }
 
-    //checkUse: function (id, e) {
-    //         $.ajax({
-    //            url: '/ChiTietBanGiaos/CheckUse',
-    //            type: 'GET',
-    //            data: {
-    //                id: id
-    //            },
-    //            dataType: 'json',
-    //            success: function (response) {
-    //                if (response.status) {
-    //                    bootbox.alert({
-    //                        size: "small",
-    //                        title: "Information",
-    //                        message: "Thiết bị này đã được chuyển đi!",
-    //                        callback: function () {
-    //                            e.preventDefault();
-
-    //                        }
-    //                    });
-
-
-    //                }
-
-    //            }
-    //        });
-
-    //}
 
 };
 listController.init();

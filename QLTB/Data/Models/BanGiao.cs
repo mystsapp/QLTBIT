@@ -33,6 +33,7 @@ namespace QLTB.Data.Models
 
         [DisplayName("Van Phong")]
         [MaxLength(50), Column(TypeName = "varchar(50)")]
+        [Required]
         public string VanPhong { get; set; }
 
         [DisplayName("Khoi")]

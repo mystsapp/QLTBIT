@@ -26,6 +26,7 @@ namespace QLTB.Data.Models
         public string NguoiNhapKho { get; set; }
 
         [DisplayName("Ngày Sử Dụng")]
+        //[DisplayFormat(DataFormatString = "{0:dd'/'MM'/'yyyy}", ApplyFormatInEditMode = true)]
         public DateTime? NgaySuDung { get; set; }
 
         [DisplayName("Người Sử Dụng")]

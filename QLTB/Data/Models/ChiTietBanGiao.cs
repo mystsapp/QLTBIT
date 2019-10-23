@@ -44,6 +44,10 @@ namespace QLTB.Data.Models
         [MaxLength(500), Column(TypeName = "nvarchar(500)")]
         public string DienGiai { get; set; }
 
+        [DisplayName("Ngày Tạo")]
         public DateTime? NgayGiao { get; set; }
+
+        [DisplayName("Ngày Chuyển")]
+        public DateTime? NgayChuyen { get; set; }
     }
 }
