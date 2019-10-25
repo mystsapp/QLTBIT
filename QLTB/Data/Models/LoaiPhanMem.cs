@@ -8,12 +8,12 @@ namespace QLTB.Data.Models
     {
         public int Id { get; set; }
 
-        [DisplayName("Loai PM")]
+        [DisplayName("Loại PM")]
         [Required]
         [MaxLength(100), Column(TypeName = "nvarchar(100)")]
         public string Name { get; set; }
 
-        [DisplayName("Ghi Chu")]
+        [DisplayName("Ghi Chú")]
         [MaxLength(500), Column(TypeName = "nvarchar(500)")]
         public string GhiChu { get; set; }
     }

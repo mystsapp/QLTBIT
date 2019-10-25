@@ -499,7 +499,7 @@ namespace QLTB.Controllers
 
         }
 
-        public async Task<IActionResult> List(string searchFromDate = null, string searchToDate = null)
+        public async Task<IActionResult> List(string searchFromDate = null, string searchToDate = null, string searchDateMove = null)
         {
             var chitiets = await _unitOfWork.chiTietBanGiaoRepository.GetAllIncludeAsync(x => x.BanGiao, y => y.ThietBi);
 
@@ -508,6 +508,12 @@ namespace QLTB.Controllers
                 DateTime fromDate = DateTime.Parse(searchFromDate);
                 DateTime toDate = DateTime.Parse(searchToDate);
                 chitiets = chitiets.Where(x => x.NgayGiao >= fromDate && x.NgayGiao <= toDate.AddDays(1));
+            }
+            
+            if(searchDateMove != null )
+            {
+                DateTime dateMove = DateTime.Parse(searchDateMove);
+                chitiets = chitiets.Where(x => x.NgayChuyen >= dateMove);
             }
 
             return View(chitiets);

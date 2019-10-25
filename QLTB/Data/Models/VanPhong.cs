@@ -10,16 +10,18 @@ namespace QLTB.Data.Models
 
         [Required]
         [MaxLength(100), Column(TypeName = "nvarchar(100)")]
-        [DisplayName("Van Phong")]
+        [DisplayName("Văn Phòng")]
         public string Name { get; set; }
 
         [MaxLength(250), Column(TypeName = "nvarchar(250)")]
+        [DisplayName("Ghi Chú")]
         public string DiaChi { get; set; }
 
         [MaxLength(15)]
+        [DisplayName("Điện Thoại")]
         public string DienThoai { get; set; }
 
-        [DisplayName("Chi Nhanh")]
+        [DisplayName("Chi Nhánh")]
         public int ChiNhanhId { get; set; }
 
         [ForeignKey("ChiNhanhId")]

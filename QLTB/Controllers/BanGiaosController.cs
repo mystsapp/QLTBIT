@@ -178,7 +178,11 @@ namespace QLTB.Controllers
 
             if (ModelState.IsValid)
             {
+                
                 BanGiaoCreateVM.BanGiao.NgaySua = DateTime.Now;
+
+                
+
                 _unitOfWork.banGiaoRepository.Update(BanGiaoCreateVM.BanGiao);
                 await _unitOfWork.Complete();
 

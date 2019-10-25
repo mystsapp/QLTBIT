@@ -10,25 +10,29 @@ namespace QLTB.Data.Models
 
         [Required]
         [MaxLength(50), Column(TypeName = "nvarchar(50)")]
-        [DisplayName("Ho Ten")]
+        [DisplayName("Họ Tên")]
         public string Name { get; set; }
 
-        [DisplayName("Phong Ban")]
+        [DisplayName("Phòng Ban")]
         [MaxLength(50), Column(TypeName = "nvarchar(50)")]
         public string PhongBan { get; set; }
 
         [MaxLength(10), Column(TypeName = "varchar(10)")]
-        [DisplayName("Khoi")]
+        [DisplayName("Khối")]
         public string Khoi { get; set; }
 
-        [DisplayName("Chi Nhanh")]
+        [DisplayName("Chi Nhánh")]
         public int ChiNhanhId { get; set; }
 
         [ForeignKey("ChiNhanhId")]
         public virtual ChiNhanh ChiNhanh { get; set; }
 
-        [DisplayName("Van Phong")]
+        [DisplayName("Văn Phòng")]
         [MaxLength(50), Column(TypeName = "nvarchar(50)")]
         public string VanPhong { get; set; }
+        
+        [DisplayName("Tình Trạng")]
+        public bool TinhTrang { get; set; }
+
     }
 }

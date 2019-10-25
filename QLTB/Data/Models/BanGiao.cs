@@ -11,46 +11,48 @@ namespace QLTB.Data.Models
         public int Id { get; set; }
 
         [Required]
-        [DisplayName("Nguoi Lap")]
+        [DisplayName("Người Lập")]
         [MaxLength(50), Column(TypeName = "nvarchar(50)")]
         public string NguoiLap { get; set; }
 
-        [DisplayName("Nguoi Nhan")]
+        [DisplayName("Người Nhận")]
         [Required]
         [MaxLength(50), Column(TypeName = "nvarchar(50)")]
         public string NguoiNhan { get; set; }
 
         public DateTime NgayTao { get; set; }
+
+        
         public string NguoiSua { get; set; }
         public DateTime? NgaySua { get; set; }
 
         [Required]
-        [DisplayName("Chi Nhanh")]
+        [DisplayName("Chi Nhánh")]
         public int ChiNhanhId { get; set; }
 
         [ForeignKey("ChiNhanhId")]
         public virtual ChiNhanh ChiNhanh { get; set; }
 
-        [DisplayName("Van Phong")]
+        [DisplayName("Văn Phòng")]
         [MaxLength(50), Column(TypeName = "varchar(50)")]
         [Required]
         public string VanPhong { get; set; }
 
-        [DisplayName("Khoi")]
+        [DisplayName("Khối")]
         [MaxLength(50), Column(TypeName = "varchar(50)")]
         public string Khoi { get; set; }
 
-        [DisplayName("Phong Ban")]
+        [DisplayName("Phòng Ban")]
         [MaxLength(50), Column(TypeName = "nvarchar(50)")]
         public string PhongBan { get; set; }
 
         public bool TinhTrang { get; set; }
 
-        [DisplayName("Ly Do")]
+        [DisplayName("Lý Do")]
         [MaxLength(250), Column(TypeName = "nvarchar(50)")]
         public string LyDo { get; set; }
 
-        [DisplayName("Thiet Bi")]
+        [DisplayName("Thiết Bị")]
         [Column(TypeName = "nvarchar(50)")]
         public string LoaiThietBi { get; set; }
 

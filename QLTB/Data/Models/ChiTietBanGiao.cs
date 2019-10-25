@@ -12,7 +12,7 @@ namespace QLTB.Data.Models
 
 
         [Required]
-        [DisplayName("Nguoi Lap")]
+        [DisplayName("Người Lập")]
         public int BanGiaoId { get; set; }
 
         [ForeignKey("BanGiaoId")]
@@ -20,19 +20,23 @@ namespace QLTB.Data.Models
 
 
 
-        [DisplayName("Thiet Bi")]
+        [DisplayName("Thiết Bị")]
         public int ThietBiId { get; set; }
 
         [ForeignKey("ThietBiId")]
         public virtual ThietBi ThietBi { get; set; }
 
+        [DisplayName("Số Lượng")]
         public int SoLuong { get; set; }
+
+        [DisplayName("Đơn Giá")]
         public double DonGia { get; set; }
 
-        [DisplayName("Bao Hanh Den")]
+        [DisplayName("Bảo Hành Đến")]
         public DateTime? BaoHanhDen { get; set; }
 
         [MaxLength(250), Column(TypeName = "nvarchar(250)")]
+        [DisplayName("Ghi Chú")]
         public string GhiChu { get; set; }
 
         [DisplayName("Chuyển Sử Dụng")]
@@ -42,6 +46,7 @@ namespace QLTB.Data.Models
         public bool TinhTrang { get; set; }
 
         [MaxLength(500), Column(TypeName = "nvarchar(500)")]
+        [DisplayName("Diễn Giải")]
         public string DienGiai { get; set; }
 
         [DisplayName("Ngày Tạo")]

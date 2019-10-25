@@ -138,7 +138,7 @@
                         </div>
                         <div class="col-4">
                             @*<select asp-for="BanGiao.LoaiThietBi" class="form-control" asp-items="@Model.LoaiThietBis.ToSelectListItemString(Model.BanGiao.LoaiThietBi)"></select>*@
-                            <select class="form-control ddlChiNhanh select2 select2-hidden-accessible" asp-for="BanGiao.LoaiThietBi" class="form-control" asp-items="@Model.LoaiThietBis.ToSelectListItemString(Model.BanGiao.LoaiThietBi)" style="width: 100%;">
+                            <select class="form-control ddlChiNhanh select2 select2-hidden-accessible" asp-for="BanGiao.LoaiThietBi" asp-items="@Model.LoaiThietBis.ToSelectListItemString(Model.BanGiao.LoaiThietBi)" style="width: 100%;">
                             </select>
                         </div>
 

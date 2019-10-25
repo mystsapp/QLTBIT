@@ -9,10 +9,10 @@ namespace QLTB.Data.Models
         public int Id { get; set; }
 
         [MaxLength(50)]
-        [DisplayName("Ten PM"), Column(TypeName = "nvarchar(50)")]
+        [DisplayName("Tên PM"), Column(TypeName = "nvarchar(50)")]
         public string Name { get; set; }
 
-        [DisplayName("Loai PM")]
+        [DisplayName("Loại PM")]
         public int LoaiPMId { get; set; }
 
         [ForeignKey("LoaiPMId")]

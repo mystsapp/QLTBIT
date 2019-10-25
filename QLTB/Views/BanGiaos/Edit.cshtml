@@ -51,6 +51,7 @@
                 <div class="p-4 border rounded">
 
                     <input type="hidden" asp-for="BanGiao.Id" />
+                    <input type="hidden" asp-for="BanGiao.NgayTao" />
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
                     <div class="form-group row">
@@ -143,7 +144,7 @@
                         </div>
                         <div class="col-4">
                             @*<select asp-for="BanGiao.LoaiThietBi" class="form-control" asp-items="@Model.LoaiThietBis.ToSelectListItemString(Model.BanGiao.LoaiThietBi)"></select>*@
-                            <select class="form-control ddlChiNhanh select2 select2-hidden-accessible" asp-for="BanGiao.LoaiThietBi" class="form-control" asp-items="@Model.LoaiThietBis.ToSelectListItemString(Model.BanGiao.LoaiThietBi)" style="width: 100%;">
+                            <select class="form-control select2 select2-hidden-accessible" asp-for="BanGiao.LoaiThietBi" asp-items="@Model.LoaiThietBis.ToSelectListItemString(Model.BanGiao.LoaiThietBi)" style="width: 100%;">
                             </select>
                         </div>
 
