@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using QLTB.Data.Models;
 using System;
 using System.Collections.Generic;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace QLTB.Data
 {
-    public class QLTBITDbContext : DbContext
+    public class QLTBITDbContext : IdentityDbContext<ApplicationUser>
     {
         public QLTBITDbContext(DbContextOptions<QLTBITDbContext> options) : base(options)
         {
@@ -26,9 +27,9 @@ namespace QLTB.Data
         public DbSet<VanPhong> VanPhongs { get; set; }
         public DbSet<NhapKho> NhapKhos { get; set; }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
+        //protected override void OnModelCreating(ModelBuilder modelBuilder)
+        //{
             
-        }
+        //}
     }
 }

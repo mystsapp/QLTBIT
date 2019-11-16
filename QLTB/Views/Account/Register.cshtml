@@ -1,0 +1,187 @@
+﻿@model RegisterViewModel
+@using QLTB.Extensions
+
+@{
+    ViewData["Title"] = "Register";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Thêm Mới</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="/">Home</a></li>
+                    <li class="breadcrumb-item"><a asp-action="Index">Danh Sách Account</a></li>
+                    <li class="breadcrumb-item active">Thêm Mới Account</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content">
+
+    <!-- Default box -->
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title"><i class="fas fa-file text-info"></i> Thêm Mới Account</h3>
+
+            <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                    <i class="fas fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip" title="Remove">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+        <div class="card-body">
+
+
+            <div class="card-body login-card-body" style="border-radius: 25px;">
+
+                <form asp-action="Register" method="post" autocomplete="off">
+
+                    @*<input type="hidden" asp-for="strUrl" />*@
+                    <div asp-validation-summary="All" class="text-danger"></div>
+
+                    <div class="row">
+                        <div class="input-group mb-3 col-6">
+                            <input asp-for="Username" class="form-control" placeholder="Username" autofocus>
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <span class="fas fa-envelope"></span>
+                                </div>
+                            </div>
+                            <span asp-validation-for="Username" class="text-danger"></span>
+                        </div>
+
+                        <div class="input-group mb-3 col-6">
+                            <input asp-for="Password" class="form-control" placeholder="Password">
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <span class="fas fa-lock"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="input-group mb-3 col-6">
+                            <input asp-for="ConformPassword" class="form-control" placeholder="Confirm Password">
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <span class="fas fa-lock"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="input-group mb-3 col-6">
+                            <input asp-for="Email" class="form-control" placeholder="Email">
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <span class="fas fa-mail-bulk"></span>
+                                </div>
+                            </div>
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+
+                        <div class="input-group mb-3 col-6">
+                            <input asp-for="PhoneNumber" class="form-control" placeholder="Phone Number">
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <span class="fas fa-phone-alt"></span>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="input-group mb-3 col-6">
+                            <input asp-for="Name" class="form-control" placeholder="Họ tên">
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <span class="fas fa-user-alt"></span>
+                                </div>
+                            </div>
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+
+                        <div class="input-group mb-3 col-6">
+                            <input asp-for="PhongBan" class="form-control" placeholder="Phòng ban">
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <span class="fas fa-home"></span>
+                                </div>
+                            </div>
+                            <span asp-validation-for="PhongBan" class="text-danger"></span>
+                        </div>
+
+                        <div class="input-group mb-3 col-6">
+                            <select asp-for="@Model.ChiNhanhId" asp-items="Model.ChiNhanhs.ToSelectListItem(Model.ChiNhanhId)" class="form-control ddlChiNhanh"></select>
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <span class="fas fa-lock"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="input-group mb-3 col-6">
+                            <select asp-for="VanPhong" class="form-control ddlVanPhong"></select>
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <span class="fas fa-mail-bulk"></span>
+                                </div>
+                            </div>
+                            <span asp-validation-for="VanPhong" class="text-danger"></span>
+                        </div>
+
+                        <div class="input-group mb-3 col-6">
+                            <select class="form-control" asp-for="Khoi">
+                                <option value="OB">OB</option>
+                                <option value="ND">ND</option>
+                                <option value="">--None--</option>
+                            </select>
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <span class="fas fa-phone-alt"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+
+                        <!-- /.col -->
+                        <button type="submit" class="btn btn-primary btn-block">Register</button>
+                        <!-- /.col -->
+                    </div>
+
+                </form>
+
+
+            </div>
+            <!-- /.login-card-body -->
+        </div>
+
+
+
+    </div>
+    <!-- /.card-body -->
+    <!-- /.card -->
+
+</section>
+<!-- /.content -->
+
+@section Scripts{
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");
+
+        <script src="~/js/Admin/Register/createController.js"></script>
+    }
+
+}

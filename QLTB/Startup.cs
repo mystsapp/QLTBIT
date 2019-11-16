@@ -2,15 +2,19 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using QLTB.Data;
+using QLTB.Data.Models;
 using QLTB.Data.Repository;
 
 namespace QLTB
@@ -35,6 +39,32 @@ namespace QLTB
             });
 
             services.AddDbContext<QLTBITDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))/*.EnableSensitiveDataLogging()*/);
+            services.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddEntityFrameworkStores<QLTBITDbContext>();
+
+
+
+            services.Configure<IdentityOptions>(options =>
+            {
+                // Password settings.
+                options.Password.RequireDigit = false;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequiredLength = 6;
+                options.Password.RequiredUniqueChars = 0;
+
+                //    // Lockout settings.
+                //    options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+                //    options.Lockout.MaxFailedAccessAttempts = 5;
+                //    options.Lockout.AllowedForNewUsers = true;
+
+                //    // User settings.
+                //    options.User.AllowedUserNameCharacters =
+                //    "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
+                //    options.User.RequireUniqueEmail = false;
+            });
+
             services.AddTransient<ILoaiThietBiRepository, LoaiThietBiRepository>();
             services.AddTransient<IBanGiaoRepository, BanGiaoRepository>();
             services.AddTransient<IChiNhanhRepository, ChiNhanhRepository>();
@@ -48,7 +78,15 @@ namespace QLTB
 
             services.AddTransient<IUnitOfWork, UnitOfWork>();
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddMvc(
+            //    options =>
+            //{
+            //    var policy = new AuthorizationPolicyBuilder()
+            //                     .RequireAuthenticatedUser()    // reuired login in all action method
+            //                     .Build();
+            //    options.Filters.Add(new AuthorizeFilter(policy));
+            //}
+            ).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -69,6 +107,7 @@ namespace QLTB
             app.UseStaticFiles();
             app.UseCookiePolicy();
 
+            app.UseAuthentication();
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting.Internal;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -13,6 +14,7 @@ using QLTB.Utility;
 
 namespace QLTB.Controllers
 {
+    [Authorize]
     public class NhanViensController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -29,6 +31,8 @@ namespace QLTB.Controllers
                 VanPhongs = _unitOfWork.vanPhongRepository.GetAll()
             };
         }
+
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             var nhanviens = _unitOfWork.nhanVienRepository.NhanVienIncludeChiNhanh();
@@ -90,6 +94,7 @@ namespace QLTB.Controllers
         }
 
         // Get: Details method
+        [AllowAnonymous]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -136,12 +141,14 @@ namespace QLTB.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public JsonResult GetDmVanPhongByChiNhanh(int chinhanh)
         {
             var vanphongs = _unitOfWork.vanPhongRepository.Find(x => x.ChiNhanhId == chinhanh);
+            var vps = JsonConvert.SerializeObject(vanphongs);
             return Json(new
             {
-                data = JsonConvert.SerializeObject(vanphongs)
+                data = vps
             });
         }
     }

@@ -1,4 +1,6 @@
 ﻿
+@inject SignInManager<ApplicationUser> signInManager;
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -34,25 +36,25 @@
                 <li class="nav-item">
                     <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
                 </li>
-                <li class="nav-item d-none d-sm-inline-block">
-                    <a href="~/lib/index3.html" class="nav-link">Home</a>
-                </li>
+                @*<li class="nav-item d-none d-sm-inline-block">
+                        <a asp-action="Register" asp-controller="Accounts" class="nav-link">Register</a>
+                    </li>*@
                 <li class="nav-item d-none d-sm-inline-block">
                     <a href="#" class="nav-link">Contact</a>
                 </li>
             </ul>
 
             <!-- SEARCH FORM -->
-            <form class="form-inline ml-3">
-                <div class="input-group input-group-sm">
-                    <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
-                    <div class="input-group-append">
-                        <button class="btn btn-navbar" type="submit">
-                            <i class="fas fa-search"></i>
-                        </button>
+            @*<form class="form-inline ml-3">
+                    <div class="input-group input-group-sm">
+                        <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
+                        <div class="input-group-append">
+                            <button class="btn btn-navbar" type="submit">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
                     </div>
-                </div>
-            </form>
+                </form>*@
 
             <!-- Right navbar links -->
             <partial name="_LoginPartial.cshtml" />
@@ -89,6 +91,8 @@
     <!-- jQuery -->
     <script src="~/lib/plugins/jquery/jquery.min.js"></script>
     <script src="~/lib/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
 
     <script src="~/lib/jquery/jquery.maskedinput.min.js"></script>
     <script src="~/lib/bootbox/src/bootbox.js"></script>
