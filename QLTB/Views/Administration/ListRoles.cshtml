@@ -1,0 +1,97 @@
+﻿@model IEnumerable<IdentityRole>
+
+@{
+    ViewData["Title"] = "All Roles";
+}
+
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <a class="btn btn-outline-info" asp-action="CreateRole"><i class="fas fa-plus"></i>&nbsp; Thêm Mới</a>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="/">Home</a></li>
+                    <li class="breadcrumb-item active">Role</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content">
+
+    <!-- Default box -->
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title"><i class="fas fa-list-alt text-info"></i> Danh Sách Role</h3>
+
+            <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                    <i class="fas fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip" title="Remove">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+        <div class="card-body">
+
+            <div>
+                @if (Model.Any())
+                {
+                    <table class="table table-striped border">
+                        <tr class="table-info">
+                            <th>@Html.DisplayNameFor(m => m.Id)</th>
+                            <th>@Html.DisplayNameFor(m => m.Name)</th>
+                            <th>#</th>
+
+                        </tr>
+
+                        @foreach (var item in Model)
+                        {
+                    <tr>
+                        <td>@Html.DisplayFor(m => item.Id)</td>
+                        <td>@Html.DisplayFor(m => item.Name)</td>
+
+                        <td style="width:150px;">
+                            <div class="btn-group text-white" role="group">
+                                <a class="btn btn-primary btn-sm" asp-action="EditRole" asp-route-id="@item.Id"><i class="fas fa-edit"></i></a>
+                                @*<a class="btn btn-success" href="@url"><i class="fas fa-list"></i></a>*@
+                                <a class="btn btn-success btn-sm" asp-action="Details" asp-route-id="@item.Id"><i class="fas fa-list"></i></a>
+                                <a class="btn btn-danger btn-sm" asp-action="Delete" asp-route-id="@item.Id"><i class="fas fa-trash-alt"></i></a>
+                            </div>
+                        </td>
+                    </tr>
+                        }
+
+
+                    </table>
+                }
+                else
+                {
+                    <div class="card">
+                        <div class="card-header">
+                            No roles created yet
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                Use the button above to reate a role
+                            </h5>
+                        </div>
+                    </div>
+                }
+            </div>
+
+        </div>
+        <!-- /.card-body -->
+
+    </div>
+    <!-- /.card -->
+
+</section>
+<!-- /.content -->

@@ -48,120 +48,159 @@
             <div class="card-body login-card-body" style="border-radius: 25px;">
 
                 <form asp-action="Register" method="post" autocomplete="off">
+                    <div class="p-4 border rounded">
+                        @*<input type="hidden" asp-for="strUrl" />*@
+                        <div asp-validation-summary="All" class="text-danger"></div>
 
-                    @*<input type="hidden" asp-for="strUrl" />*@
-                    <div asp-validation-summary="All" class="text-danger"></div>
-
-                    <div class="row">
-                        <div class="input-group mb-3 col-6">
-                            <input asp-for="Username" class="form-control" placeholder="Username" autofocus>
-                            <div class="input-group-append">
-                                <div class="input-group-text">
-                                    <span class="fas fa-envelope"></span>
-                                </div>
+                        <div class="form-group row">
+                            <div class="col-2">
+                                <label asp-for="Username"></label>
                             </div>
-                            <span asp-validation-for="Username" class="text-danger"></span>
-                        </div>
+                            <div class="input-group mb-3 col-4">
 
-                        <div class="input-group mb-3 col-6">
-                            <input asp-for="Password" class="form-control" placeholder="Password">
-                            <div class="input-group-append">
-                                <div class="input-group-text">
-                                    <span class="fas fa-lock"></span>
+                                <input asp-for="Username" class="form-control" autofocus>
+                                <div class="input-group-append">
+                                    <div class="input-group-text">
+                                        <span class="fas fa-envelope"></span>
+                                    </div>
                                 </div>
+                                <span asp-validation-for="Username" class="text-danger"></span>
                             </div>
-                        </div>
 
-                        <div class="input-group mb-3 col-6">
-                            <input asp-for="ConformPassword" class="form-control" placeholder="Confirm Password">
-                            <div class="input-group-append">
-                                <div class="input-group-text">
-                                    <span class="fas fa-lock"></span>
-                                </div>
+                            <div class="col-2">
+                                <label asp-for="Password"></label>
                             </div>
-                        </div>
+                            <div class="input-group mb-3 col-4">
 
-                        <div class="input-group mb-3 col-6">
-                            <input asp-for="Email" class="form-control" placeholder="Email">
-                            <div class="input-group-append">
-                                <div class="input-group-text">
-                                    <span class="fas fa-mail-bulk"></span>
+                                <input asp-for="Password" class="form-control">
+                                <div class="input-group-append">
+                                    <div class="input-group-text">
+                                        <span class="fas fa-lock"></span>
+                                    </div>
                                 </div>
-                            </div>
-                            <span asp-validation-for="Email" class="text-danger"></span>
-                        </div>
-
-                        <div class="input-group mb-3 col-6">
-                            <input asp-for="PhoneNumber" class="form-control" placeholder="Phone Number">
-                            <div class="input-group-append">
-                                <div class="input-group-text">
-                                    <span class="fas fa-phone-alt"></span>
-                                </div>
+                                <span asp-validation-for="Password" class="text-danger"></span>
                             </div>
                         </div>
 
-
-                        <div class="input-group mb-3 col-6">
-                            <input asp-for="Name" class="form-control" placeholder="Họ tên">
-                            <div class="input-group-append">
-                                <div class="input-group-text">
-                                    <span class="fas fa-user-alt"></span>
+                        <div class="form-group row">
+                            <div class="col-2">
+                                <label asp-for="ConformPassword"></label>
+                            </div>
+                            <div class="input-group mb-3 col-4">
+                                <input asp-for="ConformPassword" class="form-control" >
+                                <div class="input-group-append">
+                                    <div class="input-group-text">
+                                        <span class="fas fa-lock"></span>
+                                    </div>
                                 </div>
                             </div>
-                            <span asp-validation-for="Name" class="text-danger"></span>
-                        </div>
 
-                        <div class="input-group mb-3 col-6">
-                            <input asp-for="PhongBan" class="form-control" placeholder="Phòng ban">
-                            <div class="input-group-append">
-                                <div class="input-group-text">
-                                    <span class="fas fa-home"></span>
-                                </div>
+                            <div class="col-2">
+                                <label asp-for="Email"></label>
                             </div>
-                            <span asp-validation-for="PhongBan" class="text-danger"></span>
-                        </div>
-
-                        <div class="input-group mb-3 col-6">
-                            <select asp-for="@Model.ChiNhanhId" asp-items="Model.ChiNhanhs.ToSelectListItem(Model.ChiNhanhId)" class="form-control ddlChiNhanh"></select>
-                            <div class="input-group-append">
-                                <div class="input-group-text">
-                                    <span class="fas fa-lock"></span>
+                            <div class="input-group mb-3 col-4">
+                                <input asp-for="Email" class="form-control">
+                                <div class="input-group-append">
+                                    <div class="input-group-text">
+                                        <span class="fas fa-mail-bulk"></span>
+                                    </div>
                                 </div>
+                                <span asp-validation-for="Email" class="text-danger"></span>
                             </div>
                         </div>
 
-                        <div class="input-group mb-3 col-6">
-                            <select asp-for="VanPhong" class="form-control ddlVanPhong"></select>
-                            <div class="input-group-append">
-                                <div class="input-group-text">
-                                    <span class="fas fa-mail-bulk"></span>
+                        <div class="form-group row">
+                            <div class="col-2">
+                                <label asp-for="PhoneNumber"></label>
+                            </div>
+                            <div class="input-group mb-3 col-4">
+                                <input asp-for="PhoneNumber" class="form-control">
+                                <div class="input-group-append">
+                                    <div class="input-group-text">
+                                        <span class="fas fa-phone-alt"></span>
+                                    </div>
                                 </div>
                             </div>
-                            <span asp-validation-for="VanPhong" class="text-danger"></span>
+
+                            <div class="col-2">
+                                <label asp-for="Name"></label>
+                            </div>
+                            <div class="input-group mb-3 col-4">
+                                <input asp-for="Name" class="form-control" >
+                                <div class="input-group-append">
+                                    <div class="input-group-text">
+                                        <span class="fas fa-user-alt"></span>
+                                    </div>
+                                </div>
+                                <span asp-validation-for="Name" class="text-danger"></span>
+                            </div>
                         </div>
 
-                        <div class="input-group mb-3 col-6">
-                            <select class="form-control" asp-for="Khoi">
-                                <option value="OB">OB</option>
-                                <option value="ND">ND</option>
-                                <option value="">--None--</option>
-                            </select>
-                            <div class="input-group-append">
-                                <div class="input-group-text">
-                                    <span class="fas fa-phone-alt"></span>
+                        <div class="form-group row">
+                            <div class="col-2">
+                                <label asp-for="PhongBan"></label>
+                            </div>
+                            <div class="input-group mb-3 col-4">
+                                <input asp-for="PhongBan" class="form-control" >
+                                <div class="input-group-append">
+                                    <div class="input-group-text">
+                                        <span class="fas fa-home"></span>
+                                    </div>
+                                </div>
+                                <span asp-validation-for="PhongBan" class="text-danger"></span>
+                            </div>
+
+                            <div class="col-2">
+                                <label asp-for="ChiNhanhId"></label>
+                            </div>
+                            <div class="input-group mb-3 col-4">
+                                <select asp-for="@Model.ChiNhanhId" asp-items="Model.ChiNhanhs.ToSelectListItem(Model.ChiNhanhId)" class="form-control ddlChiNhanh"></select>
+                                <div class="input-group-append">
+                                    <div class="input-group-text">
+                                        <span class="fas fa-lock"></span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
 
+                        <div class="form-group row">
+                            <div class="col-2">
+                                <label asp-for="ChiNhanhId"></label>
+                            </div>
+                            <div class="input-group mb-3 col-4">
+                                <select asp-for="VanPhong" class="form-control ddlVanPhong"></select>
+                                <div class="input-group-append">
+                                    <div class="input-group-text">
+                                        <span class="fas fa-mail-bulk"></span>
+                                    </div>
+                                </div>
+                                <span asp-validation-for="VanPhong" class="text-danger"></span>
+                            </div>
+
+                            <div class="col-2">
+                                <label asp-for="Khoi"></label>
+                            </div>
+                            <div class="input-group mb-3 col-4">
+                                <select class="form-control" asp-for="Khoi">
+                                    <option value="OB">OB</option>
+                                    <option value="ND">ND</option>
+                                    <option value="">--None--</option>
+                                </select>
+                                <div class="input-group-append">
+                                    <div class="input-group-text">
+                                        <span class="fas fa-phone-alt"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+
+                            <!-- /.col -->
+                            <button type="submit" class="btn btn-primary"><i class="fas fa-save fa-2x"></i></button>
+                            <!-- /.col -->
+                        </div>
                     </div>
-
-                    <div class="row">
-
-                        <!-- /.col -->
-                        <button type="submit" class="btn btn-primary btn-block">Register</button>
-                        <!-- /.col -->
-                    </div>
-
                 </form>
 
 
