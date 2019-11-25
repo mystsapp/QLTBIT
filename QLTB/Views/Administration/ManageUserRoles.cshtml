@@ -1,0 +1,102 @@
+﻿@model List<UserRolesViewModel>
+
+
+@{
+    ViewData["Title"] = "Edit User Role";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var userId = ViewBag.userId;
+}
+
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Cập nhật Role cho User - @ViewBag.userName</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="/">Home</a></li>
+                    <li class="breadcrumb-item"><a asp-action="EditUser" asp-route-id="@userId">User Đang Cập Nhật</a></li>
+                    <li class="breadcrumb-item active">Cập nhật Role cho User</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content">
+
+    <!-- Default box -->
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title"><i class="fas fa-file text-info"></i> Cập nhật Role cho User - @ViewBag.userName</h3>
+
+            <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                    <i class="fas fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip" title="Remove">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+        <div class="card-body">
+
+
+            <div class="card-body login-card-body" style="border-radius: 25px;">
+
+                <form method="post" autocomplete="off">
+                    @*<div class="p-4 border rounded">
+                        @*<input type="hidden" asp-for="strUrl" />*@
+                        <div asp-validation-summary="All" class="text-danger"></div>
+
+                        <div class="card">
+                            <div class="card-header">
+                                <h2>Manage User Roles</h2>
+                            </div>
+                            <div class="card-body">
+                                @for (int i = 0; i < Model.Count; i++)
+                                {
+                                    <div class="form-check m-1">
+                                        <input type="hidden" asp-for="@Model[i].RoleId" />
+                                        <input type="hidden" asp-for="@Model[i].RoleName" />
+                                        <input asp-for="@Model[i].IsSelected" class="form-check-input" />
+                                        <label class="form-check-label" asp-for="@Model[i].IsSelected">
+                                            @Model[i].RoleName
+                                        </label>
+                                    </div>
+                                }
+                            </div>
+                            <div class="card-footer">
+                                <button class="btn btn-primary" type="submit"><i class="fas fa-save"></i></button>
+                                <a class="btn btn-success" asp-action="EditUser" asp-route-id="@userId"><i class="fas fa-backward"></i></a>
+                            </div>
+                        </div>
+                    @*</div>*@
+                </form>
+
+
+
+            </div>
+            <!-- /.login-card-body -->
+        </div>
+
+
+
+    </div>
+    <!-- /.card-body -->
+    <!-- /.card -->
+
+</section>
+<!-- /.content -->
+@*@section Scripts{
+        @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");
+
+            <script src="~/js/Admin/Register/createController.js"></script>
+        }
+
+    }*@

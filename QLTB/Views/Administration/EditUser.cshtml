@@ -1,8 +1,8 @@
-﻿@model RegisterViewModel
+﻿@model EditUserViewModel
 @using QLTB.Extensions
 
 @{
-    ViewData["Title"] = "Register";
+    ViewData["Title"] = "Edit User";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -12,13 +12,13 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1>Thêm Mới</h1>
+                <h1>Cập nhật User</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="/">Home</a></li>
-                    <li class="breadcrumb-item"><a asp-action="Index">Danh Sách Account</a></li>
-                    <li class="breadcrumb-item active">Thêm Mới Account</li>
+                    <li class="breadcrumb-item"><a asp-action="ListUsers">Danh Sách User</a></li>
+                    <li class="breadcrumb-item active">Cập nhật User</li>
                 </ol>
             </div>
         </div>
@@ -31,7 +31,7 @@
     <!-- Default box -->
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title"><i class="fas fa-file text-info"></i> Thêm Mới Account</h3>
+            <h3 class="card-title"><i class="fas fa-file text-info"></i> Cập nhật User</h3>
 
             <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
@@ -47,24 +47,24 @@
 
             <div class="card-body login-card-body" style="border-radius: 25px;">
 
-                <form asp-action="Register" method="post" autocomplete="off">
+                <form method="post" autocomplete="off">
                     <div class="p-4 border rounded">
                         @*<input type="hidden" asp-for="strUrl" />*@
                         <div asp-validation-summary="All" class="text-danger"></div>
 
                         <div class="form-group row">
                             <div class="col-2">
-                                <label asp-for="Username"></label>
+                                <label asp-for="UserName"></label>
                             </div>
                             <div class="input-group mb-3 col-4">
 
-                                <input asp-for="Username" class="form-control" autofocus>
+                                <input asp-for="UserName" class="form-control" autofocus>
                                 <div class="input-group-append">
                                     <div class="input-group-text">
                                         <span class="fas fa-envelope"></span>
                                     </div>
                                 </div>
-                                <span asp-validation-for="Username" class="text-danger"></span>
+                                <span asp-validation-for="UserName" class="text-danger"></span>
                             </div>
 
                             <div class="col-2">
@@ -83,17 +83,6 @@
                         </div>
 
                         <div class="form-group row">
-                            <div class="col-2">
-                                <label asp-for="ConformPassword"></label>
-                            </div>
-                            <div class="input-group mb-3 col-4">
-                                <input asp-for="ConformPassword" class="form-control" >
-                                <div class="input-group-append">
-                                    <div class="input-group-text">
-                                        <span class="fas fa-lock"></span>
-                                    </div>
-                                </div>
-                            </div>
 
                             <div class="col-2">
                                 <label asp-for="Email"></label>
@@ -107,9 +96,7 @@
                                 </div>
                                 <span asp-validation-for="Email" class="text-danger"></span>
                             </div>
-                        </div>
 
-                        <div class="form-group row">
                             <div class="col-2">
                                 <label asp-for="PhoneNumber"></label>
                             </div>
@@ -122,11 +109,16 @@
                                 </div>
                             </div>
 
+                        </div>
+
+                        <div class="form-group row">
+
+
                             <div class="col-2">
                                 <label asp-for="Name"></label>
                             </div>
                             <div class="input-group mb-3 col-4">
-                                <input asp-for="Name" class="form-control" >
+                                <input asp-for="Name" class="form-control">
                                 <div class="input-group-append">
                                     <div class="input-group-text">
                                         <span class="fas fa-user-alt"></span>
@@ -134,14 +126,12 @@
                                 </div>
                                 <span asp-validation-for="Name" class="text-danger"></span>
                             </div>
-                        </div>
 
-                        <div class="form-group row">
                             <div class="col-2">
                                 <label asp-for="PhongBan"></label>
                             </div>
                             <div class="input-group mb-3 col-4">
-                                <input asp-for="PhongBan" class="form-control" >
+                                <input asp-for="PhongBan" class="form-control">
                                 <div class="input-group-append">
                                     <div class="input-group-text">
                                         <span class="fas fa-home"></span>
@@ -149,6 +139,10 @@
                                 </div>
                                 <span asp-validation-for="PhongBan" class="text-danger"></span>
                             </div>
+                        </div>
+
+                        <div class="form-group row">
+
 
                             <div class="col-2">
                                 <label asp-for="ChiNhanhId"></label>
@@ -157,6 +151,7 @@
                                 <select asp-for="@Model.ChiNhanhId" asp-items="Model.ChiNhanhs.ToSelectListItem(Model.ChiNhanhId)" class="form-control ddlChiNhanh"></select>
                                 @*<select asp-for="ChiNhanhId" class="form-control border-input ddlChiNhanh"
                                         asp-items="@(new SelectList(ViewBag.ChiNhanhs,"Id","Name"))">
+                                    
                                 </select>*@
 
                                 <div class="input-group-append">
@@ -165,14 +160,17 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="form-group row">
                             <div class="col-2">
                                 <label asp-for="VanPhong"></label>
                             </div>
                             <div class="input-group mb-3 col-4">
-                                <select asp-for="VanPhong" class="form-control ddlVanPhong"></select>
+                                @*<select asp-for="VanPhong" class="form-control ddlVanPhong"></select>*@
+                                <select asp-for="VanPhong" asp-items="Model.VanPhongs.ToSelectListItemString(Model.VanPhong)" class="form-control ddlVanPhong"></select>
+                                @*<select asp-for="VanPhong" class="form-control border-input ddlVanPhong"
+                                        asp-items="@(new SelectList(ViewBag.VanPhongs,"Name","Name"))">
+                                </select>*@
+
                                 <div class="input-group-append">
                                     <div class="input-group-text">
                                         <span class="fas fa-mail-bulk"></span>
@@ -180,6 +178,10 @@
                                 </div>
                                 <span asp-validation-for="VanPhong" class="text-danger"></span>
                             </div>
+                        </div>
+
+                        <div class="form-group row">
+                            
 
                             <div class="col-2">
                                 <label asp-for="Khoi"></label>
@@ -188,7 +190,7 @@
                                 <select class="form-control" asp-for="Khoi">
                                     <option value="OB">OB</option>
                                     <option value="ND">ND</option>
-                                    <option value="">--None--</option>
+                                    <option value="--None--">--None--</option>
                                 </select>
                                 <div class="input-group-append">
                                     <div class="input-group-text">
@@ -196,34 +198,79 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        
-                        <div class="form-group row">
-
+                            
                             <div class="col-2">
                                 <label asp-for="TinhTrang"></label>
                             </div>
                             <div class="input-group mb-3 col-4">
 
-                                <input asp-for="TinhTrang" class="form-control">
+                                <input asp-for="TinhTrang" >
                                 <div class="input-group-append">
                                     <div class="input-group-text">
                                         <span class="fas fa-lock"></span>
                                     </div>
                                 </div>
                                 <span asp-validation-for="TinhTrang" class="text-danger"></span>
+
                             </div>
+
                         </div>
 
                         <div class="row">
 
                             <!-- /.col -->
-                            <button type="submit" class="btn btn-primary"><i class="fas fa-save "></i></button>
-                            <a class="btn btn-success" asp-controller="Administration" asp-action="ListUsers"><i class="fas fa-backward"></i></a>
+                            <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i></button>
+                            <a class="btn btn-success" asp-action="ListUsers"><i class="fas fa-backward"></i></a>
                             <!-- /.col -->
                         </div>
                     </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>User Roles</h3>
+                        </div>
+                        <div class="card-body">
+                            @if (Model.Roles.Any())
+                            {
+                                foreach (var role in Model.Roles)
+                                {
+                                    <h5 class="card-title">@role</h5><br />
+                                }
+                            }
+                            else
+                            {
+                                <h5 class="card-title">None at the moment</h5>
+                            }
+                        </div>
+                        <div class="card-footer">
+                            <a asp-route-userId="@Model.Id" asp-action="ManageUserRoles" asp-controller="Administration" class="btn btn-outline-primary" title="Update Or Remote">Manage Users</a>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>User Claims</h3>
+                        </div>
+                        <div class="card-body">
+                            @if (Model.Claims.Any())
+                            {
+                                foreach (var claim in Model.Claims)
+                                {
+                                    <h5 class="card-title">@claim</h5><br />
+                                }
+                            }
+                            else
+                            {
+                                <h5 class="card-title">None at the moment</h5>
+                            }
+                        </div>
+                        <div class="card-footer">
+                            <a asp-route-userId="@Model.Id" asp-action="ManageUserClaims" asp-controller="Administration" class="btn btn-outline-primary" title="Update Or Remote">Manage Claims</a>
+                        </div>
+                    </div>
+
                 </form>
+
 
 
             </div>
@@ -238,11 +285,10 @@
 
 </section>
 <!-- /.content -->
-
 @section Scripts{
     @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");
 
-        <script src="~/js/Admin/Register/createController.js"></script>
+        <script src="~/js/Admin/User/editController.js"></script>
     }
 
 }

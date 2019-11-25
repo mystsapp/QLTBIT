@@ -1,11 +1,7 @@
-﻿@model IEnumerable<IdentityRole>
-
-@using Microsoft.AspNetCore.Authorization
-
-@inject IAuthorizationService authorizationService
+﻿@model IEnumerable<ApplicationUser>
 
 @{
-    ViewData["Title"] = "All Roles";
+    ViewData["Title"] = "All Users";
 }
 
 
@@ -14,12 +10,12 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <a class="btn btn-outline-info" asp-action="CreateRole"><i class="fas fa-plus"></i>&nbsp; Thêm Mới</a>
+                <a class="btn btn-outline-info" asp-action="Register" asp-controller="Account"><i class="fas fa-plus"></i>&nbsp; Thêm Mới</a>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="/">Home</a></li>
-                    <li class="breadcrumb-item active">Role</li>
+                    <li class="breadcrumb-item active">Danh Sách Account</li>
                 </ol>
             </div>
         </div>
@@ -32,7 +28,7 @@
     <!-- Default box -->
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title"><i class="fas fa-list-alt text-info"></i> Danh Sách Role</h3>
+            <h3 class="card-title"><i class="fas fa-list-alt text-info"></i>Danh Sách Account</h3>
 
             <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
@@ -44,34 +40,38 @@
             </div>
         </div>
         <div class="card-body">
-
-            <div>
-                @if (Model.Any())
-                {
+            @if (Model.Any())
+            {
+                <div>
                     <table class="table table-striped border">
                         <tr class="table-info">
-                            <th>@Html.DisplayNameFor(m => m.Id)</th>
                             <th>@Html.DisplayNameFor(m => m.Name)</th>
-                            <th>#</th>
+                            <th>@Html.DisplayNameFor(m => m.UserName)</th>
+                            <th>@Html.DisplayNameFor(m => m.PhongBan)</th>
+                            <th>@Html.DisplayNameFor(m => m.ChiNhanhId)</th>
+                            <th>@Html.DisplayNameFor(m => m.VanPhong)</th>
+                            <th>@Html.DisplayNameFor(m => m.Khoi)</th>
+                            <th></th>
 
                         </tr>
 
                         @foreach (var item in Model)
                         {
                             <tr>
-                                <td>@Html.DisplayFor(m => item.Id)</td>
                                 <td>@Html.DisplayFor(m => item.Name)</td>
+                                <td>@Html.DisplayFor(m => item.UserName)</td>
+                                <td>@Html.DisplayFor(m => item.PhongBan)</td>
+                                <td>@Html.DisplayFor(m => item.ChiNhanh.MaChiNhanh)</td>
+                                <td>@Html.DisplayFor(m => item.VanPhong)</td>
+                                <td>@Html.DisplayFor(m => item.Khoi)</td>
 
                                 <td>
                                     <div class="btn-group text-white" role="group">
-                                        <form asp-action="DeleteRole" asp-route-id="@item.Id" method="post">
-                                            @if ((await authorizationService.AuthorizeAsync(User, "EditRolePolicy")).Succeeded)
-                                            {
-                                                <a class="btn btn-primary btn-sm" asp-action="EditRole" asp-route-id="@item.Id"><i class="fas fa-edit"></i></a>
-
-                                            }
-                                            <a class="btn btn-success btn-sm" asp-action="Details" asp-route-id="@item.Id"><i class="fas fa-list"></i></a>
-
+                                        <form asp-action="DeleteUser" asp-route-id="@item.Id" method="post">
+                                            <a class="btn btn-primary btn-sm" asp-action="EditUser" asp-route-id="@item.Id"><i class="fas fa-edit"></i></a>
+                                            @*<a class="btn btn-success" href="@url"><i class="fas fa-list"></i></a>*@
+                                            <a class="btn btn-success btn-sm" asp-action="DetailUser" asp-route-id="@item.Id"><i class="fas fa-list"></i></a>
+                                            
                                             <span id="confirmDeleteSpan_@item.Id" style="display: none">
                                                 <span class="text-dark">Are you sure you want to delete?</span>
                                                 <button type="submit" class="btn btn-danger">Yes</button>
@@ -84,26 +84,23 @@
                                         </form>
                                     </div>
                                 </td>
+
                             </tr>
                         }
-
-
                     </table>
-                }
-                else
-                {
-                    <div class="card">
-                        <div class="card-header">
-                            No roles created yet
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title">
-                                Use the button above to reate a role
-                            </h5>
-                        </div>
+                </div>
+            }
+            else
+            {
+                <div class="card">
+                    <div class="card-header">
+                        No users created yet
                     </div>
-                }
-            </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Use the button above to create a user</h5>
+                    </div>
+                </div>
+            }
 
         </div>
         <!-- /.card-body -->
@@ -113,7 +110,6 @@
 
 </section>
 <!-- /.content -->
-
-@section Scripts{
-    <script src="~/js/Admin/User/listRolesController.js"></script>
+@section  Scripts{
+    <script src="~/js/Admin/User/listUsersController.js"></script>
 }

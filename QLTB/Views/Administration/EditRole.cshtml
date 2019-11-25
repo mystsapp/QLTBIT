@@ -100,7 +100,7 @@
                             {
                                 foreach (var user in Model.Users)
                                 {
-                                    <h5 class="card-title">@user</h5>
+                                    <h5 class="card-title">@user</h5><br />
                                 }
                             }
                             else
@@ -109,8 +109,7 @@
                             }
                         </div>
                         <div class="card-footer">
-                            <a href="#" class="btn btn-primary" title="Update"><i class="fas fa-user-edit"></i></a>
-                            <a href="#" class="btn btn-danger" title="Delete"><i class="fas fa-trash-alt"></i></a>
+                            <a asp-route-roleId="@Model.Id" asp-action="EditUserInRole" asp-controller="Administration" class="btn btn-outline-primary" title="Update Or Remote" ><i class="fas fa-user-edit text-green"></i> Or <i class="fas fa-user-times text-danger"></i></a>
                         </div>
                     </div>
 

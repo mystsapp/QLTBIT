@@ -18,23 +18,26 @@ namespace QLTB.Controllers
         private readonly SignInManager<ApplicationUser> signInManager;
         private readonly IUnitOfWork unitOfWork;
 
-        [BindProperty]
-        public RegisterViewModel registerVM { get; set; }
         public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IUnitOfWork unitOfWork)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
             this.unitOfWork = unitOfWork;
 
-            registerVM = new RegisterViewModel()
-            {
-                ChiNhanhs = unitOfWork.chiNhanhRepository.GetAll()
-            };
+           
         }
 
         [AllowAnonymous]
         public IActionResult Register()
         {
+            //ViewBag.ChiNhanhs = unitOfWork.chiNhanhRepository.GetAll();
+            //ViewBag.VanPhongs = unitOfWork.vanPhongRepository.GetAll();
+
+            RegisterViewModel registerVM = new RegisterViewModel()
+            {
+                ChiNhanhs = unitOfWork.chiNhanhRepository.GetAll()
+            };
+
             ViewBag.chinhanh = registerVM.ChiNhanhs.ToList();
             return View(registerVM);
         }
@@ -42,8 +45,11 @@ namespace QLTB.Controllers
         [HttpPost, ActionName("Register")]
         [ValidateAntiForgeryToken]
         [AllowAnonymous]
-        public async Task<IActionResult> RegisterPost()
+        public async Task<IActionResult> RegisterPost(RegisterViewModel registerVM)
         {
+            //ViewBag.ChiNhanhs = unitOfWork.chiNhanhRepository.GetAll();
+            //ViewBag.VanPhongs = unitOfWork.vanPhongRepository.GetAll();
+            registerVM.ChiNhanhs = unitOfWork.chiNhanhRepository.GetAll();
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser()
@@ -56,13 +62,18 @@ namespace QLTB.Controllers
                     ChiNhanhId = registerVM.ChiNhanhId,
                     VanPhong = registerVM.VanPhong,
                     Khoi = registerVM.Khoi,
+                    TinhTrang = registerVM.TinhTrang
                 };
 
                 var result = await userManager.CreateAsync(user, registerVM.Password);
 
                 if (result.Succeeded)
                 {
-                    //await signInManager.SignInAsync(user, isPersistent: false); // isPersistent: false ==> use session not cookie
+                    if(signInManager.IsSignedIn(User) && User.IsInRole("Admin"))
+                    {
+                        return RedirectToAction("ListUsers", "Administration");
+                    }
+                    await signInManager.SignInAsync(user, isPersistent: false); // isPersistent: false ==> use session not cookie
                     return RedirectToAction("Index", "Home");
                 }
 
@@ -125,5 +136,7 @@ namespace QLTB.Controllers
                 return Json(true);
             return Json($"Username {Username} is already in use");
         }
+
+       
     }
 }
