@@ -91,6 +91,7 @@ namespace QLTB.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        [HttpGet]
         [AllowAnonymous]
         public async Task<IActionResult> Login(string returnUrl)
         {
@@ -143,6 +144,16 @@ namespace QLTB.Controllers
             return Json($"Username {Username} is already in use");
         }
 
-       
+        [HttpPost]
+        [AllowAnonymous]
+        public IActionResult ExternalLogin(string provider, string returnUrl)
+        {
+            var redirectUrl = Url.Action("ExternalLoginCallback", "Account",
+                                new { ReturnUrl = returnUrl });
+
+            var properties = signInManager.ConfigureExternalAuthenticationProperties(provider, redirectUrl);
+
+            return new ChallengeResult(provider, properties);
+        }
     }
 }

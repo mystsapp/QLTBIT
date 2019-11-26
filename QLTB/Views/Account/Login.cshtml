@@ -43,7 +43,7 @@
                     <div class="card ">
                         <div class="card-body login-card-body " style="border-radius: 25px;">
 
-                            <form asp-action="Login" method="post" asp-route-returnurl="@Model.ReturnUrl" autocomplete="off">
+                            <form method="post" asp-route-returnurl="@Model.ReturnUrl" autocomplete="off">
 
 
                                 <div asp-validation-summary="All" class="text-danger"></div>
@@ -109,19 +109,21 @@
                                 }
                                 else
                                 {
-                                    <form asp-action="ExternalLogin" method="post" asp-route-returnurl="@Model.ReturnUrl">
+                                    <form method="post" asp-action="ExternalLogin" asp-route-returnurl="@Model.ReturnUrl" autocomplete="off">
                                         @foreach (var provider in Model.ExternalLogins)
                                         {
                                             <div class="row">
 
                                                 <!-- /.col -->
-                                                <button type="submit" class="btn btn-primary btn-block" name="provider" value="@provider.Name"
-                                                        title="Login using your @provider.DisplayName account ">
+                                                <button type="submit" class="btn btn-primary btn-block"
+                                                        name="provider" value="@provider.Name"
+                                                        title="Login using your @provider.DisplayName account">
                                                     @provider.DisplayName
                                                 </button>
                                                 <!-- /.col -->
                                             </div>
                                         }
+
                                     </form>
                                 }
                             }
