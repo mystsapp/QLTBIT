@@ -88,6 +88,13 @@ namespace QLTB
             //}
             ).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
+            services.AddAuthentication()
+                .AddGoogle(options =>
+                {
+                    options.ClientId = "100548929884-109mco1mku83rb2hhn4arf07hnqpuhmc.apps.googleusercontent.com";
+                    options.ClientSecret = "FMGzQF_PB1xmXhoo1tpAlXC-";
+                });
+
             services.ConfigureApplicationCookie(options =>
             {
                 options.AccessDeniedPath = new PathString("/Administration/AccessDenied"); // Change AccessDenied route
@@ -107,7 +114,7 @@ namespace QLTB
                 options.AddPolicy("SuperAdminRolePolicy", policy => policy.RequireRole("Super Admin"));
             });
         }
-
+        
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
