@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -24,7 +25,7 @@ namespace QLTB.Controllers
             this.signInManager = signInManager;
             this.unitOfWork = unitOfWork;
 
-           
+
         }
 
         [AllowAnonymous]
@@ -69,7 +70,7 @@ namespace QLTB.Controllers
 
                 if (result.Succeeded)
                 {
-                    if(signInManager.IsSignedIn(User) && User.IsInRole("Admin"))
+                    if (signInManager.IsSignedIn(User) && User.IsInRole("Admin"))
                     {
                         return RedirectToAction("ListUsers", "Administration");
                     }
@@ -109,6 +110,11 @@ namespace QLTB.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Login(LoginViewModel model, string returnUrl)
         {
+
+            model.ExternalLogins = (await signInManager.GetExternalAuthenticationSchemesAsync()).ToList(); // get clientID, clientSecret in StartUp
+
+
+
             if (ModelState.IsValid)
             {
 
@@ -154,6 +160,72 @@ namespace QLTB.Controllers
             var properties = signInManager.ConfigureExternalAuthenticationProperties(provider, redirectUrl);
 
             return new ChallengeResult(provider, properties);
+        }
+
+        public async Task<IActionResult> ExternalLoginCallback(string returnUrl = null, string remoteError = null)
+        {
+            returnUrl = returnUrl ?? Url.Content("~/");
+
+            LoginViewModel loginViewModel = new LoginViewModel()
+            {
+                ReturnUrl = returnUrl,
+                ExternalLogins = (await signInManager.GetExternalAuthenticationSchemesAsync()).ToList()
+            };
+
+            if (remoteError != null)
+            {
+                ModelState.AddModelError("", $"Error from external provider: {remoteError}");
+                return View("Login", loginViewModel);
+            }
+
+            var info = await signInManager.GetExternalLoginInfoAsync(); // get the external login infomation
+            if (info == null)
+            {
+                ModelState.AddModelError("", "Error loading external login information.");
+                return View("Login", loginViewModel);
+            }
+
+            var signInResult = await signInManager.ExternalLoginSignInAsync(info.LoginProvider,
+                                     info.ProviderKey, isPersistent: false, bypassTwoFactor: true); // check external login (check in UserLogin tbl)
+
+            if (signInResult.Succeeded)
+            {
+                return LocalRedirect(returnUrl);
+            }
+            else
+            {
+                var email = info.Principal.FindFirstValue(ClaimTypes.Email);
+                if (email != null)
+                {
+                    var user = await userManager.FindByEmailAsync(email);// check in the local account
+
+                    if (user == null)
+                    {
+                        user = new ApplicationUser()
+                        {
+                            UserName = info.Principal.FindFirstValue(ClaimTypes.Email),
+                            Email = info.Principal.FindFirstValue(ClaimTypes.Email),
+                            Name = "ExternalLogin",
+                            ChiNhanhId = 9
+                        };
+
+                        await userManager.CreateAsync(user);
+                    }
+
+                    await userManager.AddLoginAsync(user, info); // add to userlogin table
+                    await signInManager.SignInAsync(user, isPersistent: false);
+
+                    return LocalRedirect(returnUrl);
+                }
+                else
+                {
+                    ViewBag.Titile = $"Email claim not receive from: {info.LoginProvider}";
+                    ViewBag.ErrorMessage = "Please contact support on Admin@saigontourist.net";
+
+                    return View("Error");
+                }
+            }
+            return View("Login", loginViewModel);
         }
     }
 }

@@ -93,6 +93,13 @@ namespace QLTB
                 {
                     options.ClientId = "100548929884-109mco1mku83rb2hhn4arf07hnqpuhmc.apps.googleusercontent.com";
                     options.ClientSecret = "FMGzQF_PB1xmXhoo1tpAlXC-";
+                   // options.CallbackPath = "";
+                })
+                .AddFacebook(options =>
+                {
+                    options.ClientId = "2234668953508404";
+                    options.ClientSecret = "a7ad7774ee63251abd8ec4f3cebd1646";
+                   // options.CallbackPath = "";
                 });
 
             services.ConfigureApplicationCookie(options =>

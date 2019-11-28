@@ -109,10 +109,10 @@
                                 }
                                 else
                                 {
-                                    <form method="post" asp-action="ExternalLogin" asp-route-returnurl="@Model.ReturnUrl" autocomplete="off">
+                                    <form method="post" asp-action="ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" autocomplete="off">
                                         @foreach (var provider in Model.ExternalLogins)
                                         {
-                                            <div class="row">
+                                            <div class="row" >
 
                                                 <!-- /.col -->
                                                 <button type="submit" class="btn btn-primary btn-block"
@@ -122,6 +122,7 @@
                                                 </button>
                                                 <!-- /.col -->
                                             </div>
+                                            <br />
                                         }
 
                                     </form>
