@@ -15,6 +15,7 @@ using QLTB.Data.Repository;
 using QLTB.Models;
 using QLTB.Utility;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace QLTB.Controllers
 {
@@ -50,6 +51,7 @@ namespace QLTB.Controllers
         }
 
         // Get Create method
+        [Authorize("CreateRolePolicy")]
         public async Task<IActionResult> Create(int banGiaoId, string strUrl)
         {
             ChiTietBanGiaoVM.strUrl = strUrl;
@@ -73,8 +75,9 @@ namespace QLTB.Controllers
             await _unitOfWork.Complete();
             return RedirectToAction(nameof(Index), new { id = banGiaoId, strUrl = ChiTietBanGiaoVM.strUrl });
         }
-        
+
         // Get Edit method
+        [Authorize("EditRolePolicy")]
         public async Task<IActionResult> Edit(int banGiaoId, int id, string strUrl)
         {
             ChiTietBanGiaoVM.strUrl = strUrl;
@@ -109,8 +112,9 @@ namespace QLTB.Controllers
 
             return View(ChiTietBanGiaoVM);
         }
-        
+
         // Get Delete method
+        [Authorize("DeleteRolePolicy")]
         public async Task<IActionResult> Delete(int banGiaoId, int id, string strUrl)
         {
             ChiTietBanGiaoVM.strUrl = strUrl;

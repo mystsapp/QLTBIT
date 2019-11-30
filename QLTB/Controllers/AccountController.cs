@@ -1,18 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using QLTB.Data.Models;
 using QLTB.Data.Repository;
-using QLTB.Extensions;
 using QLTB.Models;
+using System.Linq;
+using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace QLTB.Controllers
 {
+    //[Authorize]
+    [Authorize(Policy = "AdminRolePolicy")] // the same admin role --> setup in startup
     public class AccountController : Controller
     {
         private readonly UserManager<ApplicationUser> userManager;
@@ -24,11 +23,9 @@ namespace QLTB.Controllers
             this.userManager = userManager;
             this.signInManager = signInManager;
             this.unitOfWork = unitOfWork;
-
-
         }
 
-        [AllowAnonymous]
+        [Authorize(Policy = "CreateRolePolicy")]
         public IActionResult Register()
         {
             //ViewBag.ChiNhanhs = unitOfWork.chiNhanhRepository.GetAll();
@@ -86,6 +83,7 @@ namespace QLTB.Controllers
             return View(registerVM);
         }
 
+        [AllowAnonymous]
         public async Task<IActionResult> Logout()
         {
             await signInManager.SignOutAsync();
@@ -110,14 +108,10 @@ namespace QLTB.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Login(LoginViewModel model, string returnUrl)
         {
-
             model.ExternalLogins = (await signInManager.GetExternalAuthenticationSchemesAsync()).ToList(); // get clientID, clientSecret in StartUp
-
-
 
             if (ModelState.IsValid)
             {
-
                 var result = await signInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, false);
 
                 if (result.Succeeded)
@@ -134,7 +128,6 @@ namespace QLTB.Controllers
                 }
 
                 ModelState.AddModelError("", "Invalid Login Attempt");
-
             }
             return View(model);
         }
@@ -162,6 +155,7 @@ namespace QLTB.Controllers
             return new ChallengeResult(provider, properties);
         }
 
+        [AllowAnonymous]
         public async Task<IActionResult> ExternalLoginCallback(string returnUrl = null, string remoteError = null)
         {
             returnUrl = returnUrl ?? Url.Content("~/");
@@ -225,7 +219,93 @@ namespace QLTB.Controllers
                     return View("Error");
                 }
             }
-            return View("Login", loginViewModel);
+        }
+
+        public async Task<IActionResult> ChangePassword()
+        {
+            var user = await userManager.GetUserAsync(User);
+            var userHasPassword = await userManager.HasPasswordAsync(user);
+
+            if (!userHasPassword)
+            {
+                return RedirectToAction(nameof(AddPassword));
+            }
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ChangePassword(ChangePasswordViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await userManager.GetUserAsync(User);
+
+                if (user == null)
+                {
+                    return RedirectToAction("Login");
+                }
+
+                var result = await userManager.ChangePasswordAsync(user, model.CurrentPassword, model.NewPassword);
+
+                if (!result.Succeeded)
+                {
+                    foreach (var error in result.Errors)
+                    {
+                        ModelState.AddModelError(string.Empty, error.Description);
+                    }
+                    return View();
+                }
+
+                await signInManager.RefreshSignInAsync(user);
+                return View("ChangePasswordConfirmation");
+            }
+            return View(model);
+        }
+
+        public IActionResult ChangePasswordConfirmation()
+        {
+            return View();
+        }
+
+        public IActionResult AddPasswordConfirmation()
+        {
+            return View();
+        }
+
+        public async Task<IActionResult> AddPassword()
+        {
+            var user = await userManager.GetUserAsync(User);
+            var userHasPassword = await userManager.HasPasswordAsync(user);
+
+            if (userHasPassword)
+            {
+                return RedirectToAction(nameof(ChangePassword));
+            }
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddPassword(AddPasswordViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await userManager.GetUserAsync(User);
+                var result = await userManager.AddPasswordAsync(user, model.NewPassword);
+                if (!result.Succeeded)
+                {
+                    foreach (var error in result.Errors)
+                    {
+                        ModelState.AddModelError(string.Empty, error.Description);
+                        
+                    }
+                    return View();
+                }
+                await signInManager.RefreshSignInAsync(user);
+                return RedirectToAction("AddPasswordConfirmation");
+            }
+
+
+            return View();
         }
     }
 }

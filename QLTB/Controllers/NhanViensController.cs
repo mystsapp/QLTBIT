@@ -14,7 +14,6 @@ using QLTB.Utility;
 
 namespace QLTB.Controllers
 {
-    [Authorize]
     public class NhanViensController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -48,6 +47,7 @@ namespace QLTB.Controllers
         // Post: Create Method
         [HttpPost, ActionName("Create")]
         [ValidateAntiForgeryToken]
+        [Authorize("CreateRolePolicy")]
         public async Task<IActionResult> CreatePOST()
         {
             if (!ModelState.IsValid)
@@ -61,6 +61,7 @@ namespace QLTB.Controllers
         }
 
         // Get: Edit method
+        [Authorize("EditRolePolicy")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -107,8 +108,9 @@ namespace QLTB.Controllers
 
             return View(NhanVienVM);
         }
-        
+
         // Get: Delete method
+        [Authorize("DeleteRolePolicy")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)

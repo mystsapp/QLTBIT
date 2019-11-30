@@ -31,12 +31,12 @@ namespace QLTB
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.Configure<CookiePolicyOptions>(options =>
-            {
-                // This lambda determines whether user consent for non-essential cookies is needed for a given request.
-                options.CheckConsentNeeded = context => false;
-                options.MinimumSameSitePolicy = SameSiteMode.None;
-            });
+        //    services.Configure<CookiePolicyOptions>(options =>
+        //    {
+        //        // This lambda determines whether user consent for non-essential cookies is needed for a given request.
+        //        options.CheckConsentNeeded = context => false;
+        //        options.MinimumSameSitePolicy = SameSiteMode.None;
+        //    });
 
             services.AddDbContext<QLTBITDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))/*.EnableSensitiveDataLogging()*/);
             services.AddIdentity<ApplicationUser, IdentityRole>()
@@ -79,13 +79,13 @@ namespace QLTB
             services.AddTransient<IUnitOfWork, UnitOfWork>();
 
             services.AddMvc(
-            //    options =>
-            //{
-            //    var policy = new AuthorizationPolicyBuilder()
-            //                     .RequireAuthenticatedUser()    // reuired login in all action method
-            //                     .Build();
-            //    options.Filters.Add(new AuthorizeFilter(policy));
-            //}
+                options =>
+            {
+                var policy = new AuthorizationPolicyBuilder()
+                                 .RequireAuthenticatedUser()    // reuired login in all action method
+                                 .Build();
+                options.Filters.Add(new AuthorizeFilter(policy));
+            }
             ).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             services.AddAuthentication()
@@ -93,13 +93,13 @@ namespace QLTB
                 {
                     options.ClientId = "100548929884-109mco1mku83rb2hhn4arf07hnqpuhmc.apps.googleusercontent.com";
                     options.ClientSecret = "FMGzQF_PB1xmXhoo1tpAlXC-";
-                   // options.CallbackPath = "";
+                    // options.CallbackPath = "";
                 })
                 .AddFacebook(options =>
                 {
                     options.ClientId = "2234668953508404";
                     options.ClientSecret = "a7ad7774ee63251abd8ec4f3cebd1646";
-                   // options.CallbackPath = "";
+                    // options.CallbackPath = "";
                 });
 
             services.ConfigureApplicationCookie(options =>
@@ -116,12 +116,24 @@ namespace QLTB
                     context.User.HasClaim(claim => claim.Type == "Edit Role" && claim.Value == "true") ||
                     context.User.IsInRole("Super Admin")
                     ));
+                
+                options.AddPolicy("CreateRolePolicy", policy => policy.RequireAssertion(context =>
+                    context.User.IsInRole("Admin") &&
+                    context.User.HasClaim(claim => claim.Type == "Create Role" && claim.Value == "true") ||
+                    context.User.IsInRole("Super Admin")
+                    ));
+                
+                options.AddPolicy("DeleteRolePolicy", policy => policy.RequireAssertion(context =>
+                    context.User.IsInRole("Admin") &&
+                    context.User.HasClaim(claim => claim.Type == "Delete Role" && claim.Value == "true") ||
+                    context.User.IsInRole("Super Admin")
+                    ));
 
                 options.AddPolicy("AdminRolePolicy", policy => policy.RequireRole("Admin"));
                 options.AddPolicy("SuperAdminRolePolicy", policy => policy.RequireRole("Super Admin"));
             });
         }
-        
+
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {

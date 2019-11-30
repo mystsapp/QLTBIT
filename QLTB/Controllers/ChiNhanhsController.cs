@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using QLTB.Data.Models;
 using QLTB.Data.Repository;
 
 namespace QLTB.Controllers
 {
+    [Authorize(Policy = "AdminRolePolicy")] // the same admin role --> setup in startup
     public class ChiNhanhsController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -30,6 +32,7 @@ namespace QLTB.Controllers
         // Post Create 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize("CreateRolePolicy")]
         public async Task<IActionResult> Create(ChiNhanh chiNhanh)
         {
             if (ModelState.IsValid)
@@ -43,6 +46,7 @@ namespace QLTB.Controllers
         }
 
         // Get Edit method
+        [Authorize("EditRolePolicy")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -86,8 +90,9 @@ namespace QLTB.Controllers
 
             return View(chinhanh);
         }
-        
+
         // Get Delete method
+        [Authorize("DeleteRolePolicy")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)

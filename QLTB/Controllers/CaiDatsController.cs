@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using QLTB.Data.Repository;
@@ -34,6 +35,7 @@ namespace QLTB.Controllers
             return View(caiDatIndexVM);
         }
 
+        [Authorize("CreateRolePolicy")]
         // Get Create method
         public async Task<IActionResult> Create(int banGiaoId, string strUrl)
         {
@@ -56,8 +58,9 @@ namespace QLTB.Controllers
             await _unitOfWork.Complete();
             return RedirectToAction(nameof(Index), new { id = banGiaoId, strUrl = CaiDatVM.strUrl });
         }
-        
+
         // Get Edit method
+        [Authorize("EditRolePolicy")]
         public async Task<IActionResult> Edit(int banGiaoId, int id, string strUrl)
         {
             CaiDatVM.strUrl = strUrl;
@@ -92,8 +95,9 @@ namespace QLTB.Controllers
 
             return View(CaiDatVM);
         }
-        
+
         // Get Delete method
+        [Authorize("DeleteRolePolicy")]
         public async Task<IActionResult> Delete(int banGiaoId, int id, string strUrl)
         {
             CaiDatVM.strUrl = strUrl;

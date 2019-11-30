@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Hosting.Internal;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting.Internal;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Novacode;
@@ -22,6 +24,7 @@ namespace QLTB.Controllers
 {
     public class BanGiaosController : Controller
     {
+        private readonly UserManager<ApplicationUser> userManager;
         private readonly IUnitOfWork _unitOfWork;
         private readonly HostingEnvironment _hostingEnvironment;
 
@@ -30,8 +33,9 @@ namespace QLTB.Controllers
 
         private int PageSize = 10;
 
-        public BanGiaosController(IUnitOfWork unitOfWork, HostingEnvironment hostingEnvironment)
+        public BanGiaosController(UserManager<ApplicationUser> userManager, IUnitOfWork unitOfWork, HostingEnvironment hostingEnvironment)
         {
+            this.userManager = userManager;
             _unitOfWork = unitOfWork;
             _hostingEnvironment = hostingEnvironment;
             BanGiaoCreateVM = new BanGiaoCreateViewModel()
@@ -83,6 +87,7 @@ namespace QLTB.Controllers
             /////////////////////////////////////////////////Pagingnation/////////////////////////////////////////////////
 
             banGiaoVM.BanGiaos = await _unitOfWork.banGiaoRepository.BanGiaoIncludeChiNhanh();
+            
 
             /////////// search ///////////////
             if (searchNguoiNhan != null)
@@ -133,8 +138,12 @@ namespace QLTB.Controllers
             return View(banGiaoVM);
         }
 
-        public IActionResult Create()
+        [Authorize(Policy = "CreateRolePolicy")]
+        public async Task<IActionResult> Create()
         {
+            var user = await userManager.GetUserAsync(User);
+            BanGiaoCreateVM.BanGiao.NguoiLap = user.UserName;
+
             return View(BanGiaoCreateVM);
         }
 
@@ -143,18 +152,23 @@ namespace QLTB.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreatePOST()
         {
+            
+
             if (!ModelState.IsValid)
             {
                 return View(BanGiaoCreateVM);
             }
 
             BanGiaoCreateVM.BanGiao.NgayTao = DateTime.Now;
+            
+            
             _unitOfWork.banGiaoRepository.Create(BanGiaoCreateVM.BanGiao);
             await _unitOfWork.Complete();
             return RedirectToAction(nameof(Index));
         }
 
         // Get: Edit method
+        [Authorize(Policy = "EditRolePolicy")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -207,6 +221,7 @@ namespace QLTB.Controllers
         }
 
         // Get: Delete method
+        [Authorize(Policy = "DeleteRolePolicy")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -714,8 +729,8 @@ namespace QLTB.Controllers
 
             tbBG1.Rows[0].Cells[0].Paragraphs[0].Append("Bên Nhận").Position(80).Bold().Font("Times New Roman").FontSize(11).Alignment = Alignment.center;
             tbBG1.Rows[0].Cells[1].Paragraphs[0].Append("Bên Giao").Position(80).Bold().Font("Times New Roman").FontSize(11).Alignment = Alignment.center;
-            tbBG1.Rows[1].Cells[0].Paragraphs[0].Append(chitiets.FirstOrDefault().BanGiao.NguoiLap).Bold().Font("Times New Roman").FontSize(11).Alignment = Alignment.center;
-            tbBG1.Rows[1].Cells[1].Paragraphs[0].Append(chitiets.FirstOrDefault().BanGiao.NguoiNhan).Bold().Font("Times New Roman").FontSize(11).Alignment = Alignment.center;
+            tbBG1.Rows[1].Cells[0].Paragraphs[0].Append(chitiets.FirstOrDefault().BanGiao.NguoiNhan).Bold().Font("Times New Roman").FontSize(11).Alignment = Alignment.center;
+            tbBG1.Rows[1].Cells[1].Paragraphs[0].Append(chitiets.FirstOrDefault().BanGiao.NguoiLap).Bold().Font("Times New Roman").FontSize(11).Alignment = Alignment.center;
             doc.InsertTable(tbBG1);
 
             //Border border = new Border();

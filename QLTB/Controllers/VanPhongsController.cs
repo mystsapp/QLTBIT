@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting.Internal;
 using Microsoft.AspNetCore.Mvc;
 using QLTB.Data.Models;
@@ -12,6 +13,7 @@ using QLTB.Utility;
 
 namespace QLTB.Controllers
 {
+    [Authorize(Policy = "AdminRolePolicy")] // the same admin role --> setup in startup
     public class VanPhongsController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -34,6 +36,7 @@ namespace QLTB.Controllers
         }
 
         // Get Create method
+        [Authorize("CreateRolePolicy")]
         public IActionResult Create()
         {
             return View(VanPhongVM);
@@ -55,6 +58,7 @@ namespace QLTB.Controllers
         }
 
         // Get: Edit method
+        [Authorize("EditRolePolicy")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -100,8 +104,9 @@ namespace QLTB.Controllers
 
             return View(VanPhongVM);
         }
-        
+
         // Get: Delete method
+        [Authorize("DeleteRolePolicy")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
