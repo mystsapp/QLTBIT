@@ -56,5 +56,7 @@ namespace QLTB.Data.Models
         [Column(TypeName = "nvarchar(50)")]
         public string LoaiThietBi { get; set; }
 
+
+        //public string KhuVuc { get; set; }
     }
 }
