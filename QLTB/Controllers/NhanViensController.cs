@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting.Internal;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using QLTB.Data.Models;
@@ -16,12 +17,14 @@ namespace QLTB.Controllers
 {
     public class NhanViensController : Controller
     {
+        private readonly UserManager<ApplicationUser> userManager;
         private readonly IUnitOfWork _unitOfWork;
 
         [BindProperty]
         public NhanVienViewModel NhanVienVM { get; set; }
-        public NhanViensController(IUnitOfWork unitOfWork)
+        public NhanViensController(UserManager<ApplicationUser> userManager, IUnitOfWork unitOfWork)
         {
+            this.userManager = userManager;
             _unitOfWork = unitOfWork;
             NhanVienVM = new NhanVienViewModel()
             {
@@ -34,20 +37,37 @@ namespace QLTB.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
-            var nhanviens = _unitOfWork.nhanVienRepository.NhanVienIncludeChiNhanh();
-            return View(await nhanviens);
+            var roles = await userManager.GetRolesAsync(await userManager.GetUserAsync(User));
+            var nhanviens = await _unitOfWork.nhanVienRepository.NhanVienIncludeChiNhanh();
+
+            var listNvByRole = new List<NhanVien>();
+
+            foreach (var role in roles)
+            {
+                listNvByRole.AddRange(nhanviens.Where(x => x.ChiNhanh.KhuVuc == role));
+            }
+
+            if(!User.IsInRole("Admin") && !User.IsInRole("Super Admin"))
+            {
+                nhanviens = listNvByRole;
+            }
+
+            return View(nhanviens);
         }
 
         // Get Create method
-        public IActionResult Create()
+        [Authorize("CreateCNRolePolicy")]
+        public async Task<IActionResult> Create()
         {
+
+            NhanVienVM.ChiNhanhs = await ChiNhanhByRole();
+
             return View(NhanVienVM);
         }
 
         // Post: Create Method
         [HttpPost, ActionName("Create")]
         [ValidateAntiForgeryToken]
-        [Authorize("CreateRolePolicy")]
         public async Task<IActionResult> CreatePOST()
         {
             if (!ModelState.IsValid)
@@ -55,13 +75,13 @@ namespace QLTB.Controllers
                 return View(NhanVienVM);
             }
 
-            _unitOfWork.nhanVienRepository.Create(NhanVienVM.NhanVien);            
+            _unitOfWork.nhanVienRepository.Create(NhanVienVM.NhanVien);
             await _unitOfWork.Complete();
             return RedirectToAction(nameof(Index));
         }
 
         // Get: Edit method
-        [Authorize("EditRolePolicy")]
+        [Authorize("EditCNRolePolicy")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -71,6 +91,8 @@ namespace QLTB.Controllers
 
             if (NhanVienVM.NhanVien == null)
                 return NotFound();
+
+            NhanVienVM.ChiNhanhs = await ChiNhanhByRole();
 
             return View(NhanVienVM);
         }
@@ -110,7 +132,7 @@ namespace QLTB.Controllers
         }
 
         // Get: Delete method
-        [Authorize("DeleteRolePolicy")]
+        [Authorize("DeleteCNRolePolicy")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -152,6 +174,27 @@ namespace QLTB.Controllers
             {
                 data = vps
             });
+        }
+
+        public async Task<IEnumerable<ChiNhanh>> ChiNhanhByRole()
+        {
+            var roles = await userManager.GetRolesAsync(await userManager.GetUserAsync(User));
+
+            var listChiNhanh = new List<ChiNhanh>();
+
+            foreach (var chinhanh in NhanVienVM.ChiNhanhs)
+            {
+                foreach (var role in roles)
+                {
+                    if (chinhanh.KhuVuc == role)
+                    {
+                        listChiNhanh.Add(chinhanh);
+                    }
+                }
+            }
+
+            return listChiNhanh;
+
         }
     }
 }

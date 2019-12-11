@@ -7,10 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Migrations\20191114084251_extendIdentityUser.cs" />
-    <Compile Remove="Migrations\20191114084251_extendIdentityUser.Designer.cs" />
-    <Compile Remove="Migrations\20191114085200_extendIdentityUser.cs" />
-    <Compile Remove="Migrations\20191114085200_extendIdentityUser.Designer.cs" />
+    <Compile Remove="Migrations\20191207083734_fix1.cs" />
+    <Compile Remove="Migrations\20191207083734_fix1.Designer.cs" />
   </ItemGroup>
 
 
@@ -19,6 +17,11 @@
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.4" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <ProjectReference Include="..\LoggerService\LoggerService.csproj" />
   </ItemGroup>
 
 </Project>

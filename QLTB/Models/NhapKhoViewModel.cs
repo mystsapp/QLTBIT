@@ -8,5 +8,6 @@ namespace QLTB.Models
         public BanGiao BanGiao { get; set; }
         public ChiTietBanGiao ChiTietBanGiao { get; set; }
         public string strUrl { get; set; }
+        public string khuVuc { get; set; }
     }
 }

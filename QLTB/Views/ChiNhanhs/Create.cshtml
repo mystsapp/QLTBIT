@@ -85,6 +85,16 @@
                         </div>
                         <span class="text-danger" asp-validation-for="DienThoai"></span>
                     </div>
+                    
+                    <div class="form-group row">
+                        <div class="col-2">
+                            <label asp-for="KhuVuc"></label>
+                        </div>
+                        <div class="col-5">
+                            <select class="form-control" asp-for="@Model.KhuVuc" asp-items="@(new SelectList(ViewBag.Roles,"Name","Name"))"> </select>
+                        </div>
+                        <span class="text-danger" asp-validation-for="KhuVuc"></span>
+                    </div>
 
                     <div class="form-group">
                         <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i></button>

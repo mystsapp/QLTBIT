@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using QLTB.Data.Models;
@@ -14,12 +15,14 @@ namespace QLTB.Controllers
     public class NhapKhosController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly UserManager<ApplicationUser> userManager;
 
         [BindProperty]
         public NhapKhoListViewModel NhapKhoListVM { get; set; }
-        public NhapKhosController(IUnitOfWork unitOfWork)
+        public NhapKhosController(IUnitOfWork unitOfWork, UserManager<ApplicationUser> userManager)
         {
             _unitOfWork = unitOfWork;
+            this.userManager = userManager;
             NhapKhoListVM = new NhapKhoListViewModel()
             {
                 NhapKhos = new List<NhapKho>(),
@@ -28,7 +31,7 @@ namespace QLTB.Controllers
         }
         public async Task<IActionResult> Index(string searchFromDate = null, string searchToDate = null)
         {
-            NhapKhoListVM.NhapKhos = await _unitOfWork.nhapKhoRepository.GetAllIncludeOneAsync(x => x.ChiTietBanGiao);
+            NhapKhoListVM.NhapKhos = _unitOfWork.nhapKhoRepository.GetAll();
 
             if (searchFromDate != null && searchToDate != null)
             {
@@ -37,6 +40,19 @@ namespace QLTB.Controllers
                 NhapKhoListVM.NhapKhos = NhapKhoListVM.NhapKhos.Where(x => x.NgayNhapKho >= fromDate && x.NgayNhapKho <= toDate.AddDays(1));
             }
 
+            var roles = await userManager.GetRolesAsync(await userManager.GetUserAsync(User));
+
+            List<NhapKho> nhapKhos = new List<NhapKho>();
+
+            if (!User.IsInRole("Admin") && !User.IsInRole("Super Admin"))
+            {
+                foreach (var role in roles)
+                {
+                    nhapKhos.AddRange(NhapKhoListVM.NhapKhos.Where(x => x.KhuVuc.Equals(role)));
+                }
+
+                NhapKhoListVM.NhapKhos = nhapKhos;
+            }
             return View(NhapKhoListVM);
         }
 
@@ -44,7 +60,7 @@ namespace QLTB.Controllers
         {
 
             var idList = JsonConvert.DeserializeObject<List<NhapKhoListViewModel>>(stringId);
-            foreach(var item in idList)
+            foreach (var item in idList)
             {
                 var nhapKho = await _unitOfWork.nhapKhoRepository.GetByIdAsync(item.Id);
                 nhapKho.ThanhLy = true;
@@ -63,7 +79,7 @@ namespace QLTB.Controllers
             return PartialView(NhapKhoListVM);
         }
 
-        [Authorize("DeleteRolePolicy")]
+        [Authorize("DeleteCNRolePolicy")]
         public async Task<IActionResult> DeleteList(string ids)
         {
 
@@ -72,7 +88,12 @@ namespace QLTB.Controllers
             {
                 var nhapKho = await _unitOfWork.nhapKhoRepository.GetByIdAsync(item.Id);
 
-                _unitOfWork.chiTietBanGiaoRepository.Delete(_unitOfWork.chiTietBanGiaoRepository.GetById(nhapKho.CTBGId));
+                var chitiet = _unitOfWork.chiTietBanGiaoRepository.GetById(nhapKho.CTBGId);
+                if (chitiet != null)
+                {
+                    _unitOfWork.chiTietBanGiaoRepository.Delete(chitiet);
+                }
+
                 _unitOfWork.nhapKhoRepository.Delete(nhapKho);
                 await _unitOfWork.Complete();
             }

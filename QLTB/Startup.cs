@@ -31,12 +31,14 @@ namespace QLTB
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-        //    services.Configure<CookiePolicyOptions>(options =>
-        //    {
-        //        // This lambda determines whether user consent for non-essential cookies is needed for a given request.
-        //        options.CheckConsentNeeded = context => false;
-        //        options.MinimumSameSitePolicy = SameSiteMode.None;
-        //    });
+            //services.AddSingleton<ILoggerManager, LoggerManager>(); ILoggerManager
+            //services.AddControllers();
+            //    services.Configure<CookiePolicyOptions>(options =>
+            //    {
+            //        // This lambda determines whether user consent for non-essential cookies is needed for a given request.
+            //        options.CheckConsentNeeded = context => false;
+            //        options.MinimumSameSitePolicy = SameSiteMode.None;
+            //    });
 
             services.AddDbContext<QLTBITDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))/*.EnableSensitiveDataLogging()*/);
             services.AddIdentity<ApplicationUser, IdentityRole>()
@@ -109,25 +111,48 @@ namespace QLTB
 
             services.AddAuthorization(options =>
             {
-                options.AddPolicy("DeleteRolePolicy", policy => policy.RequireClaim("Delete Role"));
+                //options.AddPolicy("DeleteRolePolicy", policy => policy.RequireClaim("Delete Role"));
                 //options.AddPolicy("EditRolePolicy", policy => policy.RequireClaim("Edit Role", "true"));
+                //options.AddPolicy("CreateRolePolicy", policy => policy.RequireClaim("Create Role", "true"));
+
                 options.AddPolicy("EditRolePolicy", policy => policy.RequireAssertion(context =>
                     context.User.IsInRole("Admin") &&
                     context.User.HasClaim(claim => claim.Type == "Edit Role" && claim.Value == "true") ||
                     context.User.IsInRole("Super Admin")
+                    ));                
+                options.AddPolicy("EditCNRolePolicy", policy => policy.RequireAssertion(context =>
+                    context.User.HasClaim(claim => claim.Type == "Edit Role" && claim.Value == "true") ||
+                    context.User.IsInRole("Super Admin") ||
+                    context.User.IsInRole("Admin")
                     ));
+                
+                
                 
                 options.AddPolicy("CreateRolePolicy", policy => policy.RequireAssertion(context =>
                     context.User.IsInRole("Admin") &&
                     context.User.HasClaim(claim => claim.Type == "Create Role" && claim.Value == "true") ||
                     context.User.IsInRole("Super Admin")
                     ));
+                options.AddPolicy("CreateCNRolePolicy", policy => policy.RequireAssertion(context =>
+                    context.User.IsInRole("Admin") ||
+                    context.User.HasClaim(claim => claim.Type == "Create Role" && claim.Value == "true") ||
+                    context.User.IsInRole("Super Admin")
+                    ));
+                
+                
                 
                 options.AddPolicy("DeleteRolePolicy", policy => policy.RequireAssertion(context =>
                     context.User.IsInRole("Admin") &&
                     context.User.HasClaim(claim => claim.Type == "Delete Role" && claim.Value == "true") ||
                     context.User.IsInRole("Super Admin")
                     ));
+                options.AddPolicy("DeleteCNRolePolicy", policy => policy.RequireAssertion(context =>
+                    context.User.IsInRole("Admin") ||
+                    context.User.HasClaim(claim => claim.Type == "Delete Role" && claim.Value == "true") ||
+                    context.User.IsInRole("Super Admin")
+                    ));
+                
+
 
                 options.AddPolicy("AdminRolePolicy", policy => policy.RequireRole("Admin"));
                 options.AddPolicy("SuperAdminRolePolicy", policy => policy.RequireRole("Super Admin"));

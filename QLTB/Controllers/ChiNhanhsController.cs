@@ -3,20 +3,25 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using QLTB.Data.Models;
 using QLTB.Data.Repository;
+using QLTB.Models;
 
 namespace QLTB.Controllers
 {
     [Authorize(Policy = "AdminRolePolicy")] // the same admin role --> setup in startup
     public class ChiNhanhsController : Controller
     {
+        private readonly RoleManager<IdentityRole> roleManager;
         private readonly IUnitOfWork _unitOfWork;
 
-        public ChiNhanhsController(IUnitOfWork unitOfWork)
+        public ChiNhanhsController(RoleManager<IdentityRole> roleManager, IUnitOfWork unitOfWork)
         {
+            this.roleManager = roleManager;
             _unitOfWork = unitOfWork;
+            
         }
         public IActionResult Index()
         {
@@ -26,6 +31,7 @@ namespace QLTB.Controllers
         //Get Create method
         public IActionResult Create()
         {
+            ViewBag.Roles = roleManager.Roles.ToList();
             return View();
         }
 
@@ -49,6 +55,7 @@ namespace QLTB.Controllers
         [Authorize("EditRolePolicy")]
         public async Task<IActionResult> Edit(int? id)
         {
+
             if (id == null)
                 return NotFound();
 
@@ -57,6 +64,7 @@ namespace QLTB.Controllers
             if (chinhanh == null)
                 return NotFound();
 
+            ViewBag.Roles = roleManager.Roles.ToList();
             return View(chinhanh);
         }
 
@@ -88,6 +96,7 @@ namespace QLTB.Controllers
             if (chinhanh == null)
                 return NotFound();
 
+            ViewBag.Roles = roleManager.Roles.ToList();
             return View(chinhanh);
         }
 
@@ -103,6 +112,7 @@ namespace QLTB.Controllers
             if (chinhanh == null)
                 return NotFound();
 
+            ViewBag.Roles = roleManager.Roles.ToList();
             return View(chinhanh);
         }
 

@@ -1,8 +1,8 @@
 ﻿var moveToEmployeeController = {
     init: function () {
         moveToEmployeeController.registerEvent();
-        //var optionValue = $('.ddlChiNhanh').val();
-        //moveToEmployeeController.loadDdlVanPhongByChiNhanh(optionValue);
+        var optionValue = $('.ddlChiNhanh').val();
+        moveToEmployeeController.loadDdlVanPhongByChiNhanh(optionValue);
     },
     registerEvent: function () {
         $('.ddlChiNhanh').off('change').on('change', function () {

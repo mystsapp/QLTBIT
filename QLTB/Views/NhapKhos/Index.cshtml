@@ -151,44 +151,56 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var item in Model.NhapKhos)
+                        @if (Model.NhapKhos.Count() != 0)
+                        {
+                            @foreach (var item in Model.NhapKhos)
+                            {
+                                <tr>
+                                    <td>
+                                        <input type="checkbox" class="ckId" data-id="@item.Id" />
+                                    </td>
+                                    <td>@Html.DisplayFor(m => item.TenThietBi)</td>
+                                    <td>@Html.DisplayFor(m => item.NguoiSuDung)</td>
+                                    <td>@Html.DisplayFor(m => item.KhoVanPhong)</td>
+                                    <td>
+                                        @if (item.ThanhLy)
+                                        {
+                                            <span class="badge badge-warning">Đã thanh lý</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge badge-info">Chưa thanh lý</span>
+                                        }
+                                    </td>
+                                    <td>@Html.Raw(item.NgayNhapKho.Value.ToShortDateString())</td>
+                                    <td>@Html.DisplayFor(m => item.NguoiNhapKho)</td>
+                                    <td>
+                                        <div class="btn-group text-white" role="group">
+
+                                            @*<a class="btn btn-success btn-sm" asp-action="Details" asp-route-id="@item.Id"><i class="fas fa-list"></i></a>*@
+                                            <button type="button" class="btn btn-secondary btnDetail" data-id="@item.Id" data-toggle="modal" @*data-target="#detailModal"*@>
+                                                <i class="fas fa-list"></i>
+                                            </button>
+
+                                            <partial name="~/Views/Shared/_NhapKhoDetailModal.cshtml" />
+
+
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                        else
                         {
                             <tr>
-                                <td>
-                                    <input type="checkbox" class="ckId" data-id="@item.Id" />
-                                </td>
-                                <td>@Html.DisplayFor(m => item.TenThietBi)</td>
-                                <td>@Html.DisplayFor(m => item.NguoiSuDung)</td>
-                                <td>@Html.DisplayFor(m => item.KhoVanPhong)</td>
-                                <td>
-                                    @if (item.ThanhLy)
-                                    {
-                                        <span class="badge badge-warning">Đã thanh lý</span>
-                                    }
-                                    else
-                                    {
-                                        <span class="badge badge-info">Chưa thanh lý</span>
-                                    }
-                                </td>
-                                <td>@Html.Raw(item.NgayNhapKho.Value.ToShortDateString())</td>
-                                <td>@Html.DisplayFor(m => item.NguoiNhapKho)</td>
-                                <td>
-                                    <div class="btn-group text-white" role="group">
-
-                                        @*<a class="btn btn-success btn-sm" asp-action="Details" asp-route-id="@item.Id"><i class="fas fa-list"></i></a>*@
-                                        <button type="button" class="btn btn-secondary btnDetail" data-id="@item.Id" data-toggle="modal" @*data-target="#detailModal"*@>
-                                            <i class="fas fa-list"></i>
-                                        </button>
-
-                                        <partial name="~/Views/Shared/_NhapKhoDetailModal.cshtml" />
-
-                                        
-                                    </div>
+                                <td colspan="8">
+                                    <span> <strong> Không có dữ liệu trong bảng</strong></span>
                                 </td>
                             </tr>
                         }
+
                     </tbody>
-                    <tfoot>
+                    @*<tfoot>
                         <tr>
                             <th>#</th>
                             <th>@Html.DisplayNameFor(m => m.NhapKhos.FirstOrDefault().NguoiSuDung)</th>
@@ -199,7 +211,7 @@
                             <th>@Html.DisplayNameFor(m => m.NhapKhos.FirstOrDefault().NguoiNhapKho)</th>
                             <th>#</th>
                         </tr>
-                    </tfoot>
+                    </tfoot>*@
                 </table>
             </div>
 

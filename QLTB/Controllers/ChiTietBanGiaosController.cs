@@ -16,6 +16,7 @@ using QLTB.Models;
 using QLTB.Utility;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace QLTB.Controllers
 {
@@ -23,13 +24,15 @@ namespace QLTB.Controllers
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly HostingEnvironment _hostingEnvironment;
+        private readonly UserManager<ApplicationUser> userManager;
 
         [BindProperty]
         public ChiTietBanGiaoViewModel ChiTietBanGiaoVM { get; set; }
-        public ChiTietBanGiaosController(IUnitOfWork unitOfWork, HostingEnvironment hostingEnvironment)
+        public ChiTietBanGiaosController(IUnitOfWork unitOfWork, HostingEnvironment hostingEnvironment, UserManager<ApplicationUser> userManager)
         {
             _unitOfWork = unitOfWork;
             _hostingEnvironment = hostingEnvironment;
+            this.userManager = userManager;
             ChiTietBanGiaoVM = new ChiTietBanGiaoViewModel()
             {
                 BanGiao = new Data.Models.BanGiao(),
@@ -45,13 +48,16 @@ namespace QLTB.Controllers
         {
             ChiTietBanGiaoIndexViewModel chiTietBanGiaoIndexVM = new ChiTietBanGiaoIndexViewModel();
             chiTietBanGiaoIndexVM.ChiTietBanGiaos = await _unitOfWork.chiTietBanGiaoRepository.FindByBanGiaoIdIncludeBanGiaoThietBi(id);
-            chiTietBanGiaoIndexVM.BanGiao = _unitOfWork.banGiaoRepository.GetById(id);
+            chiTietBanGiaoIndexVM.BanGiao = await _unitOfWork.banGiaoRepository.FindIdIncludeChiNhanh(id);
             chiTietBanGiaoIndexVM.StrUrl = strUrl;
+
+            
+
             return View(chiTietBanGiaoIndexVM);
         }
 
         // Get Create method
-        [Authorize("CreateRolePolicy")]
+        [Authorize("CreateCNRolePolicy")]
         public async Task<IActionResult> Create(int banGiaoId, string strUrl)
         {
             ChiTietBanGiaoVM.strUrl = strUrl;
@@ -77,7 +83,7 @@ namespace QLTB.Controllers
         }
 
         // Get Edit method
-        [Authorize("EditRolePolicy")]
+        [Authorize("EditCNRolePolicy")]
         public async Task<IActionResult> Edit(int banGiaoId, int id, string strUrl)
         {
             ChiTietBanGiaoVM.strUrl = strUrl;
@@ -114,7 +120,7 @@ namespace QLTB.Controllers
         }
 
         // Get Delete method
-        [Authorize("DeleteRolePolicy")]
+        [Authorize("DeleteCNRolePolicy")]
         public async Task<IActionResult> Delete(int banGiaoId, int id, string strUrl)
         {
             ChiTietBanGiaoVM.strUrl = strUrl;
@@ -520,6 +526,28 @@ namespace QLTB.Controllers
                 chitiets = chitiets.Where(x => x.NgayChuyen >= dateMove);
             }
 
+
+            var roles = await userManager.GetRolesAsync(await userManager.GetUserAsync(User));
+            List<ChiTietBanGiao> chiTietBanGiaos = new List<ChiTietBanGiao>();
+            foreach (var role in roles)
+            {
+                var cns = _unitOfWork.chiNhanhRepository.GetAll().Where(x => x.KhuVuc == role);
+
+                foreach (var cn in cns)
+                {
+                    var a = chitiets.Where(x => x.BanGiao.ChiNhanhId == cn.Id);
+                    if (a.Count() > 0)
+                    {
+                        chiTietBanGiaos.AddRange(a);
+                    }
+                }
+            }
+
+            if (!User.IsInRole("Admin") && !User.IsInRole("Super Admin"))
+            {
+                chitiets = chiTietBanGiaos;
+            }
+
             return View(chitiets);
         }
 
@@ -530,6 +558,36 @@ namespace QLTB.Controllers
             ChiTietBanGiaoVM.BanGiao = chiTietBanGiao.BanGiao;
             ChiTietBanGiaoVM.Id = ctbgId;
             ChiTietBanGiaoVM.strUrl = strUrl;
+
+            var roles = await userManager.GetRolesAsync(await userManager.GetUserAsync(User));
+            var listNV = new List<NhanVien>();
+            var listCN = new List<ChiNhanh>();
+
+            foreach(var role in roles)
+            {
+                var a = ChiTietBanGiaoVM.ChiNhanhs.Where(x => x.KhuVuc == role);
+                if(a.Count() > 0)
+                {
+                    listCN.AddRange(a);
+                    listNV.AddRange(ChiTietBanGiaoVM.NhanViens.Where(x => x.ChiNhanh.KhuVuc == role));
+                }
+
+                //foreach (var chinhanh in ChiTietBanGiaoVM.ChiNhanhs)
+                //{
+                //    if(chinhanh.KhuVuc == role)
+                //    {
+                //        listNV.AddRange(ChiTietBanGiaoVM.NhanViens.Where(x => x.ChiNhanhId == chinhanh.Id));
+                //        listCN.AddRange(ChiTietBanGiaoVM.ChiNhanhs.Where(x => x.KhuVuc == role));
+                //    }
+                //}
+                
+            }
+
+            if(!User.IsInRole("Admin") && !User.IsInRole("Super Admin"))
+            {
+                ChiTietBanGiaoVM.NhanViens = listNV;
+                ChiTietBanGiaoVM.ChiNhanhs = listCN;
+            }
 
             return View(ChiTietBanGiaoVM);
         }
@@ -578,11 +636,12 @@ namespace QLTB.Controllers
             });
         }
 
-        public async Task<IActionResult> MoveToWareHouse(int ctbgId, string strUrl)
+        public async Task<IActionResult> MoveToWareHouse(int ctbgId, string strUrl, string khuVuc)
         {
             NhapKhoViewModel nhapKhoVM = new NhapKhoViewModel();
 
             nhapKhoVM.ChiTietBanGiao = await _unitOfWork.chiTietBanGiaoRepository.FindIdIncludeBanGiaoThietBi(ctbgId);
+            nhapKhoVM.khuVuc = khuVuc;
             nhapKhoVM.strUrl = strUrl;
             nhapKhoVM.BanGiao = nhapKhoVM.ChiTietBanGiao.BanGiao;
             
@@ -600,6 +659,8 @@ namespace QLTB.Controllers
             }
 
             nhapKhoVM.NhapKho.NgayNhapKho = DateTime.Now;
+            nhapKhoVM.NhapKho.KhuVuc = nhapKhoVM.khuVuc;
+
             _unitOfWork.nhapKhoRepository.Create(nhapKhoVM.NhapKho);
             await _unitOfWork.Complete();
 

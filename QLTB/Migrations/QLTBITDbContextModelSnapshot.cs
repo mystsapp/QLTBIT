@@ -452,6 +452,9 @@ namespace QLTB.Migrations
                     b.Property<string>("KhoVanPhong")
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<string>("KhuVuc")
+                        .HasColumnType("nvarchar(10)");
+
                     b.Property<string>("LyDo")
                         .HasColumnType("nvarchar(500)");
 
@@ -477,8 +480,6 @@ namespace QLTB.Migrations
                     b.Property<bool>("ThanhLy");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CTBGId");
 
                     b.ToTable("NhapKhos");
                 });
@@ -655,14 +656,6 @@ namespace QLTB.Migrations
                     b.HasOne("QLTB.Data.Models.ChiNhanh", "ChiNhanh")
                         .WithMany()
                         .HasForeignKey("ChiNhanhId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("QLTB.Data.Models.NhapKho", b =>
-                {
-                    b.HasOne("QLTB.Data.Models.ChiTietBanGiao", "ChiTietBanGiao")
-                        .WithMany()
-                        .HasForeignKey("CTBGId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

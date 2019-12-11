@@ -58,16 +58,18 @@
                         <div class="col-4">
                             @*<select class="form-control" asp-for="ChiTietBanGiao.ThietBiId" asp-items="@Model.ThietBis.ToSelectListItem(Model.ChiTietBanGiao.ThietBiId)"></select>*@
                             <input readonly asp-for="NhapKho.TenThietBi" value="@Model.ChiTietBanGiao.ThietBi.Name" class="form-control" />
+                            <span class="text-danger" asp-validation-for="NhapKho.TenThietBi"></span>
                         </div>
-                        <span class="text-danger" asp-validation-for="NhapKho.TenThietBi"></span>
+                        
 
                         <div class="col-2">
                             <label asp-for="NhapKho.DienGiaiTB"></label>
                         </div>
                         <div class="col-4">
                             <textarea type="number" class="form-control" asp-for="NhapKho.DienGiaiTB" ></textarea>
+                            <span class="text-danger" asp-validation-for="NhapKho.DienGiaiTB"></span>
                         </div>
-                        <span class="text-danger" asp-validation-for="NhapKho.DienGiaiTB"></span>
+                        
 
                     </div>
 
@@ -81,16 +83,18 @@
                         </div>
                         <div class="col-4">
                             <input readonly asp-for="NhapKho.NguoiNhapKho" value="@Model.ChiTietBanGiao.BanGiao.NguoiLap" class="form-control" />
+                            <span class="text-danger" asp-validation-for="NhapKho.NguoiNhapKho"></span>
                         </div>
-                        <span class="text-danger" asp-validation-for="NhapKho.NguoiNhapKho"></span>
+                        
 
                         <div class="col-2">
                             <label asp-for="NhapKho.NgaySuDung"></label>
                         </div>
                         <div class="col-4">
                             <input type="text" readonly asp-for="NhapKho.NgaySuDung" value="@Model.ChiTietBanGiao.NgayGiao" class="form-control" />
+                            <span class="text-danger" asp-validation-for="NhapKho.NgaySuDung"></span>
                         </div>
-                        <span class="text-danger" asp-validation-for="NhapKho.NgaySuDung"></span>
+                        
                     </div>
 
                     @*<div class="form-group row">
@@ -103,16 +107,18 @@
                         </div>
                         <div class="col-4">
                             <input readonly asp-for="NhapKho.NguoiSuDung" value="@Model.ChiTietBanGiao.BanGiao.NguoiNhan" class="form-control" />
+                            <span class="text-danger" asp-validation-for="NhapKho.NguoiSuDung"></span>
                         </div>
-                        <span class="text-danger" asp-validation-for="NhapKho.NguoiSuDung"></span>
+                        
 
                         <div class="col-2">
                             <label asp-for="NhapKho.LyDo"></label>
                         </div>
                         <div class="col-4">
                             <textarea asp-for="NhapKho.LyDo" class="form-control"></textarea>
+                            <span class="text-danger" asp-validation-for="NhapKho.LyDo"></span>
                         </div>
-                        <span class="text-danger" asp-validation-for="NhapKho.LyDo"></span>
+                        
                     </div>
 
                     @*<div class="form-group row">
@@ -125,16 +131,18 @@
                         </div>
                         <div class="col-4">
                             <input class="form-control" asp-for="NhapKho.KhoVanPhong" />
+                            <span class="text-danger" asp-validation-for="NhapKho.KhoVanPhong"></span>
                         </div>
-                        <span class="text-danger" asp-validation-for="NhapKho.KhoVanPhong"></span>
+                        
                         
                         <div class="col-2">
                             <label asp-for="NhapKho.ThanhLy"></label>
                         </div>
                         <div class="col-4">
                             <input type="checkbox" asp-for="NhapKho.ThanhLy" disabled/>
+                            <span class="text-danger" asp-validation-for="NhapKho.ThanhLy"></span>
                         </div>
-                        <span class="text-danger" asp-validation-for="NhapKho.ThanhLy"></span>
+                        
 
                     </div>
                     
@@ -144,21 +152,24 @@
                         </div>
                         <div class="col-4">
                             <input type="text" class="form-control" asp-for="NhapKho.NgayThanhLy" readonly/>
+                            <span class="text-danger" asp-validation-for="NhapKho.NgayThanhLy"></span>
                         </div>
-                        <span class="text-danger" asp-validation-for="NhapKho.NgayThanhLy"></span>
+                        
                         
                         <div class="col-2">
                             <label asp-for="NhapKho.NguoiThanhLy"></label>
                         </div>
                         <div class="col-4">
                             <input readonly class="form-control" asp-for="NhapKho.NguoiThanhLy" />
+                            <span class="text-danger" asp-validation-for="NhapKho.NguoiThanhLy"></span>
                         </div>
-                        <span class="text-danger" asp-validation-for="NhapKho.NguoiThanhLy"></span>
+                        
 
                     </div>
 
                     <input type="hidden" asp-for="NhapKho.CTBGId" value="@Model.ChiTietBanGiao.Id" />
-                    <input type="hidden" asp-for="BanGiao" value="@Model.BanGiao" />
+                    @*<input type="hidden" asp-for="BanGiao" value="@Model.BanGiao" />*@
+                    <input type="hidden" asp-for="khuVuc" />
 
                     <div class="form-group">
                         <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i></button>

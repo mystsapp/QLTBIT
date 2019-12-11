@@ -16,7 +16,7 @@
 }
 <td style="width:150px;">
     <div class="btn-group text-white" role="group">
-        @if ((await authorizationService.AuthorizeAsync(User, "EditRolePolicy")).Succeeded)
+        @if ((await authorizationService.AuthorizeAsync(User, "EditCNRolePolicy")).Succeeded)
         {
             <a class="btn btn-primary btn-sm" asp-action="Edit" asp-route-id="@Model"><i class="fas fa-edit"></i></a>
         }
@@ -28,7 +28,7 @@
         @*<a class="btn btn-success" href="@url"><i class="fas fa-list"></i></a>*@
         <a class="btn btn-success btn-sm" asp-action="Details" asp-route-id="@Model"><i class="fas fa-list"></i></a>
 
-        @if ((await authorizationService.AuthorizeAsync(User, "DeleteRolePolicy")).Succeeded)
+        @if ((await authorizationService.AuthorizeAsync(User, "DeleteCNRolePolicy")).Succeeded)
         {
             <a class="btn btn-danger btn-sm" asp-action="Delete" asp-route-id="@Model"><i class="fas fa-trash-alt"></i></a>
         }

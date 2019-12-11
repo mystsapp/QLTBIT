@@ -2,8 +2,8 @@
     init: function () {
         
         editController.registerEvent();
-        //var optionValue = $('.ddlChiNhanh').val();
-        //editController.loadDdlVanPhongByChiNhanh(optionValue);
+        var optionValue = $('.ddlChiNhanh').val();
+        editController.loadDdlVanPhongByChiNhanh(optionValue);
     },
     registerEvent: function () {
         $('.ddlChiNhanh').off('change').on('change', function () {

@@ -12,7 +12,7 @@
         $('#btnDeleteAll').off('click').on('click', function () {
             bootbox.confirm({
                 title: "Delete Confirm?",
-                message: "Bạn có muốn xóa User này không?",
+                message: "Bạn có muốn xóa những item này không?",
                 buttons: {
                     cancel: {
                         label: '<i class="fa fa-times"></i> Cancel'

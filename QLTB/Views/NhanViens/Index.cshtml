@@ -49,6 +49,7 @@
                         <th>@Html.DisplayNameFor(m => m.ChiNhanhId)</th>
                         <th>@Html.DisplayNameFor(m => m.VanPhong)</th>
                         <th>@Html.DisplayNameFor(m => m.Khoi)</th>
+                        <th>@Html.DisplayNameFor(m => m.ChiNhanh.KhuVuc)</th>
                         <th></th>
 
                     </tr>
@@ -61,6 +62,7 @@
                             <td>@Html.DisplayFor(m => item.ChiNhanh.MaChiNhanh)</td>
                             <td>@Html.DisplayFor(m => item.VanPhong)</td>
                             <td>@Html.DisplayFor(m => item.Khoi)</td>
+                            <td>@Html.DisplayFor(m => item.ChiNhanh.KhuVuc)</td>
 
                             <partial name="_TableButtonPartial" model="item.Id">
 

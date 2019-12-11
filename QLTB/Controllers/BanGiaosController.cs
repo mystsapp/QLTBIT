@@ -87,7 +87,21 @@ namespace QLTB.Controllers
             /////////////////////////////////////////////////Pagingnation/////////////////////////////////////////////////
 
             banGiaoVM.BanGiaos = await _unitOfWork.banGiaoRepository.BanGiaoIncludeChiNhanh();
-            
+
+            var roles = await userManager.GetRolesAsync(await userManager.GetUserAsync(User));
+
+            var listBG = new List<BanGiao>();
+
+            foreach (var role in roles)
+            {
+                var banGiao = banGiaoVM.BanGiaos.Where(x => x.ChiNhanh.KhuVuc == role);
+                listBG.AddRange(banGiao);
+            }
+
+            if (!User.IsInRole("Admin") && !User.IsInRole("Super Admin"))
+            {
+                banGiaoVM.BanGiaos = listBG;
+            }
 
             /////////// search ///////////////
             if (searchNguoiNhan != null)
@@ -138,11 +152,40 @@ namespace QLTB.Controllers
             return View(banGiaoVM);
         }
 
-        [Authorize(Policy = "CreateRolePolicy")]
+        [Authorize(Policy = "CreateCNRolePolicy")]
         public async Task<IActionResult> Create()
         {
             var user = await userManager.GetUserAsync(User);
             BanGiaoCreateVM.BanGiao.NguoiLap = user.UserName;
+
+            var roles = await userManager.GetRolesAsync(user);
+
+            var listChiNhanh = new List<ChiNhanh>();
+
+            var listNv = new List<NhanVien>();
+
+            //foreach (var chinhanh in BanGiaoCreateVM.ChiNhanhs)
+            //{
+            foreach (var role in roles)
+            {
+                //if(chinhanh.KhuVuc == role)
+                //{
+                //    listChiNhanh.Add(chinhanh);
+                //}
+
+                listChiNhanh.AddRange(BanGiaoCreateVM.ChiNhanhs.Where(x => x.KhuVuc == role));
+
+                listNv.AddRange(BanGiaoCreateVM.NhanViens.Where(x => x.ChiNhanh.KhuVuc == role));
+            }
+            //}
+
+            // ViewBag.ChiNhanhs = listChiNhanh;
+            var a = User.IsInRole("Admin");
+            if (!User.IsInRole("Admin") && !User.IsInRole("Super Admin"))
+            {
+                BanGiaoCreateVM.ChiNhanhs = listChiNhanh;
+                BanGiaoCreateVM.NhanViens = listNv;
+            }
 
             return View(BanGiaoCreateVM);
         }
@@ -152,7 +195,7 @@ namespace QLTB.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreatePOST()
         {
-            
+
 
             if (!ModelState.IsValid)
             {
@@ -160,15 +203,15 @@ namespace QLTB.Controllers
             }
 
             BanGiaoCreateVM.BanGiao.NgayTao = DateTime.Now;
-            
-            
+
+
             _unitOfWork.banGiaoRepository.Create(BanGiaoCreateVM.BanGiao);
             await _unitOfWork.Complete();
             return RedirectToAction(nameof(Index));
         }
 
         // Get: Edit method
-        [Authorize(Policy = "EditRolePolicy")]
+        [Authorize(Policy = "EditCNRolePolicy")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -192,10 +235,10 @@ namespace QLTB.Controllers
 
             if (ModelState.IsValid)
             {
-                
+
                 BanGiaoCreateVM.BanGiao.NgaySua = DateTime.Now;
 
-                
+
 
                 _unitOfWork.banGiaoRepository.Update(BanGiaoCreateVM.BanGiao);
                 await _unitOfWork.Complete();
@@ -221,7 +264,7 @@ namespace QLTB.Controllers
         }
 
         // Get: Delete method
-        [Authorize(Policy = "DeleteRolePolicy")]
+        [Authorize(Policy = "DeleteCNRolePolicy")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -445,7 +488,7 @@ namespace QLTB.Controllers
 
             var tbBG = doc.AddTable(1, 5);
 
-            
+
             tbBG.Rows[0].Cells[0].Paragraphs[0].Append("STT").Bold().Font("Times New Roman").FontSize(11).Alignment = Alignment.center;
             tbBG.Rows[0].Cells[1].Paragraphs[0].Append("Thiết Bị").Bold().Font("Times New Roman").FontSize(11).Alignment = Alignment.center;
             tbBG.Rows[0].Cells[2].Paragraphs[0].Append("Số Lượng").Bold().Font("Times New Roman").FontSize(11).Alignment = Alignment.center;
@@ -493,13 +536,13 @@ namespace QLTB.Controllers
                     }
                 }
 
-                
+
 
 
             }
 
             var listCell = new List<string>();
-           // int a = 0;
+            // int a = 0;
 
             List<int> rowFirsts = new List<int>();
             List<int> rowSeconds = new List<int>();
@@ -518,13 +561,13 @@ namespace QLTB.Controllers
                 {
                     if (listCell[i].Equals(listCell[i + 1].ToString()))
                     {
-                        
+
                         rowFirsts.Add(i);
                         rowSeconds.Add(i + 1);
 
                         tbBG.Rows[i + 1].Cells[3].Paragraphs[0].Remove(false);
                         tbBG.Rows[i + 1].Cells[3].SetBorder(TableCellBorderType.Top, new Border(BorderStyle.Tcbs_dotDash, BorderSize.one, 1, Color.White));
-                        
+
                         //tbBG.Rows[i + 1].Cells[4].SetBorder(TableCellBorderType.Top, new Border(BorderStyle.Tcbs_dotDash, BorderSize.one, 1, Color.Transparent));
                     }
                 }
@@ -533,29 +576,29 @@ namespace QLTB.Controllers
 
 
 
-        //quaylai:
-        //    for (int i = 0; i < rowSeconds.Count; i++)
-        //    {
+            //quaylai:
+            //    for (int i = 0; i < rowSeconds.Count; i++)
+            //    {
 
-        //        for (int j = 0; j < rowFirsts.Count; j++)
-        //        {
-        //            if (rowSeconds[i] == rowFirsts[j])
-        //            {
-        //                rowSeconds.RemoveAt(i);
-        //                rowFirsts.RemoveAt(j);
+            //        for (int j = 0; j < rowFirsts.Count; j++)
+            //        {
+            //            if (rowSeconds[i] == rowFirsts[j])
+            //            {
+            //                rowSeconds.RemoveAt(i);
+            //                rowFirsts.RemoveAt(j);
 
-        //                goto quaylai;
-        //            }
+            //                goto quaylai;
+            //            }
 
-        //        }
+            //        }
 
-        //    }
+            //    }
 
-        //    for (int i = 0; i < rowSeconds.Count; i++)
-        //    {
-        //        tbBG.MergeCellsInColumn(3, rowFirsts[i], rowSeconds[i]);
-        //        tbBG.MergeCellsInColumn(4, rowFirsts[i], rowSeconds[i]);
-        //    }
+            //    for (int i = 0; i < rowSeconds.Count; i++)
+            //    {
+            //        tbBG.MergeCellsInColumn(3, rowFirsts[i], rowSeconds[i]);
+            //        tbBG.MergeCellsInColumn(4, rowFirsts[i], rowSeconds[i]);
+            //    }
 
 
 
@@ -566,7 +609,7 @@ namespace QLTB.Controllers
 
             // tbBG.RemoveColumn(3);
 
-            var a =  doc.InsertTable(tbBG);
+            var a = doc.InsertTable(tbBG);
 
             // Set a blank border for the table's top/bottom borders.
             //var blankBorder = new Border(BorderStyle.Tcbs_none, 0, 0, Color.White);
@@ -627,8 +670,8 @@ namespace QLTB.Controllers
 
             ms.Position = 0;
 
-            
-        
+
+
             // Download Word document in the browser
             return File(ms, "application/msword", "Result_" + DateTime.Now + ".docx");
 
