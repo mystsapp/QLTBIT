@@ -10,8 +10,8 @@ using QLTB.Data;
 namespace QLTB.Migrations
 {
     [DbContext(typeof(QLTBITDbContext))]
-    [Migration("20191207085800_addNewDB")]
-    partial class addNewDB
+    [Migration("20191223084238_addDb")]
+    partial class addDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -248,7 +248,7 @@ namespace QLTB.Migrations
 
                     b.Property<string>("VanPhong")
                         .IsRequired()
-                        .HasColumnType("varchar(50)")
+                        .HasColumnType("nvarchar(50)")
                         .HasMaxLength(50);
 
                     b.HasKey("Id");
@@ -346,6 +346,10 @@ namespace QLTB.Migrations
                     b.Property<string>("GhiChu")
                         .HasColumnType("nvarchar(250)")
                         .HasMaxLength(250);
+
+                    b.Property<string>("MaSo")
+                        .HasColumnType("varchar(10)")
+                        .HasMaxLength(10);
 
                     b.Property<DateTime?>("NgayChuyen");
 

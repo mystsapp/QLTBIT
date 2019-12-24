@@ -10,6 +10,7 @@ namespace QLTB.Data.Repository
         IBanGiaoRepository banGiaoRepository { get; }
         IChiNhanhRepository chiNhanhRepository { get; }
         IChiTietBanGiaoRepository chiTietBanGiaoRepository { get; }
+        IThongKeRepository thongKeRepository { get; }
         ICaiDatRepository caiDatRepository { get; }
         ILoaiPhanMemRepository loaiPhanMemRepository { get; }
         ILoaiThietBiRepository loaiThietBiRepository { get; }
@@ -20,6 +21,10 @@ namespace QLTB.Data.Repository
         INhapKhoRepository nhapKhoRepository { get; }
         Task<int> Complete();
     }
+}
+
+namespace QLTB.Data.Repository
+{
     public class UnitOfWork : IUnitOfWork
     {
         private readonly QLTBITDbContext _context;
@@ -30,6 +35,7 @@ namespace QLTB.Data.Repository
             banGiaoRepository = new BanGiaoRepository(_context);
             chiNhanhRepository = new ChiNhanhRepository(_context);
             chiTietBanGiaoRepository = new ChiTietBanGiaoRepository(_context);
+            thongKeRepository = new ThongKeRepository(_context);
             caiDatRepository = new CaiDatRepository(_context);
             loaiPhanMemRepository = new LoaiPhanMemRepository(_context);
             loaiThietBiRepository = new LoaiThietBiRepository(_context);
@@ -44,6 +50,11 @@ namespace QLTB.Data.Repository
         public IChiNhanhRepository chiNhanhRepository { get; }
 
         public IChiTietBanGiaoRepository chiTietBanGiaoRepository { get; }
+
+        
+
+        public IThongKeRepository thongKeRepository { get; }
+
         public ICaiDatRepository caiDatRepository { get; }
 
         public ILoaiPhanMemRepository loaiPhanMemRepository { get; }

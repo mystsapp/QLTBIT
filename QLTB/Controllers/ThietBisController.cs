@@ -91,7 +91,7 @@ namespace QLTB.Controllers
         }
 
         // Get: Edit method
-        [Authorize("EditRolePolicy")]
+        [Authorize("EditCNRolePolicy")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)

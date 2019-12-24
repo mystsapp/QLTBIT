@@ -104,7 +104,7 @@
                                 <label asp-for="ThietBi.BaoHanh"></label>
                             </div>
                             <div class="col-8">
-                                <input type="number" class="form-control" asp-for="ThietBi.BaoHanh" />
+                                <input type="text" id="datepicker" class="form-control maskInput" asp-for="ThietBi.BaoHanh" />
                             </div>
                             <span class="text-danger" asp-validation-for="ThietBi.BaoHanh"></span>
                         </div>
@@ -147,5 +147,14 @@
 
 @section Scripts{
     @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script>
+
+            $(function () {
+                $("#datepicker").datepicker({
+                    dateFormat: 'dd/mm/yy'
+                });
+            });
+    </script>
 }
 

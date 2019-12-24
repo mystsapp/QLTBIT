@@ -34,7 +34,7 @@ namespace QLTB.Data.Models
         public virtual ChiNhanh ChiNhanh { get; set; }
 
         [DisplayName("Văn Phòng")]
-        [MaxLength(50), Column(TypeName = "varchar(50)")]
+        [MaxLength(50), Column(TypeName = "nvarchar(50)")]
         [Required]
         public string VanPhong { get; set; }
 

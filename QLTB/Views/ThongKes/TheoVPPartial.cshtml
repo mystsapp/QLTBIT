@@ -1,0 +1,111 @@
+﻿@model IEnumerable<ChiTietBanGiao>
+
+
+@{
+    Layout = null;
+}
+
+
+
+<!-- Main content -->
+<section class="content">
+
+    <!-- Default box -->
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title"><i class="fas fa-list-alt text-info"></i> Danh Sách Chi Tiết Bàn Giao</h3>
+
+            <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                    <i class="fas fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip" title="Remove">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+        <div class="card-body">
+
+            <div>
+                <table class="table table-striped border" id="listAll">
+                    <thead>
+                        <tr class="table-info">
+
+                            <th>@Html.DisplayNameFor(m => m.FirstOrDefault().BanGiao.NguoiLap)</th>
+                            <th>@Html.DisplayNameFor(m => m.FirstOrDefault().BanGiao.NguoiNhan)</th>
+                            <th>@Html.DisplayNameFor(m => m.FirstOrDefault().ThietBiId)</th>
+                            <th>@Html.DisplayNameFor(m => m.FirstOrDefault().SoLuong)</th>
+                            <th>@Html.DisplayNameFor(m => m.FirstOrDefault().NgayGiao)</th>
+                            <th>@Html.DisplayNameFor(m => m.FirstOrDefault().BaoHanhDen)</th>
+                            <th>@Html.DisplayNameFor(m => m.FirstOrDefault().ChuyenSuDung)</th>
+                            <th>@Html.DisplayNameFor(m => m.FirstOrDefault().NgayChuyen)</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+
+                                <td>@Html.DisplayFor(m => item.BanGiao.NguoiLap)</td>
+                                <td>@Html.DisplayFor(m => item.BanGiao.NguoiNhan)</td>
+                                <td>@Html.DisplayFor(m => item.ThietBi.Name)</td>
+                                <td>@Html.DisplayFor(m => item.SoLuong)</td>
+                                <td>
+                                    @if (item.NgayGiao.HasValue)
+                                    {
+                                        @Html.Raw(item.NgayGiao.Value.ToShortDateString())
+                                    }
+                                </td>
+                                <td>
+                                    @if (item.BaoHanhDen.HasValue)
+                                    {
+                                        @Html.Raw(item.BaoHanhDen.Value.ToShortDateString())
+                                    }
+                                </td>
+                                <td>
+                                    @if (!item.ChuyenSuDung)
+                                    {
+                                        <span class="badge badge-info text-white">Chưa chuyển</span>
+
+
+                                    }
+                                    else
+                                    {
+                                        <span class="badge badge-warning ">Đã Chuyển</span>
+                                    }
+                                </td>
+                                <td>
+                                    @if (item.NgayChuyen.HasValue)
+                                    {
+                                        @Html.Raw(item.NgayChuyen.Value.ToShortDateString())
+                                    }
+                                </td>
+
+                            </tr>
+                        }
+                    </tbody>
+                    @*<tfoot>
+                            <tr>
+                                <th>#</th>
+                                <th>@Html.DisplayNameFor(m => m.FirstOrDefault().BanGiao.NguoiLap)</th>
+                                <th>@Html.DisplayNameFor(m => m.FirstOrDefault().BanGiao.NguoiNhan)</th>
+                                <th>@Html.DisplayNameFor(m => m.FirstOrDefault().ThietBiId)</th>
+                                <th>@Html.DisplayNameFor(m => m.FirstOrDefault().SoLuong)</th>
+                                <th>@Html.DisplayNameFor(m => m.FirstOrDefault().NgayGiao)</th>
+                                <th>@Html.DisplayNameFor(m => m.FirstOrDefault().BaoHanhDen)</th>
+                                <th>@Html.DisplayNameFor(m => m.FirstOrDefault().ChuyenSuDung)</th>
+                                <th>@Html.DisplayNameFor(m => m.FirstOrDefault().NgayChuyen)</th>
+                            </tr>
+                        </tfoot>*@
+                </table>
+            </div>
+
+        </div>
+        <!-- /.card-body -->
+
+    </div>
+    <!-- /.card -->
+
+</section>
+<!-- /.content -->

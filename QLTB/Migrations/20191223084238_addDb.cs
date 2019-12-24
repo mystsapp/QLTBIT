@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace QLTB.Migrations
 {
-    public partial class addNewDB : Migration
+    public partial class addDb : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -162,7 +162,7 @@ namespace QLTB.Migrations
                     NguoiSua = table.Column<string>(nullable: true),
                     NgaySua = table.Column<DateTime>(nullable: true),
                     ChiNhanhId = table.Column<int>(nullable: false),
-                    VanPhong = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false),
+                    VanPhong = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Khoi = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: true),
                     PhongBan = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
                     TinhTrang = table.Column<bool>(nullable: false),
@@ -404,7 +404,8 @@ namespace QLTB.Migrations
                     TinhTrang = table.Column<bool>(nullable: false),
                     DienGiai = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
                     NgayGiao = table.Column<DateTime>(nullable: true),
-                    NgayChuyen = table.Column<DateTime>(nullable: true)
+                    NgayChuyen = table.Column<DateTime>(nullable: true),
+                    MaSo = table.Column<string>(type: "varchar(10)", maxLength: 10, nullable: true)
                 },
                 constraints: table =>
                 {

@@ -54,5 +54,9 @@ namespace QLTB.Data.Models
 
         [DisplayName("Ngày Chuyển")]
         public DateTime? NgayChuyen { get; set; }
+
+        [MaxLength(10), Column(TypeName = "varchar(10)")]
+        [DisplayName("Mã Số")]
+        public string MaSo { get; set; }
     }
 }

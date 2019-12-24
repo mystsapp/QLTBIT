@@ -6,7 +6,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>AdminLTE 3 | Blank Page</title>
+    <title>@ViewData["Title"]</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -69,6 +69,13 @@
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
+            @if (TempData["AlertMessage"] != null)
+            {
+                <div id="AlertBox" class="alert @TempData["AlertType"] hide">
+                    @TempData["AlertMessage"]
+                </div>
+            }
+
             @RenderBody();
         </div>
         <!-- /.content-wrapper -->
@@ -89,9 +96,11 @@
     </div>
     <!-- ./wrapper -->
     <!-- jQuery -->
-    <script src="~/lib/plugins/jquery/jquery.min.js"></script>
+    @*<script src="~/lib/plugins/jquery/jquery.min.js"></script>*@
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
-    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    @*<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>*@
+    <script src="~/lib/jquery-validate/jquery.validate.min.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
 
     <script src="~/lib/jquery/jquery.maskedinput.min.js"></script>
@@ -109,8 +118,16 @@
     <script>
         $(function () {
             $(".maskInput").mask("99/99/9999");
+
+            $('#AlertBox').removeClass('hide');
+            $('#AlertBox').delay(1000).slideUp(1000);
         });
 
     </script>
+    <style>
+        .error {
+            color: red;
+        }
+    </style>
 </body>
 </html>

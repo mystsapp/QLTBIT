@@ -221,6 +221,7 @@ namespace QLTB.Controllers
             }
         }
 
+        [AllowAnonymous]
         public async Task<IActionResult> ChangePassword()
         {
             var user = await userManager.GetUserAsync(User);
@@ -234,6 +235,7 @@ namespace QLTB.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> ChangePassword(ChangePasswordViewModel model)
         {
             if (ModelState.IsValid)

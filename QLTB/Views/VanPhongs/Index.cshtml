@@ -44,28 +44,31 @@
         <div class="card-body">
 
             <div>
-                <table class="table table-striped border">
-                    <tr class="table-info">
-                        <th>@Html.DisplayNameFor(m => m.Name)</th>
-                        <th>@Html.DisplayNameFor(m => m.DiaChi)</th>
-                        <th>@Html.DisplayNameFor(m => m.DienThoai)</th>
-                        <th>@Html.DisplayNameFor(m => m.ChiNhanhId)</th>
-                        <th></th>
-
-                    </tr>
-
-                    @foreach (var item in Model)
-                    {
-                        <tr>
-                            <td>@Html.DisplayFor(m => item.Name)</td>
-                            <td>@Html.DisplayFor(m => item.DiaChi)</td>
-                            <td>@Html.DisplayFor(m => item.DienThoai)</td>
-                            <td>@Html.DisplayFor(m => item.ChiNhanh.Name)</td>
-
-                            <partial name="_TableButtonPartial" model="item.Id">
+                <table class="table table-striped border" id="listAll">
+                    <thead>
+                        <tr class="table-info">
+                            <th>@Html.DisplayNameFor(m => m.Name)</th>
+                            <th>@Html.DisplayNameFor(m => m.DiaChi)</th>
+                            <th>@Html.DisplayNameFor(m => m.DienThoai)</th>
+                            <th>@Html.DisplayNameFor(m => m.ChiNhanhId)</th>
+                            <th></th>
 
                         </tr>
-                    }
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@Html.DisplayFor(m => item.Name)</td>
+                                <td>@Html.DisplayFor(m => item.DiaChi)</td>
+                                <td>@Html.DisplayFor(m => item.DienThoai)</td>
+                                <td>@Html.DisplayFor(m => item.ChiNhanh.Name)</td>
+
+                                <partial name="_TableButtonPartial" model="item.Id">
+
+                            </tr>
+                        }
+                    </tbody>
                 </table>
             </div>
 
@@ -78,3 +81,18 @@
 </section>
 <!-- /.content -->
 
+
+@section Scripts{
+    <script>
+
+        $('#listAll').DataTable({
+            "paging": true,
+            "lengthChange": true,
+            "searching": true,
+            "ordering": true,
+            "info": true,
+            "autoWidth": false,
+        });
+
+    </script>
+}

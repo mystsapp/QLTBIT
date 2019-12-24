@@ -92,7 +92,10 @@ namespace QLTB.Controllers
             if (NhanVienVM.NhanVien == null)
                 return NotFound();
 
-            NhanVienVM.ChiNhanhs = await ChiNhanhByRole();
+            if(!User.IsInRole("Admin") && !User.IsInRole("Super Admin"))
+            {
+                NhanVienVM.ChiNhanhs = await ChiNhanhByRole();
+            }
 
             return View(NhanVienVM);
         }
@@ -168,7 +171,13 @@ namespace QLTB.Controllers
         [AllowAnonymous]
         public JsonResult GetDmVanPhongByChiNhanh(int chinhanh)
         {
-            var vanphongs = _unitOfWork.vanPhongRepository.Find(x => x.ChiNhanhId == chinhanh);
+            var vanphongs = _unitOfWork.vanPhongRepository.GetAll();
+
+            if (chinhanh != 0)
+            {
+                vanphongs = _unitOfWork.vanPhongRepository.Find(x => x.ChiNhanhId == chinhanh);
+            }
+
             var vps = JsonConvert.SerializeObject(vanphongs);
             return Json(new
             {

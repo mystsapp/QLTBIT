@@ -27,7 +27,7 @@
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column nav-child-indent" data-widget="treeview" role="menu" data-accordion="false">
                 <!-- Add icons to the links using the .nav-icon class
-                with font-awesome or any other icon font library -->
+    with font-awesome or any other icon font library -->
                 @* Danh muc thiet bi *@
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
@@ -155,6 +155,38 @@
                             </li>
                         }
 
+
+                    </ul>
+                </li>
+
+                @* Danh muc thong ke *@
+                <li class="nav-item has-treeview">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-tachometer-alt"></i>
+                        <p>
+                            Thống Kê
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a asp-area="" asp-controller="ThongKes" asp-action="TheoVP" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Theo Văn Phòng</p>
+                            </a>
+                        </li>
+                        @*<li class="nav-item">
+                            <a asp-area="" asp-controller="ChiTietBanGiaos" asp-action="List" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>CT Bàn Giao</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-area="" asp-controller="NhapKhos" asp-action="Index" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Kho Văn Phòng</p>
+                            </a>
+                        </li>*@
 
                     </ul>
                 </li>

@@ -246,7 +246,7 @@ namespace QLTB.Migrations
 
                     b.Property<string>("VanPhong")
                         .IsRequired()
-                        .HasColumnType("varchar(50)")
+                        .HasColumnType("nvarchar(50)")
                         .HasMaxLength(50);
 
                     b.HasKey("Id");
@@ -344,6 +344,10 @@ namespace QLTB.Migrations
                     b.Property<string>("GhiChu")
                         .HasColumnType("nvarchar(250)")
                         .HasMaxLength(250);
+
+                    b.Property<string>("MaSo")
+                        .HasColumnType("varchar(10)")
+                        .HasMaxLength(10);
 
                     b.Property<DateTime?>("NgayChuyen");
 

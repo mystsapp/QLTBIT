@@ -64,6 +64,7 @@
                         <th>@Html.DisplayNameFor(m => m.ChiTietBanGiaos.FirstOrDefault().SoLuong)</th>
                         <th>@Html.DisplayNameFor(m => m.ChiTietBanGiaos.FirstOrDefault().BaoHanhDen)</th>
                         <th>@Html.DisplayNameFor(m => m.ChiTietBanGiaos.FirstOrDefault().TinhTrang)</th>
+                        <th>@Html.DisplayNameFor(m => m.ChiTietBanGiaos.FirstOrDefault().MaSo)</th>
                         <th></th>
 
 
@@ -71,58 +72,60 @@
 
                     @foreach (var item in Model.ChiTietBanGiaos)
                     {
-                        <tr class="chiTietRow" data-move="@item.ChuyenSuDung">
-                            <td>
-                                <input type="checkbox" class="ckId" data-id="@item.Id" />
-                                @*<button type="button" class="btn btn-primary btnMove" title="Chuyển"><i class="fas fa-arrows-alt"></i></button>*@
-                                <div class="btn-group">
-                                    <a asp-action="MoveToEmployee" data-move="@item.ChuyenSuDung" asp-route-ctbgId="@item.Id" asp-route-strUrl="@Model.StrUrl" class="btn btn-outline-secondary btn-sm btnMove" title="Chuyển NV Khác">
-                                        <i class="fas fa-arrows-alt"></i>
-                                    </a>
-                                    <a asp-action="MoveToWareHouse" data-move="@item.ChuyenSuDung" asp-route-khuVuc="@item.BanGiao.ChiNhanh.KhuVuc" asp-route-ctbgId="@item.Id" asp-route-strUrl="@Model.StrUrl" class="btn btn-outline-secondary btn-sm btnMove" title="Chuyển Vào Kho">
-                                        <i class="fas fa-warehouse"></i>
-                                    </a>
-                                </div>
+                <tr class="chiTietRow" data-move="@item.ChuyenSuDung">
+                    <td>
+                        <input type="checkbox" class="ckId" data-id="@item.Id" />
+                        @*<button type="button" class="btn btn-primary btnMove" title="Chuyển"><i class="fas fa-arrows-alt"></i></button>*@
+                        <div class="btn-group">
+                            <a asp-action="MoveToEmployee" data-move="@item.ChuyenSuDung" asp-route-ctbgId="@item.Id" asp-route-strUrl="@Model.StrUrl" class="btn btn-outline-secondary btn-sm btnMove" title="Chuyển NV Khác">
+                                <i class="fas fa-arrows-alt"></i>
+                            </a>
+                            <a asp-action="MoveToWareHouse" data-move="@item.ChuyenSuDung" asp-route-khuVuc="@item.BanGiao.ChiNhanh.KhuVuc" asp-route-ctbgId="@item.Id" asp-route-strUrl="@Model.StrUrl" class="btn btn-outline-secondary btn-sm btnMove" title="Chuyển Vào Kho">
+                                <i class="fas fa-warehouse"></i>
+                            </a>
+                        </div>
 
-                                
 
-                            </td>
-                            <td>@Html.DisplayFor(m => item.BanGiao.NguoiLap)</td>
-                            <td>@Html.DisplayFor(m => item.BanGiao.NguoiNhan)</td>
-                            <td>@Html.DisplayFor(m => item.ThietBi.Name)</td>
-                            <td>@Html.DisplayFor(m => item.SoLuong)</td>
-                            <td>
-                                @*@if (item.BaoHanhDen != null)
-        { @Html.Raw(item.BaoHanhDen.Value.ToString());
-                                @((item.BaoHanhDen.HasValue) ? (( item.BaoHanhDen.Value.ToString())) : "")*@
-                                @if (item.BaoHanhDen.HasValue)
-                                {
-                                    @Html.Raw(item.BaoHanhDen.Value.ToShortDateString())
-                                }
-                               
-                            </td>
-                            <td>
-                                @if (item.TinhTrang)
-                                {
-                                    <span class="badge badge-success text-white">Đang Sử Dụng</span>
-                                }
-                                else
-                                {
-                                    <span class="badge badge-warning text-white">Không còn Sử Dụng</span>
-                                }
-                            </td>
 
-                            @*<partial name="_TableButtonPartial"  model="item.Id">*@
-                            <td style="width:150px;">
-                                <div class="btn-group text-white" role="group">
-                                    <a data-move="@item.ChuyenSuDung" class="btn btn-primary btn-sm btnEdit" asp-action="Edit" asp-route-banGiaoId="@Model.BanGiao.Id" asp-route-id="@item.Id" asp-route-strUrl="@Model.StrUrl"><i class="fas fa-edit"></i></a>
-                                    @*<a class="btn btn-success" href="@url"><i class="fas fa-list"></i></a>*@
-                                    <a class="btn btn-success btn-sm" asp-action="Details" asp-route-banGiaoId="@Model.BanGiao.Id" asp-route-id="@item.Id" asp-route-strUrl="@Model.StrUrl"><i class="fas fa-list"></i></a>
-                                    <a class="btn btn-danger btn-sm" asp-action="Delete" asp-route-banGiaoId="@Model.BanGiao.Id" asp-route-id="@item.Id" asp-route-strUrl="@Model.StrUrl"><i class="fas fa-trash-alt"></i></a>
-                                </div>
-                            </td>
+                    </td>
+                    <td>@Html.DisplayFor(m => item.BanGiao.NguoiLap)</td>
+                    <td>@Html.DisplayFor(m => item.BanGiao.NguoiNhan)</td>
+                    <td>@Html.DisplayFor(m => item.ThietBi.Name)</td>
+                    <td>@Html.DisplayFor(m => item.SoLuong)</td>
+                    <td>
+                        @*@if (item.BaoHanhDen != null)
+            { @Html.Raw(item.BaoHanhDen.Value.ToString());
+                                    @((item.BaoHanhDen.HasValue) ? (( item.BaoHanhDen.Value.ToString())) : "")*@
+                        @if (item.BaoHanhDen.HasValue)
+                        {
+                            @Html.Raw(item.BaoHanhDen.Value.ToShortDateString())
+                        }
 
-                        </tr>
+                    </td>
+                    <td>
+                        @if (item.TinhTrang)
+                        {
+                            <span class="badge badge-success text-white">Đang Sử Dụng</span>
+                        }
+                        else
+                        {
+                            <span class="badge badge-warning text-white">Không còn Sử Dụng</span>
+                        }
+                    </td>
+
+                    <td>@Html.DisplayFor(m => item.MaSo)</td>
+
+                    @*<partial name="_TableButtonPartial"  model="item.Id">*@
+                    <td style="width:150px;">
+                        <div class="btn-group text-white" role="group">
+                            <a data-move="@item.ChuyenSuDung" class="btn btn-primary btn-sm btnEdit" asp-action="Edit" asp-route-banGiaoId="@Model.BanGiao.Id" asp-route-id="@item.Id" asp-route-strUrl="@Model.StrUrl"><i class="fas fa-edit"></i></a>
+                            @*<a class="btn btn-success" href="@url"><i class="fas fa-list"></i></a>*@
+                            <a class="btn btn-success btn-sm" asp-action="Details" asp-route-banGiaoId="@Model.BanGiao.Id" asp-route-id="@item.Id" asp-route-strUrl="@Model.StrUrl"><i class="fas fa-list"></i></a>
+                            <a class="btn btn-danger btn-sm" asp-action="Delete" asp-route-banGiaoId="@Model.BanGiao.Id" asp-route-id="@item.Id" asp-route-strUrl="@Model.StrUrl"><i class="fas fa-trash-alt"></i></a>
+                        </div>
+                    </td>
+
+                </tr>
                         @* secondary modal *@
 
 

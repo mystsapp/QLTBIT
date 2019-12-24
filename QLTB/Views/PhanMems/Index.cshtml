@@ -42,24 +42,27 @@
         <div class="card-body">
 
             <div>
-                <table class="table table-striped border">
-                    <tr class="table-info">
-                        <th>@Html.DisplayNameFor(m => m.Name)</th>
-                        <th>@Html.DisplayNameFor(m => m.LoaiPMId)</th>
-                        <th></th>
-
-                    </tr>
-
-                    @foreach (var item in Model)
-                    {
-                        <tr>
-                            <td>@Html.DisplayFor(m => item.Name)</td>
-                            <td>@Html.DisplayFor(m => item.LoaiPhanMem.Name)</td>
-
-                            <partial name="_TableButtonPartial" model="item.Id">
+                <table class="table table-striped border" id="listAll">
+                    <thead>
+                        <tr class="table-info">
+                            <th>@Html.DisplayNameFor(m => m.Name)</th>
+                            <th>@Html.DisplayNameFor(m => m.LoaiPMId)</th>
+                            <th></th>
 
                         </tr>
-                    }
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@Html.DisplayFor(m => item.Name)</td>
+                                <td>@Html.DisplayFor(m => item.LoaiPhanMem.Name)</td>
+
+                                <partial name="_TableButtonPartial" model="item.Id">
+
+                            </tr>
+                        }
+                    </tbody>
                 </table>
             </div>
 
@@ -72,3 +75,18 @@
 </section>
 <!-- /.content -->
 
+
+@section Scripts{
+    <script>
+
+        $('#listAll').DataTable({
+            "paging": true,
+            "lengthChange": true,
+            "searching": true,
+            "ordering": true,
+            "info": true,
+            "autoWidth": false,
+        });
+
+    </script>
+}

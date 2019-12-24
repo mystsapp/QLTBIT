@@ -12,6 +12,7 @@ namespace QLTB.Data.Repository
     {
         Task<IEnumerable<VanPhong>> VanPhongIncludeChiNhanh();
         Task<VanPhong> FindIdIncludeChiNhanh(int? id);
+        Task<VanPhong> FindIncludeChiNhanh(string name);
     }
     public class VanPhongRepository : Repository<VanPhong>, IVanPhongRepository
     {
@@ -28,6 +29,10 @@ namespace QLTB.Data.Repository
         public async Task<VanPhong> FindIdIncludeChiNhanh(int? id)
         {
             return await _context.VanPhongs.Include(x => x.ChiNhanh).SingleAsync(x => x.Id == id);
+        }
+        public async Task<VanPhong> FindIncludeChiNhanh(string name)
+        {
+            return await _context.VanPhongs.Include(x => x.ChiNhanh).SingleAsync(x => x.Name == name);
         }
     }
 }
