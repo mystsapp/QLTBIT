@@ -17,13 +17,15 @@ namespace QLTB.Controllers
 {
     public class NhanViensController : Controller
     {
+        private readonly RoleManager<IdentityRole> roleManager;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IUnitOfWork _unitOfWork;
 
         [BindProperty]
         public NhanVienViewModel NhanVienVM { get; set; }
-        public NhanViensController(UserManager<ApplicationUser> userManager, IUnitOfWork unitOfWork)
+        public NhanViensController(RoleManager<IdentityRole> roleManager, UserManager<ApplicationUser> userManager, IUnitOfWork unitOfWork)
         {
+            this.roleManager = roleManager;
             this.userManager = userManager;
             _unitOfWork = unitOfWork;
             NhanVienVM = new NhanVienViewModel()
@@ -44,10 +46,16 @@ namespace QLTB.Controllers
 
             foreach (var role in roles)
             {
-                listNvByRole.AddRange(nhanviens.Where(x => x.ChiNhanh.KhuVuc == role));
+                //listNvByRole.AddRange(nhanviens.Where(x => x.ChiNhanh.KhuVuc == role));
+                var vanphong = _unitOfWork.vanPhongRepository.Find(x => x.KhuVuc == role);
+                foreach(var vp in vanphong)
+                {
+                    var nvs = _unitOfWork.nhanVienRepository.Find(x => x.VanPhong.Equals(vp.Name));
+                    listNvByRole.AddRange(nvs);
+                }
             }
 
-            if(!User.IsInRole("Admin") && !User.IsInRole("Super Admin"))
+            if (!User.IsInRole("Admin") && !User.IsInRole("Super Admin"))
             {
                 nhanviens = listNvByRole;
             }
@@ -61,7 +69,19 @@ namespace QLTB.Controllers
         {
 
             NhanVienVM.ChiNhanhs = await ChiNhanhByRole();
+            var roleList = new List<IdentityRole>();
+            var roleNames = await userManager.GetRolesAsync(await userManager.GetUserAsync(User));
 
+            foreach (var roleName in roleNames)
+            {
+                var role = await roleManager.FindByNameAsync(roleName);
+                roleList.Add(role);
+
+
+            }
+
+            ViewBag.Roles = roleList;
+            ViewBag.RoleNames = JsonConvert.SerializeObject(roleNames);
             return View(NhanVienVM);
         }
 
@@ -75,8 +95,13 @@ namespace QLTB.Controllers
                 return View(NhanVienVM);
             }
 
+            var vp = _unitOfWork.vanPhongRepository.Find(x => x.Name == NhanVienVM.NhanVien.VanPhong).FirstOrDefault();
+            NhanVienVM.NhanVien.ChiNhanhId = vp.ChiNhanhId;
+
             _unitOfWork.nhanVienRepository.Create(NhanVienVM.NhanVien);
             await _unitOfWork.Complete();
+            SetAlert("Successfully.", "success");
+
             return RedirectToAction(nameof(Index));
         }
 
@@ -92,7 +117,7 @@ namespace QLTB.Controllers
             if (NhanVienVM.NhanVien == null)
                 return NotFound();
 
-            if(!User.IsInRole("Admin") && !User.IsInRole("Super Admin"))
+            if (!User.IsInRole("Admin") && !User.IsInRole("Super Admin"))
             {
                 NhanVienVM.ChiNhanhs = await ChiNhanhByRole();
             }
@@ -185,9 +210,35 @@ namespace QLTB.Controllers
             });
         }
 
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<JsonResult> GetDmVanPhongByRole(string role)
+        {
+            
+            var vanphongs = await _unitOfWork.vanPhongRepository.FindKhuVucIncludeChiNhanh(role);
+            var vpcnList = new List<VPCN>();
+            foreach(var vp in vanphongs)
+            {
+                var vpcn = new VPCN()
+                {
+                    Name = vp.Name,
+                    NameCN = vp.ChiNhanh.Name
+                };
+
+                vpcnList.Add(vpcn);
+            }
+            var vps = JsonConvert.SerializeObject(vpcnList);
+            return Json(new
+            {
+                data = vps
+            });
+        }
+
         public async Task<IEnumerable<ChiNhanh>> ChiNhanhByRole()
         {
             var roles = await userManager.GetRolesAsync(await userManager.GetUserAsync(User));
+
+            var listCn = _unitOfWork.chiNhanhRepository.GetAll();
 
             var listChiNhanh = new List<ChiNhanh>();
 
@@ -202,8 +253,30 @@ namespace QLTB.Controllers
                 }
             }
 
-            return listChiNhanh;
+            if (!User.IsInRole("Admin") && !User.IsInRole("Super Admin"))
+            {
+                listCn = listChiNhanh;
+            }
 
+            return listCn;
+
+        }
+
+        private void SetAlert(string message, string type)
+        {
+            TempData["AlertMessage"] = message;
+            if (type == "success")
+            {
+                TempData["AlertType"] = "alert-success";
+            }
+            else if (type == "warning")
+            {
+                TempData["AlertType"] = "alert-warning";
+            }
+            else if (type == "error")
+            {
+                TempData["AlertType"] = "alert-danger";
+            }
         }
     }
 }

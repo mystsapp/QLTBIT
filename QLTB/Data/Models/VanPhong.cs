@@ -26,5 +26,10 @@ namespace QLTB.Data.Models
 
         [ForeignKey("ChiNhanhId")]
         public virtual ChiNhanh ChiNhanh { get; set; }
+
+
+        [DisplayName("Khu Vực")]
+        [MaxLength(20), Column(TypeName = "nvarchar(20)")]
+        public string KhuVuc { get; set; }
     }
 }

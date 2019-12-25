@@ -1,4 +1,5 @@
-﻿using QLTB.Data.Models;
+﻿using Microsoft.AspNetCore.Identity;
+using QLTB.Data.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;

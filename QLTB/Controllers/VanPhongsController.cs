@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting.Internal;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using QLTB.Data.Models;
 using QLTB.Data.Repository;
@@ -16,12 +17,14 @@ namespace QLTB.Controllers
     [Authorize(Policy = "AdminRolePolicy")] // the same admin role --> setup in startup
     public class VanPhongsController : Controller
     {
+        private readonly RoleManager<IdentityRole> roleManager;
         private readonly IUnitOfWork _unitOfWork;
 
         [BindProperty]
         public VanPhongViewModel VanPhongVM { get; set; }
-        public VanPhongsController(IUnitOfWork unitOfWork)
+        public VanPhongsController(RoleManager<IdentityRole> roleManager, IUnitOfWork unitOfWork)
         {
+            this.roleManager = roleManager;
             _unitOfWork = unitOfWork;
             VanPhongVM = new VanPhongViewModel()
             {
@@ -39,6 +42,7 @@ namespace QLTB.Controllers
         [Authorize("CreateRolePolicy")]
         public IActionResult Create()
         {
+            ViewBag.Roles = roleManager.Roles.ToList();
             return View(VanPhongVM);
         }
 
@@ -69,6 +73,7 @@ namespace QLTB.Controllers
             if (VanPhongVM.VanPhong == null)
                 return NotFound();
 
+            ViewBag.Roles = roleManager.Roles.ToList();
             return View(VanPhongVM);
         }
 
