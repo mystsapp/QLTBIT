@@ -47,10 +47,10 @@
                         <tr class="table-info">
                             <th>@Html.DisplayNameFor(m => m.Name)</th>
                             <th>@Html.DisplayNameFor(m => m.PhongBan)</th>
-                            <th>@Html.DisplayNameFor(m => m.ChiNhanhId)</th>
+                            <th>@Html.DisplayNameFor(m => m.VanPhong.ChiNhanhId)</th>
                             <th>@Html.DisplayNameFor(m => m.VanPhong)</th>
                             <th>@Html.DisplayNameFor(m => m.Khoi)</th>
-                            <th>@Html.DisplayNameFor(m => m.ChiNhanh.KhuVuc)</th>
+                            <th>@Html.DisplayNameFor(m => m.VanPhong.KhuVuc)</th>
                             <th></th>
 
                         </tr>
@@ -61,10 +61,10 @@
                             <tr>
                                 <td>@Html.DisplayFor(m => item.Name)</td>
                                 <td>@Html.DisplayFor(m => item.PhongBan)</td>
-                                <td>@Html.DisplayFor(m => item.ChiNhanh.MaChiNhanh)</td>
+                                <td>@Html.DisplayFor(m => item.VanPhong.ChiNhanhId)</td>
                                 <td>@Html.DisplayFor(m => item.VanPhong)</td>
                                 <td>@Html.DisplayFor(m => item.Khoi)</td>
-                                <td>@Html.DisplayFor(m => item.ChiNhanh.KhuVuc)</td>
+                                <td>@Html.DisplayFor(m => item.VanPhong.KhuVuc)</td>
 
                                 <partial name="_TableButtonPartial" model="item.Id">
 

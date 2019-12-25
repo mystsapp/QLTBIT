@@ -26,17 +26,24 @@ namespace QLTB.Data.Models
         public string NguoiSua { get; set; }
         public DateTime? NgaySua { get; set; }
 
+        //[Required]
+        //[DisplayName("Chi Nhánh")]
+        //public int ChiNhanhId { get; set; }
+
+        //[ForeignKey("ChiNhanhId")]
+        //public virtual ChiNhanh ChiNhanh { get; set; }
+
         [Required]
-        [DisplayName("Chi Nhánh")]
-        public int ChiNhanhId { get; set; }
-
-        [ForeignKey("ChiNhanhId")]
-        public virtual ChiNhanh ChiNhanh { get; set; }
-
         [DisplayName("Văn Phòng")]
-        [MaxLength(50), Column(TypeName = "nvarchar(50)")]
-        [Required]
-        public string VanPhong { get; set; }
+        public int VanPhongId { get; set; }
+
+        [ForeignKey("VanPhongId")]
+        public virtual VanPhong VanPhong { get; set; }
+
+        //[DisplayName("Văn Phòng")]
+        //[MaxLength(50), Column(TypeName = "nvarchar(50)")]
+        //[Required]
+        //public string VanPhong { get; set; }
 
         [DisplayName("Khối")]
         [MaxLength(50), Column(TypeName = "varchar(50)")]

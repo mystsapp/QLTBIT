@@ -75,21 +75,14 @@
                         </div>*@
 
                     <div class="form-group row">
-                        <div class="col-2">
-                            <label asp-for="BanGiao.ChiNhanhId"></label>
-                        </div>
-                        <div class="col-4">
-                            <select asp-for="@Model.BanGiao.ChiNhanhId" asp-items="Model.ChiNhanhs.ToSelectListItem(Model.BanGiao.ChiNhanhId)" class="form-control ddlChiNhanh select2"></select>
-                            @*<select class="form-control ddlChiNhanh select2 " asp-for="@Model.BanGiao.ChiNhanhId" asp-items="@(new SelectList(ViewBag.ChiNhanhs,"Id","Name"))" >
-                            </select>*@
-                        </div>
+                       
 
                         <div class="col-2">
                             <label asp-for="BanGiao.VanPhong"></label>
                         </div>
                         <div class="col-4">
                             @*<select asp-for="BanGiao.VanPhong" class="form-control ddlVanPhong"></select>*@
-                            <select class="form-control ddlVanPhong select2 select2-hidden-accessible" asp-for="BanGiao.VanPhong" style="width: 100%;" >
+                            <select class="form-control ddlVanPhong select2 select2-hidden-accessible" asp-for="BanGiao.VanPhongId" asp-items="Model.VanPhongs.ToSelectListItem(Model.BanGiao.VanPhongId)" style="width: 100%;" >
                             </select>
                         </div>
                         <span class="text-danger" asp-validation-for="BanGiao.VanPhong"></span>
@@ -191,7 +184,7 @@
             });
         </script>
 
-        <script src="~/js/Admin/BanGiao/createController.js"></script>
+        @*<script src="~/js/Admin/BanGiao/createController.js"></script>*@
     }
 }
 

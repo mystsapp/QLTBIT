@@ -82,5 +82,7 @@ namespace QLTB.Data.Repository
         {
             return await _context.Set<T>().Include(expression).ToListAsync();
         }
+        
+   
     }
 }

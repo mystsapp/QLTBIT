@@ -10,8 +10,8 @@ namespace QLTB.Data.Repository
 {
     public interface INhanVienRepository: IRepository<NhanVien>
     {
-        Task<IEnumerable<NhanVien>> NhanVienIncludeChiNhanh();
-        Task<NhanVien> FindIdIncludeChiNhanh(int? id);
+        // Task<IEnumerable<NhanVien>> NhanVienIncludeChiNhanh();
+        Task<NhanVien> FindByIdIncludeVanPhong(int? id);
     }
     public class NhanVienRepository : Repository<NhanVien>, INhanVienRepository
     {
@@ -19,15 +19,15 @@ namespace QLTB.Data.Repository
         {
         }
 
-        public async Task<IEnumerable<NhanVien>> NhanVienIncludeChiNhanh()
-        {
+        //public async Task<IEnumerable<NhanVien>> NhanVienIncludeChiNhanh()
+        //{
 
-            return await _context.NhanViens.Include(x => x.ChiNhanh).ToListAsync();
-        }
+        //    return await _context.NhanViens.Include(x => x.ChiNhanh).ToListAsync();
+        //}
 
-        public async Task<NhanVien> FindIdIncludeChiNhanh(int? id)
+        public async Task<NhanVien> FindByIdIncludeVanPhong(int? id)
         {
-            return await _context.NhanViens.Include(x => x.ChiNhanh).SingleAsync(x => x.Id == id);
+            return await _context.NhanViens.Include(x => x.VanPhong).SingleAsync(x => x.Id == id);
         }
     }
 }

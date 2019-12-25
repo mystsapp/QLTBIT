@@ -10,8 +10,8 @@ namespace QLTB.Data.Repository
 {
     public interface IBanGiaoRepository: IRepository<BanGiao>
     {
-        Task<List<BanGiao>> BanGiaoIncludeChiNhanh();
-        Task<BanGiao> FindIdIncludeChiNhanh(int? id);
+        //Task<List<BanGiao>> BanGiaoIncludeChiNhanh();
+        Task<BanGiao> FindByIdIncludeVanPhong(int? id);
     }
     public class BanGiaoRepository : Repository<BanGiao>, IBanGiaoRepository
     {
@@ -19,14 +19,14 @@ namespace QLTB.Data.Repository
         {
         }
 
-        public async Task<List<BanGiao>> BanGiaoIncludeChiNhanh()
-        {
-            return await _context.BanGiaos.Include(x => x.ChiNhanh).ToListAsync();
-        }
+        //public async Task<List<BanGiao>> BanGiaoIncludeChiNhanh()
+        //{
+        //    return await _context.BanGiaos.Include(x => x.ChiNhanh).ToListAsync();
+        //}
 
-        public async Task<BanGiao> FindIdIncludeChiNhanh(int? id)
+        public async Task<BanGiao> FindByIdIncludeVanPhong(int? id)
         {
-            return await _context.BanGiaos.Include(x => x.ChiNhanh).SingleAsync(x => x.Id == id);
+            return await _context.BanGiaos.Include(x => x.VanPhong).SingleAsync(x => x.Id == id);
         }
     }
 }

@@ -21,16 +21,22 @@ namespace QLTB.Data.Models
         [DisplayName("Khối")]
         public string Khoi { get; set; }
 
-        [DisplayName("Chi Nhánh")]
-        public int ChiNhanhId { get; set; }
+        //[DisplayName("Chi Nhánh")]
+        //public int ChiNhanhId { get; set; }
 
-        [ForeignKey("ChiNhanhId")]
-        public virtual ChiNhanh ChiNhanh { get; set; }
+        //[ForeignKey("ChiNhanhId")]
+        //public virtual ChiNhanh ChiNhanh { get; set; }
 
         [DisplayName("Văn Phòng")]
-        [MaxLength(50), Column(TypeName = "nvarchar(50)")]
-        public string VanPhong { get; set; }
-        
+        public int VanPhongId { get; set; }
+
+        [ForeignKey("VanPhongId")]
+        public virtual VanPhong VanPhong { get; set; }
+
+        //[DisplayName("Văn Phòng")]
+        //[MaxLength(50), Column(TypeName = "nvarchar(50)")]
+        //public string VanPhong { get; set; }
+
         [DisplayName("Tình Trạng")]
         public bool TinhTrang { get; set; }
 

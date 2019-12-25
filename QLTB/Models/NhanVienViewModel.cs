@@ -11,7 +11,6 @@ namespace QLTB.Models
     {
         public NhanVien NhanVien { get; set; }
 
-        public IEnumerable<ChiNhanh> ChiNhanhs { get; set; }
         public IEnumerable<VanPhong> VanPhongs { get; set; }
     }
 }

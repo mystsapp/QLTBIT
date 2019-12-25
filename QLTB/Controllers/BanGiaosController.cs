@@ -40,7 +40,7 @@ namespace QLTB.Controllers
             _hostingEnvironment = hostingEnvironment;
             BanGiaoCreateVM = new BanGiaoCreateViewModel()
             {
-                ChiNhanhs = _unitOfWork.chiNhanhRepository.GetAll(),
+                
                 VanPhongs = _unitOfWork.vanPhongRepository.GetAll(),
                 LoaiThietBis = _unitOfWork.loaiThietBiRepository.GetAll(),
                 NhanViens = _unitOfWork.nhanVienRepository.GetAll(),
@@ -86,7 +86,7 @@ namespace QLTB.Controllers
             }
             /////////////////////////////////////////////////Pagingnation/////////////////////////////////////////////////
 
-            banGiaoVM.BanGiaos = await _unitOfWork.banGiaoRepository.BanGiaoIncludeChiNhanh();
+            banGiaoVM.BanGiaos = await _unitOfWork.banGiaoRepository.GetAllIncludeOneAsync(x => x.VanPhong);
 
             var roles = await userManager.GetRolesAsync(await userManager.GetUserAsync(User));
 
@@ -94,7 +94,7 @@ namespace QLTB.Controllers
 
             foreach (var role in roles)
             {
-                var banGiao = banGiaoVM.BanGiaos.Where(x => x.ChiNhanh.KhuVuc == role);
+                var banGiao = banGiaoVM.BanGiaos.Where(x => x.VanPhong.KhuVuc == role);
                 listBG.AddRange(banGiao);
             }
 
@@ -116,7 +116,7 @@ namespace QLTB.Controllers
 
             if (searchVanPhong != null)
             {
-                banGiaoVM.BanGiaos = banGiaoVM.BanGiaos.Where(x => x.VanPhong.ToLower().Contains(searchVanPhong.ToLower())).ToList();
+                banGiaoVM.BanGiaos = banGiaoVM.BanGiaos.Where(x => x.VanPhong.Name.ToLower().Contains(searchVanPhong.ToLower())).ToList();
             }
 
             if (searchDate != null)
@@ -134,7 +134,7 @@ namespace QLTB.Controllers
             /////////// search ///////////////
 
             ///////////////////////////////////////Pagingnation/////////////////////////////////////////////////
-            var count = banGiaoVM.BanGiaos.Count;
+            var count = banGiaoVM.BanGiaos.Count();
 
             banGiaoVM.BanGiaos = banGiaoVM.BanGiaos.OrderBy(x => x.NgayTao)
                 .Skip((banGiaoPage - 1) * PageSize)
@@ -160,30 +160,25 @@ namespace QLTB.Controllers
 
             var roles = await userManager.GetRolesAsync(user);
 
-            var listChiNhanh = new List<ChiNhanh>();
+            var listVanPhong = new List<VanPhong>();
 
             var listNv = new List<NhanVien>();
 
-            //foreach (var chinhanh in BanGiaoCreateVM.ChiNhanhs)
-            //{
             foreach (var role in roles)
             {
-                //if(chinhanh.KhuVuc == role)
-                //{
-                //    listChiNhanh.Add(chinhanh);
-                //}
 
-                listChiNhanh.AddRange(BanGiaoCreateVM.ChiNhanhs.Where(x => x.KhuVuc == role));
+                //listChiNhanh.AddRange(BanGiaoCreateVM.ChiNhanhs.Where(x => x.KhuVuc == role));
 
-                listNv.AddRange(BanGiaoCreateVM.NhanViens.Where(x => x.ChiNhanh.KhuVuc == role));
+                //listNv.AddRange(BanGiaoCreateVM.NhanViens.Where(x => x.ChiNhanh.KhuVuc == role));
+
+                listNv.AddRange(BanGiaoCreateVM.NhanViens.Where(x => x.VanPhong.KhuVuc == role));
+                listVanPhong.AddRange(BanGiaoCreateVM.VanPhongs.Where(x => x.KhuVuc == role));
             }
-            //}
-
-            // ViewBag.ChiNhanhs = listChiNhanh;
+  
             var a = User.IsInRole("Admin");
             if (!User.IsInRole("Admin") && !User.IsInRole("Super Admin"))
             {
-                BanGiaoCreateVM.ChiNhanhs = listChiNhanh;
+                BanGiaoCreateVM.VanPhongs = listVanPhong;
                 BanGiaoCreateVM.NhanViens = listNv;
             }
 
@@ -217,7 +212,7 @@ namespace QLTB.Controllers
             if (id == null)
                 return NotFound();
 
-            BanGiaoCreateVM.BanGiao = await _unitOfWork.banGiaoRepository.FindIdIncludeChiNhanh(id);
+            BanGiaoCreateVM.BanGiao = await _unitOfWork.banGiaoRepository.FindByIdIncludeVanPhong(id);
 
             if (BanGiaoCreateVM.BanGiao == null)
                 return NotFound();
@@ -255,7 +250,7 @@ namespace QLTB.Controllers
             if (id == null)
                 return NotFound();
 
-            BanGiaoCreateVM.BanGiao = await _unitOfWork.banGiaoRepository.FindIdIncludeChiNhanh(id);
+            BanGiaoCreateVM.BanGiao = await _unitOfWork.banGiaoRepository.FindByIdIncludeVanPhong(id);
 
             if (BanGiaoCreateVM.BanGiao == null)
                 return NotFound();
@@ -270,7 +265,7 @@ namespace QLTB.Controllers
             if (id == null)
                 return NotFound();
 
-            BanGiaoCreateVM.BanGiao = await _unitOfWork.banGiaoRepository.FindIdIncludeChiNhanh(id);
+            BanGiaoCreateVM.BanGiao = await _unitOfWork.banGiaoRepository.FindByIdIncludeVanPhong(id);
 
             if (BanGiaoCreateVM.BanGiao == null)
                 return NotFound();

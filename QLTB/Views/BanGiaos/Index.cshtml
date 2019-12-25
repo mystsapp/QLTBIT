@@ -159,10 +159,10 @@
                         <th>@Html.DisplayNameFor(m => m.BanGiaos.FirstOrDefault().NguoiNhan)</th>
                         <th>@Html.DisplayNameFor(m => m.BanGiaos.FirstOrDefault().NgayTao)</th>
                         @*<th>@Html.DisplayNameFor(m => m.BanGiaos.FirstOrDefault().ChiNhanhId)</th>*@
-                        <th>@Html.DisplayNameFor(m => m.BanGiaos.FirstOrDefault().VanPhong)</th>
+                        <th>@Html.DisplayNameFor(m => m.BanGiaos.FirstOrDefault().VanPhongId)</th>
                         <th>@Html.DisplayNameFor(m => m.BanGiaos.FirstOrDefault().LoaiThietBi)</th>
                         <th>@Html.DisplayNameFor(m => m.BanGiaos.FirstOrDefault().TinhTrang)</th>
-                        <th>@Html.DisplayNameFor(m => m.BanGiaos.FirstOrDefault().ChiNhanh.KhuVuc)</th>
+                        <th>@Html.DisplayNameFor(m => m.BanGiaos.FirstOrDefault().VanPhong.KhuVuc)</th>
                         <th></th>
                         <th></th>
                     </tr>
@@ -196,7 +196,7 @@
                             <span class="badge badge-warning text-white">Chưa bàn giao</span>
                         }
                     </td>
-                    <td>@Html.DisplayFor(m => item.ChiNhanh.KhuVuc)</td>
+                    <td>@Html.DisplayFor(m => item.VanPhong.KhuVuc)</td>
                     <td>
                         <partial name="_TableButtonPartial" model="item.Id" />
                     </td>

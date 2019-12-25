@@ -48,7 +48,7 @@ namespace QLTB.Controllers
         {
             ChiTietBanGiaoIndexViewModel chiTietBanGiaoIndexVM = new ChiTietBanGiaoIndexViewModel();
             chiTietBanGiaoIndexVM.ChiTietBanGiaos = await _unitOfWork.chiTietBanGiaoRepository.FindByBanGiaoIdIncludeBanGiaoThietBi(id);
-            chiTietBanGiaoIndexVM.BanGiao = await _unitOfWork.banGiaoRepository.FindIdIncludeChiNhanh(id);
+            chiTietBanGiaoIndexVM.BanGiao = await _unitOfWork.banGiaoRepository.FindByIdIncludeVanPhong(id);
             chiTietBanGiaoIndexVM.StrUrl = strUrl;
 
             
@@ -531,11 +531,11 @@ namespace QLTB.Controllers
             List<ChiTietBanGiao> chiTietBanGiaos = new List<ChiTietBanGiao>();
             foreach (var role in roles)
             {
-                var cns = _unitOfWork.chiNhanhRepository.GetAll().Where(x => x.KhuVuc == role);
+                var vps = _unitOfWork.vanPhongRepository.GetAll().Where(x => x.KhuVuc == role);
 
-                foreach (var cn in cns)
+                foreach (var vp in vps)
                 {
-                    var a = chitiets.Where(x => x.BanGiao.ChiNhanhId == cn.Id);
+                    var a = chitiets.Where(x => x.BanGiao.VanPhongId == vp.Id);
                     if (a.Count() > 0)
                     {
                         chiTietBanGiaos.AddRange(a);
@@ -561,15 +561,15 @@ namespace QLTB.Controllers
 
             var roles = await userManager.GetRolesAsync(await userManager.GetUserAsync(User));
             var listNV = new List<NhanVien>();
-            var listCN = new List<ChiNhanh>();
+            var listVP = new List<VanPhong>();
 
             foreach(var role in roles)
             {
-                var a = ChiTietBanGiaoVM.ChiNhanhs.Where(x => x.KhuVuc == role);
+                var a = ChiTietBanGiaoVM.VanPhongs.Where(x => x.KhuVuc == role);
                 if(a.Count() > 0)
                 {
-                    listCN.AddRange(a);
-                    listNV.AddRange(ChiTietBanGiaoVM.NhanViens.Where(x => x.ChiNhanh.KhuVuc == role));
+                    listVP.AddRange(a);
+                    listNV.AddRange(ChiTietBanGiaoVM.NhanViens.Where(x => x.VanPhong.KhuVuc == role));
                 }
 
                 //foreach (var chinhanh in ChiTietBanGiaoVM.ChiNhanhs)
@@ -586,7 +586,7 @@ namespace QLTB.Controllers
             if(!User.IsInRole("Admin") && !User.IsInRole("Super Admin"))
             {
                 ChiTietBanGiaoVM.NhanViens = listNV;
-                ChiTietBanGiaoVM.ChiNhanhs = listCN;
+                ChiTietBanGiaoVM.VanPhongs = listVP;
             }
 
             return View(ChiTietBanGiaoVM);

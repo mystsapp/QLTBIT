@@ -8,7 +8,7 @@ namespace QLTB.Models
 {
     public class BanGiaoViewModel
     {
-        public List<BanGiao> BanGiaos { get; set; }
+        public IEnumerable<BanGiao> BanGiaos { get; set; }
         public PagingInfo PagingInfo { get; set; }
         public string strUrl { get; set; }
     }

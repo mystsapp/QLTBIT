@@ -10,7 +10,6 @@ namespace QLTB.Models
     {
         public BanGiao BanGiao { get; set; }
 
-        public IEnumerable<ChiNhanh> ChiNhanhs { get; set; }
         public IEnumerable<VanPhong> VanPhongs { get; set; }
         public IEnumerable<LoaiThietBi> LoaiThietBis { get; set; }
         public IEnumerable<NhanVien> NhanViens { get; set; }

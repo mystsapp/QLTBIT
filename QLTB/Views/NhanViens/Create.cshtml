@@ -61,17 +61,6 @@
                             <span class="text-danger" asp-validation-for="NhanVien.Name"></span>
                         </div>
 
-                        @if (roles.Count > 1)
-                        {
-                            <div class="col-2">
-                                <label>Khu Vực</label>
-                            </div>
-                            <div class="col-3">
-                                <select class="form-control" asp-items="@(new SelectList(ViewBag.Roles,"Name","Name"))" id="txtRole"> </select>
-                                <span class="text-danger" asp-validation-for="NhanVien.Name"></span>
-                            </div>
-                        }
-
                     </div>
 
                     <div class="form-group row">
@@ -83,35 +72,15 @@
                             <span class="text-danger" asp-validation-for="NhanVien.PhongBan"></span>
                         </div>
 
-                        @if (roles.Count > 1)
-                        {
-                            <div class="col-2" id="vpLabel">
-                                <label asp-for="NhanVien.VanPhong"></label>
-                            </div>
-                            <div class="col-3" id="vpSelect">
-                                <select asp-for="NhanVien.VanPhong" class="form-control ddlVanPhong" id="vpKhuVuc"></select>
-                                <span class="text-danger" asp-validation-for="NhanVien.VanPhong"></span>
-                            </div>
-                        }
-                    </div>
-
-                    <div class="form-group row" id="divCN">
-                        <div class="col-2">
-                            <label asp-for="NhanVien.ChiNhanhId"></label>
-                        </div>
-                        <div class="col-5">
-                            <select asp-for="@Model.NhanVien.ChiNhanhId" asp-items="Model.ChiNhanhs.ToSelectListItem(Model.NhanVien.ChiNhanhId)" class="form-control ddlChiNhanh" ></select>
-                            <input asp-for="@Model.NhanVien.ChiNhanhId" type="hidden" id="hidCN" />
-                        </div>
                     </div>
 
                     <div class="form-group row" id="divVP">
                         <div class="col-2">
-                            <label asp-for="NhanVien.VanPhong"></label>
+                            <label asp-for="NhanVien.VanPhongId"></label>
                         </div>
                         <div class="col-5">
-                            <select asp-for="NhanVien.VanPhong" class="form-control ddlVanPhong"></select>
-                            <span class="text-danger" asp-validation-for="NhanVien.VanPhong"></span>
+                            <select asp-for="@Model.NhanVien.VanPhongId" asp-items="Model.VanPhongs.ToSelectListItem(Model.NhanVien.VanPhongId)" class="form-control ddlChiNhanh"></select>
+                            <span class="text-danger" asp-validation-for="NhanVien.VanPhongId"></span>
                         </div>
 
                     </div>
@@ -152,7 +121,7 @@
 @section Scripts{
     @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");
 
-        <script src="~/js/Admin/NhanVien/createController.js"></script>
+        @*<script src="~/js/Admin/NhanVien/createController.js"></script>*@
     }
 
 }
