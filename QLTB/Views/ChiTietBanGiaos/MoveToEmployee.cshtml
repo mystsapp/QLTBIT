@@ -57,46 +57,32 @@
                             <label asp-for="BanGiao.NguoiLap"></label>
                         </div>
                         <div class="col-4">
-                            <input class="form-control" asp-for="BanGiao.NguoiLap" readonly/>
+                            <input class="form-control" asp-for="BanGiao.NguoiLap" readonly />
+                            <span class="text-danger" asp-validation-for="BanGiao.NguoiLap"></span>
                         </div>
-                        <span class="text-danger" asp-validation-for="BanGiao.NguoiLap"></span>
+                        
 
                         <div class="col-2">
                             <label asp-for="BanGiao.NguoiNhan"></label>
                         </div>
                         <div class="col-4">
                             <select class="form-control" asp-for="BanGiao.NguoiNhan" asp-items="@Model.NhanViens.ToSelectListItemString(Model.BanGiao.NguoiNhan)"></select>
+                            <span class="text-danger" asp-validation-for="BanGiao.NguoiNhan"></span>
                         </div>
-                        <span class="text-danger" asp-validation-for="BanGiao.NguoiNhan"></span>
+                        
 
                     </div>
 
-                    @*<div class="form-group row">
-
-        </div>*@
-
                     <div class="form-group row">
-                        <div class="col-2">
-                            <label asp-for="BanGiao.ChiNhanhId"></label>
-                        </div>
-                        <div class="col-4">
-                            <select asp-for="@Model.BanGiao.ChiNhanhId" asp-items="Model.ChiNhanhs.ToSelectListItem(Model.BanGiao.ChiNhanhId)" class="form-control ddlChiNhanh"></select>
-                        </div>
 
                         <div class="col-2">
-                            <label asp-for="BanGiao.VanPhong"></label>
+                            <label asp-for="BanGiao.VanPhongId"></label>
                         </div>
                         <div class="col-4">
-                            <select asp-for="BanGiao.VanPhong" class="form-control ddlVanPhong" asp-items="@Model.VanPhongs.ToSelectListItemString(Model.BanGiao.VanPhong)"></select>
+                            <select asp-for="BanGiao.VanPhongId" class="form-control ddlVanPhong" asp-items="@Model.VanPhongs.ToSelectListItem(Model.BanGiao.VanPhongId)"></select>
+                            <span class="text-danger" asp-validation-for="BanGiao.VanPhong"></span>
                         </div>
-                        <span class="text-danger" asp-validation-for="BanGiao.VanPhong"></span>
-                    </div>
 
-                    @*<div class="form-group row">
-
-        </div>*@
-
-                    <div class="form-group row">
                         <div class="col-2">
                             <label asp-for="BanGiao.Khoi"></label>
                         </div>
@@ -106,29 +92,31 @@
                                 <option value="ND">ND</option>
                                 <option value="">--None--</option>
                             </select>
+                            <span class="text-danger" asp-validation-for="BanGiao.Khoi"></span>
                         </div>
-                        <span class="text-danger" asp-validation-for="BanGiao.Khoi"></span>
+
+                    </div>
+
+                    <div class="form-group row">
 
                         <div class="col-2">
                             <label asp-for="BanGiao.PhongBan"></label>
                         </div>
                         <div class="col-4">
                             <input class="form-control" asp-for="BanGiao.PhongBan" />
+                            <span class="text-danger" asp-validation-for="BanGiao.PhongBan"></span>
                         </div>
-                        <span class="text-danger" asp-validation-for="BanGiao.PhongBan"></span>
-                    </div>
 
-                    @*<div class="form-group row">
-
-        </div>*@
-
-                    <div class="form-group row">
                         <div class="col-2">
                             <label asp-for="BanGiao.TinhTrang"></label>
                         </div>
                         <div class="col-4">
                             <input type="checkbox" asp-for="BanGiao.TinhTrang" />
                         </div>
+
+                    </div>
+
+                    <div class="form-group row">
 
                         <div class="col-2">
                             <label asp-for="BanGiao.LoaiThietBi"></label>
@@ -137,24 +125,16 @@
                             <select asp-for="BanGiao.LoaiThietBi" class="form-control" asp-items="@Model.LoaiThietBis.ToSelectListItemString(Model.BanGiao.LoaiThietBi)"></select>
                         </div>
 
-
-                    </div>
-
-                    <div class="form-group row">
                         <div class="col-2">
                             <label asp-for="BanGiao.LyDo"></label>
                         </div>
                         <div class="col-4">
                             <textarea class="form-control" asp-for="BanGiao.LyDo"></textarea>
+                            <span class="text-danger" asp-validation-for="BanGiao.LyDo"></span>
                         </div>
-                        <span class="text-danger" asp-validation-for="BanGiao.LyDo"></span>
+
                     </div>
-
-
                 </div>
-
-
-
 
             </div>
             <!-- /.card-body -->
@@ -194,23 +174,21 @@
                             <label asp-for="ChiTietBanGiao.ThietBiId"></label>
                         </div>
                         <div class="col-4">
-                            <select class="form-control" asp-for="ChiTietBanGiao.ThietBiId" asp-items="@Model.ThietBis.ToSelectListItem(Model.ChiTietBanGiao.ThietBiId)" ></select>
+                            <select class="form-control" asp-for="ChiTietBanGiao.ThietBiId" asp-items="@Model.ThietBis.ToSelectListItem(Model.ChiTietBanGiao.ThietBiId)"></select>
+                            <span class="text-danger" asp-validation-for="ChiTietBanGiao.ThietBiId"></span>
                         </div>
-                        <span class="text-danger" asp-validation-for="ChiTietBanGiao.ThietBiId"></span>
+                        
 
                         <div class="col-2">
                             <label asp-for="ChiTietBanGiao.SoLuong"></label>
                         </div>
                         <div class="col-4">
                             <input type="number" class="form-control" asp-for="ChiTietBanGiao.SoLuong" />
+                            <span class="text-danger" asp-validation-for="ChiTietBanGiao.SoLuong"></span>
                         </div>
-                        <span class="text-danger" asp-validation-for="ChiTietBanGiao.SoLuong"></span>
+                        
 
                     </div>
-
-                    @*<div class="form-group row">
-
-                        </div>*@
 
                     <div class="form-group row">
                         <div class="col-2">
@@ -218,21 +196,19 @@
                         </div>
                         <div class="col-4">
                             <input type="number" asp-for="ChiTietBanGiao.DonGia" class="form-control" />
+                            <span class="text-danger" asp-validation-for="ChiTietBanGiao.DonGia"></span>
                         </div>
-                        <span class="text-danger" asp-validation-for="ChiTietBanGiao.DonGia"></span>
+                        
 
                         <div class="col-2">
                             <label asp-for="ChiTietBanGiao.BaoHanhDen"></label>
                         </div>
                         <div class="col-4">
                             <input type="text" asp-for="ChiTietBanGiao.BaoHanhDen" class="form-control maskInput" id="datepicker" />
+                            <span class="text-danger" asp-validation-for="ChiTietBanGiao.BaoHanhDen"></span>
                         </div>
-                        <span class="text-danger" asp-validation-for="ChiTietBanGiao.BaoHanhDen"></span>
+                        
                     </div>
-
-                    @*<div class="form-group row">
-
-                        </div>*@
 
                     <div class="form-group row">
                         <div class="col-2">
@@ -240,21 +216,19 @@
                         </div>
                         <div class="col-4">
                             <textarea asp-for="ChiTietBanGiao.GhiChu" class="form-control"></textarea>
+                            <span class="text-danger" asp-validation-for="ChiTietBanGiao.GhiChu"></span>
                         </div>
-                        <span class="text-danger" asp-validation-for="ChiTietBanGiao.GhiChu"></span>
+                        
 
                         <div class="col-2">
                             <label asp-for="ChiTietBanGiao.TinhTrang"></label>
                         </div>
                         <div class="col-4">
                             <input type="checkbox" asp-for="ChiTietBanGiao.TinhTrang" />
+                            <span class="text-danger" asp-validation-for="ChiTietBanGiao.TinhTrang"></span>
                         </div>
-                        <span class="text-danger" asp-validation-for="ChiTietBanGiao.TinhTrang"></span>
+                        
                     </div>
-
-                    @*<div class="form-group row">
-
-                        </div>*@
 
                     <div class="form-group row">
                         <div class="col-2">
@@ -262,8 +236,9 @@
                         </div>
                         <div class="col-4">
                             <textarea class="form-control" asp-for="ChiTietBanGiao.DienGiai"></textarea>
+                            <span class="text-danger" asp-validation-for="ChiTietBanGiao.DienGiai"></span>
                         </div>
-                        <span class="text-danger" asp-validation-for="ChiTietBanGiao.DienGiai"></span>
+                     
 
                     </div>
 
@@ -286,7 +261,7 @@
 
 @section Scripts{
     @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");
-        <script src="~/js/Admin/ChiTietBanGiao/moveToEmployeeController.js"></script>
+        @*<script src="~/js/Admin/ChiTietBanGiao/moveToEmployeeController.js"></script>*@
         <script>
 
             $(function () {

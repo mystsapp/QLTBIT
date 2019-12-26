@@ -26,8 +26,8 @@ namespace QLTB.Data.Models
         [DisplayName("Điện Thoại")]
         public string DienThoai { get; set; }
         
-        [DisplayName("Khu Vực")]
-        [MaxLength(20), Column(TypeName = "nvarchar(20)")]
-        public string KhuVuc { get; set; }
+        //[DisplayName("Khu Vực")]
+        //[MaxLength(20), Column(TypeName = "nvarchar(20)")]
+        //public string KhuVuc { get; set; }
     }
 }

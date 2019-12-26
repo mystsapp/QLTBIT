@@ -11,6 +11,7 @@ using OfficeOpenXml;
 using OfficeOpenXml.Style;
 using QLTB.Data.Models;
 using QLTB.Data.Repository;
+using QLTB.Models;
 using QLTB.Utility;
 
 namespace QLTB.Controllers
@@ -41,14 +42,10 @@ namespace QLTB.Controllers
 
             foreach (var role in roles)
             {
-                var cns = _unitOfWork.chiNhanhRepository.GetAll().Where(x => x.KhuVuc == role);
-
-                foreach (var cn in cns)
+                var vps = listVP.Where(x => x.KhuVuc == role);     
+                if(vps.Count() > 0)
                 {
-
-
-                    var b = listVP.Where(x => x.ChiNhanhId == cn.Id);
-                    vanPhongs.AddRange(b);
+                    vanPhongs.AddRange(vps);
                 }
             }
 
@@ -79,15 +76,19 @@ namespace QLTB.Controllers
 
             List<ChiTietBanGiao> chiTietBanGiaos = new List<ChiTietBanGiao>();
 
-
             if (!string.IsNullOrEmpty(vP))
             {
-
-                var a = chitiets.Where(x => x.BanGiao.VanPhong.Equals(vP));
-                if (a.Count() > 0)
+                var banGiaos = await _unitOfWork.banGiaoRepository.FindAsync(x => x.VanPhong.Name.Equals(vP));
+                foreach(var bg in banGiaos)
                 {
-                    chiTietBanGiaos.AddRange(a);
+                    var a = chitiets.Where(x => x.BanGiaoId == bg.Id);
+
+                    if (a.Count() > 0)
+                    {
+                        chiTietBanGiaos.AddRange(a);
+                    }
                 }
+                
             }
 
 
@@ -135,7 +136,7 @@ namespace QLTB.Controllers
             if (vanPhong.ChiNhanh.MaChiNhanh != "STS")
             {
                 xlSheet.Cells[3, 1].Value = "CHI NHÁNH CÔNG TY TNHH MỘT THÀNH VIÊN ";
-                xlSheet.Cells[4, 1].Value = " DỊCH VỤ LỮ HÀNH SAIGONTOURIST TẠI " + name + " - VP " + vanPhong.Name;
+                xlSheet.Cells[4, 1].Value = " DỊCH VỤ LỮ HÀNH SAIGONTOURIST TẠI " + name.ToUpper() + " - VP " + vanPhong.Name.ToUpper();
 
                 xlSheet.Cells[3, 1, 3, 4].Merge = true;
                 setCenterAligment(3, 1, 3, 4, xlSheet);
@@ -179,7 +180,7 @@ namespace QLTB.Controllers
             setCenterAligment(3, 5, 3, 7, xlSheet);
 
 
-            xlSheet.Cells[6, 1].Value = "KIỂM KÊ CÔNG CỤ LAO ĐỘNG VP " + vanPhong.Name;
+            xlSheet.Cells[6, 1].Value = "KIỂM KÊ CÔNG CỤ LAO ĐỘNG VP " + vanPhong.Name.ToUpper();
             xlSheet.Cells[6, 1].Style.Font.SetFromFont(new Font("Times New Roman", 15, FontStyle.Bold));
             xlSheet.Cells[6, 1, 6, 7].Merge = true;
             setCenterAligment(6, 1, 6, 7, xlSheet);
@@ -227,7 +228,7 @@ namespace QLTB.Controllers
             int dong = 9;
 
 
-            DataTable dt = await _unitOfWork.thongKeRepository.TheoVP_Report(searchFromDate, searchToDate, vP);
+            DataTable dt = await TheoVP_Report(searchFromDate, searchToDate, vP);
 
 
             if (dt != null)
@@ -320,6 +321,69 @@ namespace QLTB.Controllers
                 throw;
             }
 
+
+        }
+
+        public async Task<DataTable> TheoVP_Report(string searchFromDate, string searchToDate, string vP)
+        {
+            var chitiets = await _unitOfWork.chiTietBanGiaoRepository.GetAllIncludeAsync(x => x.BanGiao, y => y.ThietBi);
+
+            //if (searchFromDate != null && searchToDate != null)
+            //{
+            DateTime fromDate = DateTime.Parse(searchFromDate);
+            DateTime toDate = DateTime.Parse(searchToDate);
+            chitiets = chitiets.Where(x => x.NgayGiao >= fromDate && x.NgayGiao <= toDate.AddDays(1));
+            //}
+
+
+            List<ChiTietBanGiao> chiTietBanGiaos = new List<ChiTietBanGiao>();
+
+
+            if (!string.IsNullOrEmpty(vP))
+            {
+
+                var banGiaos = await _unitOfWork.banGiaoRepository.FindAsync(x => x.VanPhong.Name.Equals(vP));
+                foreach (var bg in banGiaos)
+                {
+                    var a = chitiets.Where(x => x.BanGiaoId == bg.Id);
+
+                    if (a.Count() > 0)
+                    {
+                        chiTietBanGiaos.AddRange(a);
+                    }
+                }
+            }
+            chitiets = chiTietBanGiaos;
+            chitiets = chitiets.Where(x => !x.ChuyenSuDung);
+            List<TheoVPViewModel> listVM = new List<TheoVPViewModel>();
+
+            foreach (var chitiet in chitiets)
+            {
+                TheoVPViewModel theoVPViewModel = new TheoVPViewModel()
+                {
+
+                    TenThietBi = chitiet.ThietBi.Name,
+                    BoPhan = chitiet.BanGiao.PhongBan,
+                    MaSo = chitiet.MaSo,
+                    NgaySuDung = chitiet.NgayGiao,
+                    NguoiDung = chitiet.BanGiao.NguoiNhan,
+                    GhiChu = chitiet.GhiChu
+                };
+
+                listVM.Add(theoVPViewModel);
+            }
+
+
+
+            DataTable dt = new DataTable();
+
+            var count = chitiets.Count();
+
+            dt = EntityToTable.ToDataTable(listVM);
+            if (dt.Rows.Count > 0)
+                return dt;
+            else
+                return null;
 
         }
 

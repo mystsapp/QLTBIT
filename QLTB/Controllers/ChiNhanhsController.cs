@@ -31,7 +31,7 @@ namespace QLTB.Controllers
         //Get Create method
         public IActionResult Create()
         {
-            ViewBag.Roles = roleManager.Roles.ToList();
+            //ViewBag.Roles = roleManager.Roles.ToList();
             return View();
         }
 

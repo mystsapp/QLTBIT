@@ -56,22 +56,18 @@
                         </div>
                         <div class="col-4">
                             <select class="form-control" asp-for="ChiTietBanGiao.ThietBiId" asp-items="@Model.ThietBis.ToSelectListItem(Model.ChiTietBanGiao.ThietBiId)"></select>
-                        </div>
-                        <span class="text-danger" asp-validation-for="ChiTietBanGiao.ThietBiId"></span>
+                            <span class="text-danger" asp-validation-for="ChiTietBanGiao.ThietBiId"></span>
+                        </div>                        
 
                         <div class="col-2">
                             <label asp-for="ChiTietBanGiao.SoLuong"></label>
                         </div>
                         <div class="col-4">
                             <input type="number" class="form-control" asp-for="ChiTietBanGiao.SoLuong" />
-                        </div>
-                        <span class="text-danger" asp-validation-for="ChiTietBanGiao.SoLuong"></span>
+                            <span class="text-danger" asp-validation-for="ChiTietBanGiao.SoLuong"></span>
+                        </div>                        
 
                     </div>
-
-                    @*<div class="form-group row">
-
-            </div>*@
 
                     <div class="form-group row">
                         <div class="col-2">
@@ -79,21 +75,18 @@
                         </div>
                         <div class="col-4">
                             <input type="number" asp-for="ChiTietBanGiao.DonGia" class="form-control" />
+                            <span class="text-danger" asp-validation-for="ChiTietBanGiao.DonGia"></span>
                         </div>
-                        <span class="text-danger" asp-validation-for="ChiTietBanGiao.DonGia"></span>
-
+                        
                         <div class="col-2">
                             <label asp-for="ChiTietBanGiao.BaoHanhDen"></label>
                         </div>
                         <div class="col-4">
                             <input type="text" value="" asp-for="ChiTietBanGiao.BaoHanhDen" class="form-control maskInput" id="datepicker" />
+                            <span class="text-danger" asp-validation-for="ChiTietBanGiao.BaoHanhDen"></span>
                         </div>
-                        <span class="text-danger" asp-validation-for="ChiTietBanGiao.BaoHanhDen"></span>
+                        
                     </div>
-
-                    @*<div class="form-group row">
-
-            </div>*@
 
                     <div class="form-group row">
                         <div class="col-2">
@@ -101,21 +94,18 @@
                         </div>
                         <div class="col-4">
                             <textarea asp-for="ChiTietBanGiao.GhiChu" class="form-control"></textarea>
+                            <span class="text-danger" asp-validation-for="ChiTietBanGiao.GhiChu"></span>
                         </div>
-                        <span class="text-danger" asp-validation-for="ChiTietBanGiao.GhiChu"></span>
 
                         <div class="col-2">
-                            <label asp-for="ChiTietBanGiao.TinhTrang"></label>
+                            <label asp-for="ChiTietBanGiao.MaSo"></label>
                         </div>
                         <div class="col-4">
-                            <input type="checkbox" asp-for="ChiTietBanGiao.TinhTrang" />
+                            <input class="form-control" asp-for="ChiTietBanGiao.MaSo" />
+                            <span class="text-danger" asp-validation-for="ChiTietBanGiao.MaSo"></span>
                         </div>
-                        <span class="text-danger" asp-validation-for="ChiTietBanGiao.TinhTrang"></span>
+
                     </div>
-
-                    @*<div class="form-group row">
-
-            </div>*@
 
                     <div class="form-group row">
                         <div class="col-2">
@@ -123,16 +113,16 @@
                         </div>
                         <div class="col-4">
                             <textarea class="form-control" asp-for="ChiTietBanGiao.DienGiai"></textarea>
+                            <span class="text-danger" asp-validation-for="ChiTietBanGiao.DienGiai"></span>
                         </div>
-                        <span class="text-danger" asp-validation-for="ChiTietBanGiao.DienGiai"></span>
-                        
+
                         <div class="col-2">
-                            <label asp-for="ChiTietBanGiao.MaSo"></label>
+                            <label asp-for="ChiTietBanGiao.TinhTrang"></label>
                         </div>
                         <div class="col-4">
-                            <input class="form-control" asp-for="ChiTietBanGiao.MaSo" />
+                            <input type="checkbox" asp-for="ChiTietBanGiao.TinhTrang" />
+                            <span class="text-danger" asp-validation-for="ChiTietBanGiao.TinhTrang"></span>
                         </div>
-                        <span class="text-danger" asp-validation-for="ChiTietBanGiao.MaSo"></span>
 
                     </div>
 

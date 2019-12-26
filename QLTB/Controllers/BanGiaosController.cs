@@ -43,7 +43,6 @@ namespace QLTB.Controllers
                 
                 VanPhongs = _unitOfWork.vanPhongRepository.GetAll(),
                 LoaiThietBis = _unitOfWork.loaiThietBiRepository.GetAll(),
-                NhanViens = _unitOfWork.nhanVienRepository.GetAll(),
                 BanGiao = new Data.Models.BanGiao()
             };
         }
@@ -157,6 +156,7 @@ namespace QLTB.Controllers
         {
             var user = await userManager.GetUserAsync(User);
             BanGiaoCreateVM.BanGiao.NguoiLap = user.UserName;
+            BanGiaoCreateVM.NhanViens = await _unitOfWork.nhanVienRepository.GetAllIncludeOneAsync(x => x.VanPhong);
 
             var roles = await userManager.GetRolesAsync(user);
 
@@ -175,7 +175,7 @@ namespace QLTB.Controllers
                 listVanPhong.AddRange(BanGiaoCreateVM.VanPhongs.Where(x => x.KhuVuc == role));
             }
   
-            var a = User.IsInRole("Admin");
+            
             if (!User.IsInRole("Admin") && !User.IsInRole("Super Admin"))
             {
                 BanGiaoCreateVM.VanPhongs = listVanPhong;

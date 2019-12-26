@@ -82,17 +82,7 @@
                             <input class="form-control" readonly asp-for="DienThoai" />
                         </div>
                     </div>
-
-                    <div class="form-group row">
-                        <div class="col-2">
-                            <label asp-for="KhuVuc"></label>
-                        </div>
-                        <div class="col-5">
-                            <select class="form-control" asp-for="@Model.KhuVuc" asp-items="@(new SelectList(ViewBag.Roles,"Name","Name"))" disabled> </select>
-                        </div>
-                        <span class="text-danger" asp-validation-for="KhuVuc"></span>
-                    </div>
-
+                    
                     <div class="form-group">
                         <button type="submit" class="btn btn-danger" asp-route-id="@Model.Id"><i class="fas fa-trash-alt"></i></button>
                         <a class="btn btn-success" asp-action="Index"><i class="fas fa-backward"></i></a>

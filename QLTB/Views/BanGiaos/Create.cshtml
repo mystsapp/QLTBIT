@@ -53,9 +53,10 @@
                             <label asp-for="BanGiao.NguoiLap"></label>
                         </div>
                         <div class="col-4">
-                            <input class="form-control" asp-for="BanGiao.NguoiLap" readonly/>
+                            <input class="form-control" asp-for="BanGiao.NguoiLap" readonly />
+                            <span class="text-danger" asp-validation-for="BanGiao.NguoiLap"></span>
                         </div>
-                        <span class="text-danger" asp-validation-for="BanGiao.NguoiLap"></span>
+                        
 
                         <div class="col-2">
                             <label asp-for="BanGiao.NguoiNhan"></label>
@@ -64,35 +65,23 @@
                             @*<select class="form-control select2 select2-hidden-accessible" asp-for="BanGiao.NguoiNhan" asp-items="@Model.NhanViens.ToSelectListItemString(Model.BanGiao.NguoiNhan)"></select>*@
                             <select class="form-control select2 select2-hidden-accessible" asp-for="BanGiao.NguoiNhan" asp-items="@Model.NhanViens.ToSelectListItemString(Model.BanGiao.NguoiNhan)" style="width: 100%;">
                             </select>
-
+                            <span class="text-danger" asp-validation-for="BanGiao.NguoiNhan"></span>
                         </div>
-                        <span class="text-danger" asp-validation-for="BanGiao.NguoiNhan"></span>
+                        
 
                     </div>
 
-                    @*<div class="form-group row">
-
-                        </div>*@
-
                     <div class="form-group row">
-                       
 
                         <div class="col-2">
                             <label asp-for="BanGiao.VanPhong"></label>
                         </div>
                         <div class="col-4">
                             @*<select asp-for="BanGiao.VanPhong" class="form-control ddlVanPhong"></select>*@
-                            <select class="form-control ddlVanPhong select2 select2-hidden-accessible" asp-for="BanGiao.VanPhongId" asp-items="Model.VanPhongs.ToSelectListItem(Model.BanGiao.VanPhongId)" style="width: 100%;" >
-                            </select>
+                            <select class="form-control ddlVanPhong select2 select2-hidden-accessible" asp-for="BanGiao.VanPhongId" asp-items="Model.VanPhongs.ToSelectListItem(Model.BanGiao.VanPhongId)" style="width: 100%;"></select>
+                            <span class="text-danger" asp-validation-for="BanGiao.VanPhong"></span>
                         </div>
-                        <span class="text-danger" asp-validation-for="BanGiao.VanPhong"></span>
-                    </div>
 
-                    @*<div class="form-group row">
-
-                        </div>*@
-
-                    <div class="form-group row">
                         <div class="col-2">
                             <label asp-for="BanGiao.Khoi"></label>
                         </div>
@@ -102,29 +91,30 @@
                                 <option value="ND">ND</option>
                                 <option value="">--None--</option>
                             </select>
+                            <span class="text-danger" asp-validation-for="BanGiao.Khoi"></span>
                         </div>
-                        <span class="text-danger" asp-validation-for="BanGiao.Khoi"></span>
+                    </div>
+
+                    <div class="form-group row">                        
 
                         <div class="col-2">
                             <label asp-for="BanGiao.PhongBan"></label>
                         </div>
                         <div class="col-4">
                             <input class="form-control" asp-for="BanGiao.PhongBan" />
+                            <span class="text-danger" asp-validation-for="BanGiao.PhongBan"></span>
                         </div>
-                        <span class="text-danger" asp-validation-for="BanGiao.PhongBan"></span>
-                    </div>
 
-                    @*<div class="form-group row">
-
-                        </div>*@
-
-                    <div class="form-group row">
                         <div class="col-2">
                             <label asp-for="BanGiao.TinhTrang"></label>
                         </div>
                         <div class="col-4">
                             <input type="checkbox" asp-for="BanGiao.TinhTrang" />
                         </div>
+
+                    </div>
+
+                    <div class="form-group row">
 
                         <div class="col-2">
                             <label asp-for="BanGiao.LoaiThietBi"></label>
@@ -135,17 +125,14 @@
                             </select>
                         </div>
 
-
-                    </div>
-
-                    <div class="form-group row">
                         <div class="col-2">
                             <label asp-for="BanGiao.LyDo"></label>
                         </div>
                         <div class="col-4">
                             <textarea class="form-control" asp-for="BanGiao.LyDo"></textarea>
+                            <span class="text-danger" asp-validation-for="BanGiao.LyDo"></span>
                         </div>
-                        <span class="text-danger" asp-validation-for="BanGiao.LyDo"></span>
+                        
                     </div>
 
                     <div class="form-group">

@@ -38,7 +38,7 @@ namespace QLTB.Controllers
         }
 
         // Get Create method
-        [Authorize("CreateRolePolicy")]
+        [Authorize("CreateCNRolePolicy")]
         public IActionResult Create()
         {
             return View(ThietBiVM);

@@ -15,6 +15,7 @@ using QLTB.Utility;
 
 namespace QLTB.Controllers
 {
+    [Authorize]
     public class NhanViensController : Controller
     {
         private readonly RoleManager<IdentityRole> roleManager;
@@ -46,7 +47,9 @@ namespace QLTB.Controllers
 
             foreach (var role in roles)
             {
-                nhanviens = nhanviens.Where(x => x.VanPhong.KhuVuc == role);
+                var nvs = nhanviens.Where(x => x.VanPhong.KhuVuc == role);
+
+                listNvByRole.AddRange(nvs);
             }
 
             if (!User.IsInRole("Admin") && !User.IsInRole("Super Admin"))
@@ -212,7 +215,7 @@ namespace QLTB.Controllers
             foreach (var role in roles)
             {
                 var listVP = _unitOfWork.vanPhongRepository.Find(x => x.KhuVuc == role);
-                listVanPhongs.AddRange(listVanPhongs);
+                listVanPhongs.AddRange(listVP);
             }
 
 

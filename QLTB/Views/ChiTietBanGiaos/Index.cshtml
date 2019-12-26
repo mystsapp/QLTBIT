@@ -80,7 +80,7 @@
                             <a asp-action="MoveToEmployee" data-move="@item.ChuyenSuDung" asp-route-ctbgId="@item.Id" asp-route-strUrl="@Model.StrUrl" class="btn btn-outline-secondary btn-sm btnMove" title="Chuyển NV Khác">
                                 <i class="fas fa-arrows-alt"></i>
                             </a>
-                            <a asp-action="MoveToWareHouse" data-move="@item.ChuyenSuDung" asp-route-khuVuc="@item.BanGiao.ChiNhanh.KhuVuc" asp-route-ctbgId="@item.Id" asp-route-strUrl="@Model.StrUrl" class="btn btn-outline-secondary btn-sm btnMove" title="Chuyển Vào Kho">
+                            <a asp-action="MoveToWareHouse" data-move="@item.ChuyenSuDung" asp-route-khuVuc="@item.BanGiao.VanPhong.KhuVuc" asp-route-ctbgId="@item.Id" asp-route-strUrl="@Model.StrUrl" class="btn btn-outline-secondary btn-sm btnMove" title="Chuyển Vào Kho">
                                 <i class="fas fa-warehouse"></i>
                             </a>
                         </div>

@@ -389,6 +389,9 @@ namespace QLTB.Controllers
         public async Task<IActionResult> Export(int id)
         {
             var chitiets = await _unitOfWork.chiTietBanGiaoRepository.FindIdIncludeBanGiaoThietBi(id);
+            var account = await userManager.GetUserAsync(User);
+
+
             List<ChiTietBanGiao> listChiTiet = new List<ChiTietBanGiao>();
             listChiTiet.Add(chitiets);
             var chitietPrints = listChiTiet.Select(x => new
@@ -410,7 +413,7 @@ namespace QLTB.Controllers
             string ngay = chitiets.NgayGiao.ToString();
             doc.InsertAtBookmark(ngay, "Ngay");
             doc.InsertAtBookmark(chitiets.BanGiao.NguoiLap.ToString(), "NguoiLap");
-            doc.InsertAtBookmark("P.CNTT", "PhongBanNguoiLap");
+            doc.InsertAtBookmark(account.PhongBan, "PhongBanNguoiLap");
             doc.InsertAtBookmark(chitiets.BanGiao.NguoiNhan.ToString(), "NguoiNhan");
             doc.InsertAtBookmark(chitiets.BanGiao.PhongBan.ToString(), "PhongBanNguoiNhan");
             doc.InsertAtBookmark(chitiets.BanGiao.LoaiThietBi.ToString(), "ThietBi");
