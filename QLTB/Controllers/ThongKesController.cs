@@ -4,6 +4,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -16,6 +17,7 @@ using QLTB.Utility;
 
 namespace QLTB.Controllers
 {
+    //[Authorize(Roles = "TNB" + "," + "," + "DNB" + "," + "MT" + "," + "MB" + "," + "NCT" + "," + "STS")]
     public class ThongKesController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -32,6 +34,7 @@ namespace QLTB.Controllers
         }
 
         [HttpGet]
+        [Authorize(Policy = "CreateCNRolePolicy")]
         public async Task<IActionResult> TheoVP()
         {
             var listVP = _unitOfWork.vanPhongRepository.GetAll();
