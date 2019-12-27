@@ -24,31 +24,31 @@
     },
     registerEvent: function () {
 
-        $('#frmSearch').validate({
-            rules: {
-                searchFromDate: {
-                    required: true,
-                    //date: true
-                    //dateFormat: true
-                },
-                searchToDate: {
-                    required: true,
-                    //date: true
-                    //dateFormat: true
-                }
-            },
-            messages: {
-                searchFromDate: {
-                    required: "Trường này không được để trống.",
-                    //date: "Chưa đúng định dạng."
-                },
-                searchToDate: {
-                    required: "Trường này không được để trống.",
-                    //number: "password phải là số",
-                    //date: "Chưa đúng định dạng."
-                }
-            }
-        });
+        //$('#frmSearch').validate({
+        //    rules: {
+        //        searchFromDate: {
+        //            required: true,
+        //            //date: true
+        //            //dateFormat: true
+        //        },
+        //        searchToDate: {
+        //            required: true,
+        //            //date: true
+        //            //dateFormat: true
+        //        }
+        //    },
+        //    messages: {
+        //        searchFromDate: {
+        //            required: "Trường này không được để trống.",
+        //            //date: "Chưa đúng định dạng."
+        //        },
+        //        searchToDate: {
+        //            required: "Trường này không được để trống.",
+        //            //number: "password phải là số",
+        //            //date: "Chưa đúng định dạng."
+        //        }
+        //    }
+        //});
 
         $('#btnExport').off('click').on('click', function () {
             //if ($('#frmSearch').valid()) {
@@ -57,7 +57,7 @@
            // }
         });
         $('#btnSearch').off('click').on('click', function () {
-            if ($('#frmSearch').valid()) {
+            //if ($('#frmSearch').valid()) {
                 var fromDate = $('#txtFromDate').val();
                 var toDate = $('#txtToDate').val();
                 var vp = $('#txtVp').val();
@@ -91,7 +91,7 @@
                 //        alert('Yes!');
                 //    }
                 //});
-            }
+            //}
         });
     }
 

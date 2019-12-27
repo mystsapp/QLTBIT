@@ -5,7 +5,12 @@
     Layout = null;
 }
 
-
+@if (TempData["AlertMessage"] != null)
+{
+    <div id="AlertBox" class="alert @TempData["AlertType"] hide">
+        @TempData["AlertMessage"]
+    </div>
+}
 
 <!-- Main content -->
 <section class="content">
@@ -109,3 +114,13 @@
 
 </section>
 <!-- /.content -->
+
+<script>
+        $(function () {
+            $(".maskInput").mask("99/99/9999");
+
+            $('#AlertBox').removeClass('hide');
+            $('#AlertBox').delay(1000).slideUp(1000);
+        });
+
+</script>

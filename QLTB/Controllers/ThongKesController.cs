@@ -45,8 +45,8 @@ namespace QLTB.Controllers
 
             foreach (var role in roles)
             {
-                var vps = listVP.Where(x => x.KhuVuc == role);     
-                if(vps.Count() > 0)
+                var vps = listVP.Where(x => x.KhuVuc == role);
+                if (vps.Count() > 0)
                 {
                     vanPhongs.AddRange(vps);
                 }
@@ -70,9 +70,20 @@ namespace QLTB.Controllers
 
             if (searchFromDate != null && searchToDate != null)
             {
-                DateTime fromDate = DateTime.Parse(searchFromDate);
-                DateTime toDate = DateTime.Parse(searchToDate);
-                chitiets = chitiets.Where(x => x.NgayGiao >= fromDate && x.NgayGiao <= toDate.AddDays(1));
+                try
+                {
+                    DateTime fromDate = DateTime.Parse(searchFromDate);
+                    DateTime toDate = DateTime.Parse(searchToDate);
+                    chitiets = chitiets.Where(x => x.NgayGiao >= fromDate && x.NgayGiao <= toDate.AddDays(1));
+
+                }
+                catch (Exception)
+                {
+
+                    SetAlert("Lỗi định dạng ngày tháng.", "error");
+                    return RedirectToAction("TheoVPPartial", "ThongKes");
+                }
+
             }
 
 
@@ -82,7 +93,7 @@ namespace QLTB.Controllers
             if (!string.IsNullOrEmpty(vP))
             {
                 var banGiaos = await _unitOfWork.banGiaoRepository.FindAsync(x => x.VanPhong.Name.Equals(vP));
-                foreach(var bg in banGiaos)
+                foreach (var bg in banGiaos)
                 {
                     var a = chitiets.Where(x => x.BanGiaoId == bg.Id);
 
@@ -91,7 +102,7 @@ namespace QLTB.Controllers
                         chiTietBanGiaos.AddRange(a);
                     }
                 }
-                
+
             }
 
 
@@ -106,8 +117,7 @@ namespace QLTB.Controllers
         [HttpPost]
         public async Task<IActionResult> ExportVP(string searchFromDate = null, string searchToDate = null, string vP = null)
         {
-            DateTime fromDate = DateTime.Parse(searchFromDate);
-            DateTime toDate = DateTime.Parse(searchToDate);
+
 
             var vanPhong = await _unitOfWork.vanPhongRepository.FindIncludeChiNhanh(vP);
 
@@ -188,15 +198,31 @@ namespace QLTB.Controllers
             xlSheet.Cells[6, 1, 6, 7].Merge = true;
             setCenterAligment(6, 1, 6, 7, xlSheet);
 
+            try
+            {
+                if (searchFromDate != null && searchToDate != null)
+                {
+                    DateTime fromDate = DateTime.Parse(searchFromDate);
+                    DateTime toDate = DateTime.Parse(searchToDate);
 
-            if (fromDate == toDate)
-            {
-                xlSheet.Cells[7, 1].Value = "Từ ngày: " + fromDate.ToString("dd/MM/yyyy");
+                    if (fromDate == toDate)
+                    {
+                        xlSheet.Cells[7, 1].Value = "Từ ngày: " + fromDate.ToString("dd/MM/yyyy");
+                    }
+                    else
+                    {
+                        xlSheet.Cells[7, 1].Value = "Từ ngày: " + fromDate.ToString("dd/MM/yyyy") + " đến " + toDate.ToString("dd/MM/yyyy");
+                    }
+                }
             }
-            else
+            catch (Exception)
             {
-                xlSheet.Cells[7, 1].Value = "Từ ngày: " + fromDate.ToString("dd/MM/yyyy") + " đến " + toDate.ToString("dd/MM/yyyy");
+
+                SetAlert("Lỗi định dạng ngày tháng.", "error");
+                return RedirectToAction("TheoVP", "ThongKes");
             }
+
+
             xlSheet.Cells[7, 1].Style.Font.SetFromFont(new Font("Times New Roman", 15, FontStyle.Bold));
             xlSheet.Cells[7, 1, 7, 7].Merge = true;
             setCenterAligment(7, 1, 7, 7, xlSheet);
@@ -252,13 +278,13 @@ namespace QLTB.Controllers
                         //}
                         //else
                         //{
-                            //if (j == 0)
-                                xlSheet.Cells[dong, 1].Value = i + 1;
-                            //else
-                            //{
-                                var a = dt.Rows[i][j];
-                                xlSheet.Cells[dong, j + 2].Value = a;
-                            //}
+                        //if (j == 0)
+                        xlSheet.Cells[dong, 1].Value = i + 1;
+                        //else
+                        //{
+                        var a = dt.Rows[i][j];
+                        xlSheet.Cells[dong, j + 2].Value = a;
+                        //}
                         //}
                     }
                 }
@@ -331,12 +357,12 @@ namespace QLTB.Controllers
         {
             var chitiets = await _unitOfWork.chiTietBanGiaoRepository.GetAllIncludeAsync(x => x.BanGiao, y => y.ThietBi);
 
-            //if (searchFromDate != null && searchToDate != null)
-            //{
-            DateTime fromDate = DateTime.Parse(searchFromDate);
-            DateTime toDate = DateTime.Parse(searchToDate);
-            chitiets = chitiets.Where(x => x.NgayGiao >= fromDate && x.NgayGiao <= toDate.AddDays(1));
-            //}
+            if (searchFromDate != null && searchToDate != null)
+            {
+                DateTime fromDate = DateTime.Parse(searchFromDate);
+                DateTime toDate = DateTime.Parse(searchToDate);
+                chitiets = chitiets.Where(x => x.NgayGiao >= fromDate && x.NgayGiao <= toDate.AddDays(1));
+            }
 
 
             List<ChiTietBanGiao> chiTietBanGiaos = new List<ChiTietBanGiao>();
