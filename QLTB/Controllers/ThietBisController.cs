@@ -176,7 +176,7 @@ namespace QLTB.Controllers
         }
 
         // Get: Delete method
-        [Authorize("DeleteRolePolicy")]
+        [Authorize("DeleteCNRolePolicy")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)

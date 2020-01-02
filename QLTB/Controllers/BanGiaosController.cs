@@ -212,7 +212,34 @@ namespace QLTB.Controllers
             if (id == null)
                 return NotFound();
 
+            var user = await userManager.GetUserAsync(User);
+
             BanGiaoCreateVM.BanGiao = await _unitOfWork.banGiaoRepository.FindByIdIncludeVanPhong(id);
+            BanGiaoCreateVM.NhanViens = await _unitOfWork.nhanVienRepository.GetAllIncludeOneAsync(x => x.VanPhong);
+
+            var roles = await userManager.GetRolesAsync(user);
+
+            var listVanPhong = new List<VanPhong>();
+
+            var listNv = new List<NhanVien>();
+
+            foreach (var role in roles)
+            {
+
+                //listChiNhanh.AddRange(BanGiaoCreateVM.ChiNhanhs.Where(x => x.KhuVuc == role));
+
+                //listNv.AddRange(BanGiaoCreateVM.NhanViens.Where(x => x.ChiNhanh.KhuVuc == role));
+
+                listNv.AddRange(BanGiaoCreateVM.NhanViens.Where(x => x.VanPhong.KhuVuc == role));
+                listVanPhong.AddRange(BanGiaoCreateVM.VanPhongs.Where(x => x.KhuVuc == role));
+            }
+
+
+            if (!User.IsInRole("Admin") && !User.IsInRole("Super Admin"))
+            {
+                BanGiaoCreateVM.VanPhongs = listVanPhong;
+                BanGiaoCreateVM.NhanViens = listNv;
+            }
 
             if (BanGiaoCreateVM.BanGiao == null)
                 return NotFound();
@@ -433,6 +460,7 @@ namespace QLTB.Controllers
 
         public async Task<IActionResult> ExportList(string stringId)
         {
+            var account = await userManager.GetUserAsync(User);
 
             var idList = JsonConvert.DeserializeObject<List<BanGiaoCreateViewModel>>(stringId);
             //var idList = new List<BanGiaoCreateViewModel>();
@@ -478,8 +506,8 @@ namespace QLTB.Controllers
             string ngay = chitiets.FirstOrDefault().BanGiao.NgayTao.ToString();
             doc.InsertAtBookmark(ngay, "Ngay");
             doc.InsertAtBookmark(chitiets.FirstOrDefault().BanGiao.NguoiLap.ToString(), "BenGiao");
-            doc.InsertAtBookmark("P.CNTT", "PhongBanBenGiao");
-            doc.InsertAtBookmark(chitiets.FirstOrDefault().BanGiao.VanPhong.ToString(), "PhongBanBenNhan");
+            doc.InsertAtBookmark(account.PhongBan, "PhongBanBenGiao");
+            doc.InsertAtBookmark(chitiets.FirstOrDefault().BanGiao.PhongBan.ToString(), "PhongBanBenNhan");
 
             var tbBG = doc.AddTable(1, 5);
 
@@ -677,6 +705,8 @@ namespace QLTB.Controllers
 
         public async Task<IActionResult> Export(int id)
         {
+            var account = await userManager.GetUserAsync(User);
+
             var chitiets = await _unitOfWork.chiTietBanGiaoRepository.FindByBanGiaoIdIncludeBanGiaoThietBi(id);
             var chitietPrints = chitiets.Select(x => new
             {
@@ -697,7 +727,7 @@ namespace QLTB.Controllers
             string ngay = chitiets.FirstOrDefault().BanGiao.NgayTao.ToString();
             doc.InsertAtBookmark(ngay, "Ngay");
             doc.InsertAtBookmark(chitiets.FirstOrDefault().BanGiao.NguoiLap.ToString(), "NguoiLap");
-            doc.InsertAtBookmark("P.CNTT", "PhongBanNguoiLap");
+            doc.InsertAtBookmark(account.PhongBan, "PhongBanNguoiLap");
             doc.InsertAtBookmark(chitiets.FirstOrDefault().BanGiao.NguoiNhan.ToString(), "NguoiNhan");
             doc.InsertAtBookmark(chitiets.FirstOrDefault().BanGiao.PhongBan.ToString(), "PhongBanNguoiNhan");
             doc.InsertAtBookmark(chitiets.FirstOrDefault().BanGiao.LoaiThietBi.ToString(), "ThietBi");

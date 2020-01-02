@@ -35,7 +35,7 @@ namespace QLTB.Controllers
             return View(caiDatIndexVM);
         }
 
-        [Authorize("CreateRolePolicy")]
+        [Authorize("CreateCNRolePolicy")]
         // Get Create method
         public async Task<IActionResult> Create(int banGiaoId, string strUrl)
         {
@@ -60,7 +60,7 @@ namespace QLTB.Controllers
         }
 
         // Get Edit method
-        [Authorize("EditRolePolicy")]
+        [Authorize("EditCNRolePolicy")]
         public async Task<IActionResult> Edit(int banGiaoId, int id, string strUrl)
         {
             CaiDatVM.strUrl = strUrl;
@@ -97,7 +97,7 @@ namespace QLTB.Controllers
         }
 
         // Get Delete method
-        [Authorize("DeleteRolePolicy")]
+        [Authorize("DeleteCNRolePolicy")]
         public async Task<IActionResult> Delete(int banGiaoId, int id, string strUrl)
         {
             CaiDatVM.strUrl = strUrl;

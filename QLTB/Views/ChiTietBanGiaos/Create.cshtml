@@ -55,7 +55,7 @@
                             <label asp-for="ChiTietBanGiao.ThietBiId"></label>
                         </div>
                         <div class="col-4">
-                            <select class="form-control" asp-for="ChiTietBanGiao.ThietBiId" asp-items="@Model.ThietBis.ToSelectListItem(Model.ChiTietBanGiao.ThietBiId)"></select>
+                            <select class="form-control select2" asp-for="ChiTietBanGiao.ThietBiId" asp-items="@Model.ThietBis.ToSelectListItem(Model.ChiTietBanGiao.ThietBiId)"></select>
                             <span class="text-danger" asp-validation-for="ChiTietBanGiao.ThietBiId"></span>
                         </div>                        
 
@@ -152,6 +152,8 @@
                 $("#datepicker").datepicker({
                     dateFormat: 'dd/mm/yy'
                 });
+
+                $('.select2').select2()
             });
         </script>
     }

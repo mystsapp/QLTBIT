@@ -144,6 +144,7 @@ namespace QLTB.Controllers
 
         public async Task<IActionResult> ExportList(string stringId)
         {
+            var account = await userManager.GetUserAsync(User);
 
             var idList = JsonConvert.DeserializeObject<List<ChiTietBanGiaoViewModel>>(stringId);
             //var idList = new List<BanGiaoCreateViewModel>();
@@ -189,8 +190,8 @@ namespace QLTB.Controllers
             string ngay = chitiets.FirstOrDefault().NgayGiao.ToString();
             doc.InsertAtBookmark(ngay, "Ngay");
             doc.InsertAtBookmark(chitiets.FirstOrDefault().BanGiao.NguoiLap.ToString(), "BenGiao");
-            doc.InsertAtBookmark("P.CNTT", "PhongBanBenGiao");
-            doc.InsertAtBookmark(chitiets.FirstOrDefault().BanGiao.VanPhong.ToString(), "PhongBanBenNhan");
+            doc.InsertAtBookmark(account.PhongBan, "PhongBanBenGiao");
+            doc.InsertAtBookmark(chitiets.FirstOrDefault().BanGiao.PhongBan, "PhongBanBenNhan");
 
             var tbBG = doc.AddTable(1, 5);
 
