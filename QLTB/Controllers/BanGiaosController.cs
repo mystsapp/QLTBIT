@@ -155,7 +155,7 @@ namespace QLTB.Controllers
         public async Task<IActionResult> Create()
         {
             var user = await userManager.GetUserAsync(User);
-            BanGiaoCreateVM.BanGiao.NguoiLap = user.UserName;
+            BanGiaoCreateVM.BanGiao.NguoiLap = user.Name;
             BanGiaoCreateVM.NhanViens = await _unitOfWork.nhanVienRepository.GetAllIncludeOneAsync(x => x.VanPhong);
 
             var roles = await userManager.GetRolesAsync(user);

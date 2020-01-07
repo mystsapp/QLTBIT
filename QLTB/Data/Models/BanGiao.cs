@@ -51,8 +51,10 @@ namespace QLTB.Data.Models
 
         [DisplayName("Phòng Ban")]
         [MaxLength(50), Column(TypeName = "nvarchar(50)")]
+        [Required]
         public string PhongBan { get; set; }
 
+        [DisplayName("Tình Trạng")]
         public bool TinhTrang { get; set; }
 
         [DisplayName("Lý Do")]
