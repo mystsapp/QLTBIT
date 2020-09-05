@@ -154,6 +154,7 @@ namespace QLTB.Controllers
         [Authorize(Policy = "CreateCNRolePolicy")]
         public async Task<IActionResult> Create()
         {
+            
             var user = await userManager.GetUserAsync(User);
             BanGiaoCreateVM.BanGiao.NguoiLap = user.Name;
             BanGiaoCreateVM.NhanViens = await _unitOfWork.nhanVienRepository.GetAllIncludeOneAsync(x => x.VanPhong);
@@ -318,10 +319,15 @@ namespace QLTB.Controllers
             }
         }
 
-        public async Task<IActionResult> ExportToWord(int id)
+        public async Task<IActionResult> ExportToWord(int id, string strUrl)
         {
             //id = 4;
             var chitiets = await _unitOfWork.chiTietBanGiaoRepository.FindByBanGiaoIdIncludeBanGiaoThietBi(id);
+            if (chitiets.Count() == 0)
+            {
+                SetAlert("Chưa có chi tiết nào", "warning");
+                return Redirect(strUrl);
+            }
             var chitietPrints = chitiets.Select(x => new
             {
                 x.Id,
@@ -458,7 +464,7 @@ namespace QLTB.Controllers
         }
 
 
-        public async Task<IActionResult> ExportList(string stringId)
+        public async Task<IActionResult> ExportList(string stringId, string strUrl)
         {
             var account = await userManager.GetUserAsync(User);
 
@@ -472,19 +478,27 @@ namespace QLTB.Controllers
 
             if (idList.Count == 1)
             {
-                return RedirectToAction(nameof(Export), new { id = idList.FirstOrDefault().Id });
+                return RedirectToAction(nameof(Export), new { id = idList.FirstOrDefault().Id, strUrl = strUrl });
             }
 
             foreach (var item in idList)
             {
                 var cts = await _unitOfWork.chiTietBanGiaoRepository.FindByBanGiaoIdIncludeBanGiaoThietBi(item.Id);
+                //if(cts.Count() == 0)
+                //{
+                //    idList.Remove(item);
+                //}
                 if (cts.Count() > 0)
                 {
                     chitiets.AddRange(cts);
                 }
 
             }
-
+            if(chitiets.Count() == 0)
+            {
+                SetAlert("Bàn giao này chưa có chi tiết nào", "warning");
+                return Redirect(strUrl);
+            }
 
             var chitietPrints = chitiets.Select(x => new
             {
@@ -703,11 +717,16 @@ namespace QLTB.Controllers
 
         }
 
-        public async Task<IActionResult> Export(int id)
+        public async Task<IActionResult> Export(int id, string strUrl)
         {
             var account = await userManager.GetUserAsync(User);
 
             var chitiets = await _unitOfWork.chiTietBanGiaoRepository.FindByBanGiaoIdIncludeBanGiaoThietBi(id);
+            if (chitiets.Count() == 0)
+            {
+                SetAlert("Bàn giao này chưa có chi tiết nào", "warning");
+                return Redirect(strUrl);
+            }
             var chitietPrints = chitiets.Select(x => new
             {
                 x.Id,
@@ -824,6 +843,23 @@ namespace QLTB.Controllers
 
 
 
+        }
+
+        protected void SetAlert(string message, string type)
+        {
+            TempData["AlertMessage"] = message;
+            if (type == "success")
+            {
+                TempData["AlertType"] = "alert-success";
+            }
+            else if (type == "warning")
+            {
+                TempData["AlertType"] = "alert-warning";
+            }
+            else if (type == "error")
+            {
+                TempData["AlertType"] = "alert-danger";
+            }
         }
     }
 }

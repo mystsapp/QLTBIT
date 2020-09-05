@@ -15,5 +15,7 @@ namespace QLTB.Models
         public IEnumerable<NhanVien> NhanViens { get; set; }
         public int Id { get; set; }
 
+        
+
     }
 }
